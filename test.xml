@@ -80,3 +80,26 @@
         android:text="Switch"
         tools:layout_editor_absoluteX="64dp"
         tools:layout_editor_absoluteY="208dp" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="349dp"
+        android:layout_height="34dp"
+        tools:layout_editor_absoluteX="64dp"
+        tools:layout_editor_absoluteY="25dp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="258dp"
+        android:layout_height="13dp"
+        tools:layout_editor_absoluteX="62dp"
+        tools:layout_editor_absoluteY="310dp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="36dp"
+        tools:layout_editor_absoluteY="248dp" />

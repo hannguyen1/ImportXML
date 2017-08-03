@@ -107,7 +107,7 @@ for(j=0; j < filemain.length; j++){
         console.log(size);
         var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + "}," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
         console.log(position);
-        var spec = "\"ctrl\":"+ctrl+ ",\"visible\":" + visible + ",\"itemspec\":{ \"val\":{ \"en_US\":" + value + "}, \"hAlign\":" + hAlign + "," + font + size + "," + position;
+        var spec = "{ \"ctrl\":"+ctrl+ ",\"visible\":" + visible + ",\"itemspec\":{ \"val\":{ \"en_US\":" + value + "}, \"hAlign\":" + hAlign + "," + font + size + "," + position;
         console.log(spec);
         /*var json = " \"w\":  {\"val\": 142, \"type\": 0,\"reltype\": 0}";
             json = json.replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
@@ -115,10 +115,8 @@ for(j=0; j < filemain.length; j++){
         console.log(json);*/
     }
 
-/*
-    
+/* 
     IMAGE
-
 */
     
     
@@ -206,7 +204,7 @@ for(j=0; j < filemain.length; j++){
         value = "\"default_image.svg\"";
         var size = "\"size\":{" + width + height + "}";
         console.log(size);
-        var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + "}," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
+        var position = "{ \"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + "}," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
         console.log(position);
         var spec = "\"ctrl\":"+ctrl+ ",\"events\": [], \"systemtype\": \"image-1\"," + position + "},\"visible\":" + visible + "," + size + ",\"itemspec\":{ \"fill\":{ \"type\":" + picType + ",\"locked\":" + locked + ", \"selInitImage\":" + selInitImage + ",\"val\": " + value + ",\"ref\":" + ref + ",\"scale\":" + scale + ",\"opacity\":" + opacity + "},\"type\":" +typeShape
         console.log(spec);
@@ -294,7 +292,7 @@ for(j=0; j < filemain.length; j++){
         console.log(size);
         var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + "}," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
         console.log(position);
-        var spec = "\"ctrl\":"+ctrl+ ",\"visible\":" + visible + ",\"itemspec\":{ \"states\": [ { \"name\": \"default\", \"normal\": { \"fill\": { \"type\":" + type + ",\"val\": \"-Component Primary-\" }, \"cornerradius\":{ \"val\": 0, \"type\": 0 }, \"type\": \"rectangle\", \"tapthrough\": true, \"label\":{ \"val\":{ \"en_US\":" + value + " }, \"offset\": { \"val\": 0, \"type\": 0 },\"hAlign\": \"center\", \"vAlign\": \"center\", \"color\": \"-Text Reversed-\",\"font\": { \"name\": \"System\", \"size\": { \"val\": 0.45,\"type\": 1} } } }, \"pressed\": { \"fill\": { \"type\": 0, \"val\": \"-Component Secondary-\" } }, \"disabled\": { \"fill\": { \"type\": 0, \"val\": \"-Component Accent-\" }, \"label\": { \"color\": \"-Text Secondary-\" } } } ], \"margins\": { \"x\": { \"val\": 10,\"type\": 0 }, \"y\": { \"val\": 0, \"type\": 0 } } }, \"opacity\": 1, \"events\": []," + size + "," + position        
+        var spec = "{ \"ctrl\":"+ctrl+ ",\"visible\":" + visible + ",\"itemspec\":{ \"states\": [ { \"name\": \"default\", \"normal\": { \"fill\": { \"type\":" + type + ",\"val\": \"-Component Primary-\" }, \"cornerradius\":{ \"val\": 0, \"type\": 0 }, \"type\": \"rectangle\", \"tapthrough\": true, \"label\":{ \"val\":{ \"en_US\":" + value + " }, \"offset\": { \"val\": 0, \"type\": 0 },\"hAlign\": \"center\", \"vAlign\": \"center\", \"color\": \"-Text Reversed-\",\"font\": { \"name\": \"System\", \"size\": { \"val\": 0.45,\"type\": 1} } } }, \"pressed\": { \"fill\": { \"type\": 0, \"val\": \"-Component Secondary-\" } }, \"disabled\": { \"fill\": { \"type\": 0, \"val\": \"-Component Accent-\" }, \"label\": { \"color\": \"-Text Secondary-\" } } } ], \"margins\": { \"x\": { \"val\": 10,\"type\": 0 }, \"y\": { \"val\": 0, \"type\": 0 } } }, \"opacity\": 1, \"events\": []," + size + "," + position        
             console.log(spec);
         /*var json = " \"w\":  {\"val\": 142, \"type\": 0,\"reltype\": 0}";
             json = json.replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
@@ -303,10 +301,8 @@ for(j=0; j < filemain.length; j++){
     }
     
     
-    /* 
-    
-    Scroll View
-    
+    /*   
+    Scroll View   
     */
     if(file2[0] == "<ScrollView"){
         ctrl = 18;
@@ -392,7 +388,7 @@ for(j=0; j < filemain.length; j++){
             
         }
        }
-        var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":0}" + "}";
+        var size = "{ \"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":0}" + "}";
         console.log(size);
         var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + "} }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
         console.log(position);
@@ -405,10 +401,8 @@ for(j=0; j < filemain.length; j++){
     }
     
     
-    /*
-    
-    ListView
-    
+    /* 
+    ListView    
     */
     if(file2[0] == "<ListView"){
         ctrl = 27;
@@ -494,7 +488,7 @@ if(textvar[0] == "android:layout_width"){
         console.log(size);
         var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
         console.log(position);
-        var spec = "\"ctrl\":" + ctrl + ",\"systemtype\": \"listcollection-1\",\"visible\":" + visible + ",\"itemspec\":{ \"datatype\": 1, \"paging\": false, \"bounces\": true, \"showscroll\": false, \"label\": { \"itemspec\":{ \"font\":{ \"name\": \"Normal\", \"size\":{ \"val\":30, \"type\":0 } }, \"color\":\"#ffffffff\",\"hAlign\":\"center\", \"vAlign\":\"center\", \"val\":{ \"en_US\": \"\" }}, \"val\":{\"en_US\":\"\"}, \"ctrl\": 3, \"position\":{ \"x\":{ \"type\" : 1, \"reltype\": 1, \"val\":0 }, \"y\": { \"type\": 1, \"reltype\": 1, \"val\": 0 } }, \"size\":{\"w\": { \"val\":1, \"type\":1, \"reltype\": 0}, \"h\": { \"val\":1, \"type\": 1, \"reltype\": 3} }, \"visible\":" + visible + ",\"opacity\":1, \"type\": \"standard\",\"id\": \"597f996d6750ba926a36de06_label\" }, \"scrollstyle\": 0, \"spacing\":{ \"size\": {\"val\": 6, \"type\":0 }, \"fill\": { \"type\": -1 } }, \"views\": [{ \"view\": { \"route\" : \"panels\", \"ident\": \"listitem1\", \"background\": { \"type\": -1}, \"controls\":[], \"size\": { \"w\": { \"type\" : 1, \"val\" :1}, \"h\": { \"type\" : 1, \"val\" :1 } }, \"position\" : { \"y\" : { \"type\" : 1, \"val\" : 0}, \"x\": { \"type\" : 1, \"val\" :0 } } }, \"template\" : true } ], \"visibleitems\": 3, \"links\": [] }, \"opacity\": 1, \"events\": [], " + size + "," + position + "},";
+        var spec = "{ \"ctrl\":" + ctrl + ",\"systemtype\": \"listcollection-1\",\"visible\":" + visible + ",\"itemspec\":{ \"datatype\": 1, \"paging\": false, \"bounces\": true, \"showscroll\": false, \"label\": { \"itemspec\":{ \"font\":{ \"name\": \"Normal\", \"size\":{ \"val\":30, \"type\":0 } }, \"color\":\"#ffffffff\",\"hAlign\":\"center\", \"vAlign\":\"center\", \"val\":{ \"en_US\": \"\" }}, \"val\":{\"en_US\":\"\"}, \"ctrl\": 3, \"position\":{ \"x\":{ \"type\" : 1, \"reltype\": 1, \"val\":0 }, \"y\": { \"type\": 1, \"reltype\": 1, \"val\": 0 } }, \"size\":{\"w\": { \"val\":1, \"type\":1, \"reltype\": 0}, \"h\": { \"val\":1, \"type\": 1, \"reltype\": 3} }, \"visible\":" + visible + ",\"opacity\":1, \"type\": \"standard\",\"id\": \"597f996d6750ba926a36de06_label\" }, \"scrollstyle\": 0, \"spacing\":{ \"size\": {\"val\": 6, \"type\":0 }, \"fill\": { \"type\": -1 } }, \"views\": [{ \"view\": { \"route\" : \"panels\", \"ident\": \"listitem1\", \"background\": { \"type\": -1}, \"controls\":[], \"size\": { \"w\": { \"type\" : 1, \"val\" :1}, \"h\": { \"type\" : 1, \"val\" :1 } }, \"position\" : { \"y\" : { \"type\" : 1, \"val\" : 0}, \"x\": { \"type\" : 1, \"val\" :0 } } }, \"template\" : true } ], \"visibleitems\": 3, \"links\": [] }, \"opacity\": 1, \"events\": [], " + size + "," + position + "},";
         console.log(spec);
         /*var json = " \"w\":  {\"val\": 142, \"type\": 0,\"reltype\": 0}";
             json = json.replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
@@ -503,10 +497,8 @@ if(textvar[0] == "android:layout_width"){
     }
     
     
-    /*
-    
+    /*   
     Grid Collection
-    
     */
     if(file2[0] == "<GridView"){
         ctrl = 35;
@@ -592,7 +584,391 @@ if(textvar[0] == "android:layout_width"){
         console.log(size);
         var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
         console.log(position);
-        var spec = "\"ctrl\":" + ctrl + ",\"systemtype\": \"gridcollection-1\",\"visible\":" + visible + ",\"itemspec\":{ \"datatype\": 1, \"paging\": false, \"bounces\": true, \"showscroll\": false, \"label\": { \"itemspec\":{ \"font\":{ \"name\": \"Normal\", \"size\":{ \"val\":30, \"type\":0 } }, \"color\":\"#ffffffff\",\"hAlign\":\"center\", \"vAlign\":\"center\", \"val\":{ \"en_US\": \"\" }}, \"val\":{\"en_US\":\"\"}, \"ctrl\": 3, \"position\":{ \"x\":{ \"type\" : 1, \"reltype\": 1, \"val\":0 }, \"y\": { \"type\": 1, \"reltype\": 1, \"val\": 0 } }, \"size\":{\"w\": { \"val\":1, \"type\":1, \"reltype\": 0}, \"h\": { \"val\":1, \"type\": 1, \"reltype\": 3} }, \"visible\":" + visible + ",\"opacity\":1, \"type\": \"standard\",\"id\": \"5980e9e8e72038eea896e598_label\" }, \"scrollstyle\": 0, \"spacing\":{ \"size\": {\"val\": 6, \"type\":0 }, \"fill\": { \"type\": -1 } }, \"views\": [{ \"view\": { \"route\" : \"panels\", \"ident\": \"griditem1\", \"background\": { \"type\": -1}, \"controls\":[], \"size\": { \"w\": { \"type\" : 1, \"val\" :1}, \"h\": { \"type\" : 1, \"val\" :1 } }, \"position\" : { \"y\" : { \"type\" : 1, \"val\" : 0}, \"x\": { \"type\" : 1, \"val\" :0 } } }, \"template\" : true } ], \"visibleitems\": 3, \"visiblecols\": 3, \"links\": [] }, \"opacity\": 1, \"events\": [], " + size + "," + position + "},";
+        var spec = "{ \"ctrl\":" + ctrl + ",\"systemtype\": \"gridcollection-1\",\"visible\":" + visible + ",\"itemspec\":{ \"datatype\": 1, \"paging\": false, \"bounces\": true, \"showscroll\": false, \"label\": { \"itemspec\":{ \"font\":{ \"name\": \"Normal\", \"size\":{ \"val\":30, \"type\":0 } }, \"color\":\"#ffffffff\",\"hAlign\":\"center\", \"vAlign\":\"center\", \"val\":{ \"en_US\": \"\" }}, \"val\":{\"en_US\":\"\"}, \"ctrl\": 3, \"position\":{ \"x\":{ \"type\" : 1, \"reltype\": 1, \"val\":0 }, \"y\": { \"type\": 1, \"reltype\": 1, \"val\": 0 } }, \"size\":{\"w\": { \"val\":1, \"type\":1, \"reltype\": 0}, \"h\": { \"val\":1, \"type\": 1, \"reltype\": 3} }, \"visible\":" + visible + ",\"opacity\":1, \"type\": \"standard\",\"id\": \"5980e9e8e72038eea896e598_label\" }, \"scrollstyle\": 0, \"spacing\":{ \"size\": {\"val\": 6, \"type\":0 }, \"fill\": { \"type\": -1 } }, \"views\": [{ \"view\": { \"route\" : \"panels\", \"ident\": \"griditem1\", \"background\": { \"type\": -1}, \"controls\":[], \"size\": { \"w\": { \"type\" : 1, \"val\" :1}, \"h\": { \"type\" : 1, \"val\" :1 } }, \"position\" : { \"y\" : { \"type\" : 1, \"val\" : 0}, \"x\": { \"type\" : 1, \"val\" :0 } } }, \"template\" : true } ], \"visibleitems\": 3, \"visiblecols\": 3, \"links\": [] }, \"opacity\": 1, \"events\": [], " + size + "," + position + "},";
+        console.log(spec);
+        /*var json = " \"w\":  {\"val\": 142, \"type\": 0,\"reltype\": 0}";
+            json = json.replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
+
+        console.log(json);*/
+    }
+    
+    /*
+    Toggle/CheckBox
+    */
+    
+    if(file2[0] == "<CheckBox"){
+        ctrl = 22;
+        console.log("CheckBox");
+        //Parse through each line
+       for( i = 1; i < file2.length; i++){
+
+        //Get rid of padding
+        file2[i] = file2[i].replace(/\s/g, '');
+
+
+        //Seperate declaration from value
+        var textvar = file2[i].split('=');
+       // console.log(textvar);
+        //console.log(textvar[0]);
+        //console.log(textvar[1]);
+
+           if(textvar[0] == "android:layout_width"){
+            /* IMPLEMENT IF WRAP CONTENT*/
+            width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            //width = "\"w\": { \"val\":142,\"type\":0,\"reltype\":0},";
+            console.log(width);
+        }
+        if(textvar[0] == "android:layout_height"){
+            /* IMPLEMENT IF WRAP CONTENT*/
+            height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            //height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
+
+        }
+        if(textvar[0] == "android:text"){
+
+            value = textvar[1];
+        }
+        if(textvar[0] == "android:rotation"){
+
+            rotation = textvar[1];   
+           }
+        if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
+            if(reltypeY == 3){
+                reltypeY = 1;
+            }
+            else{
+                reltypeY = 4;
+            }
+
+        }
+        if(textvar[0] == "app:layout_constraintLeft_toLeftOf"){
+            if(reltypeX == 2){
+                reltypeX = 1;
+            }
+            else{
+                reltypeX = 0;
+            }
+        }
+        if(textvar[0] == "app:layout_constraintRight_toRightOf"){
+            if(reltypeX == 0){
+                reltypeX = 1;
+            }
+            else{
+                reltypeX = 2;
+            }
+        }
+        if(textvar[0] == "app:layout_constraintTop_toTopOf"){
+            if(reltypeY == 4){
+                reltypeY = 1;
+            }
+            else{
+                console.log(reltypeY);
+                reltypeY = 3;
+            }
+        }
+        if(textvar[0] == "tools:layout_editor_absoluteY"){
+            positionY = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            
+        }
+             
+        if(textvar[0] == "tools:layout_editor_absoluteX"){
+            positionX = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            
+        }
+       }
+        var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}" + "}";
+        console.log(size);
+        var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
+        console.log(position);
+        var spec = "{\"ctrl\":" + ctrl + ",\"visible\":" + visible + ",\"itemspec\":{ \"initialState\": 0, \"type\": \"toggle\", \"states\": [ { \"name\":\"default\", \"normal\": { \"type\": \"rectangle\", \"fill\": { \"type\" : -1 }, \"label\": { \"font\" : { \"name\": \"System\", \"size\": { \"val\" : 0.6, \"type\":1 } }, \"color\": \"-Text Primary-\", \"vAlign\":\"center\", \"hAlign\": \"left\", \"offset\": { \"val\": 10, \"type\" : 0}, \"val\": { \"en_US\": \"label\"} }, \"icon\": { \"size\" : { \"w\": { \"val\": 1, \"type\": 3 }, \"h\":{ \"val\" : 0.8, \"type\" : 1} }, \"image\" : { \"ref\" : \"sys\", \"val\" : \"checkbox_checkbox_off.svg\", \"type\": 1, \"color\": \"-Component Primary-\" }, \"align\": \"left\" } }, \"pressed\": { \"icon\": { \"image\" : { \"ref\" : \"59516effd67791b60de74101\", \"val\" : \"halloween_outline-12-512.png\", \"type\": 1, \"color\" : \"-Component Primary-\"} } } } ] , \"margins\" : { \"x\": { \"val\": 0, \"type\":0 }, \"y\" : { \"val\": 0, \"type\": 0} } }, \"opacity\": 1, \"id\": \"5980f07ede3350977ae2e2a0\", \"name\" : \"toggle-1\", \"systemtype\" : \"toggle-1\", \"events\": []," + size + "," + position + "} }";
+        console.log(spec);
+        /*var json = " \"w\":  {\"val\": 142, \"type\": 0,\"reltype\": 0}";
+            json = json.replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
+
+        console.log(json);*/
+    }
+    
+    /*
+    Radio Button
+    */
+    if(file2[0] == "<RadioButton"){
+        ctrl = 22;
+        console.log("Radio Button");
+        //Parse through each line
+       for( i = 1; i < file2.length; i++){
+
+        //Get rid of padding
+        file2[i] = file2[i].replace(/\s/g, '');
+
+
+        //Seperate declaration from value
+        var textvar = file2[i].split('=');
+       // console.log(textvar);
+        //console.log(textvar[0]);
+        //console.log(textvar[1]);
+
+           if(textvar[0] == "android:layout_width"){
+            /* IMPLEMENT IF WRAP CONTENT*/
+            //width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            //width = "\"w\": { \"val\":142,\"type\":0,\"reltype\":0},";
+            width = 147;
+            console.log(width);
+        }
+        if(textvar[0] == "android:layout_height"){
+            /* IMPLEMENT IF WRAP CONTENT*/
+            //height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            //height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
+            height = 50;
+        }
+        if(textvar[0] == "android:text"){
+
+            value = textvar[1];
+        }
+        if(textvar[0] == "android:rotation"){
+
+            rotation = textvar[1];   
+           }
+        if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
+            if(reltypeY == 3){
+                reltypeY = 1;
+            }
+            else{
+                reltypeY = 4;
+            }
+
+        }
+        if(textvar[0] == "app:layout_constraintLeft_toLeftOf"){
+            if(reltypeX == 2){
+                reltypeX = 1;
+            }
+            else{
+                reltypeX = 0;
+            }
+        }
+        if(textvar[0] == "app:layout_constraintRight_toRightOf"){
+            if(reltypeX == 0){
+                reltypeX = 1;
+            }
+            else{
+                reltypeX = 2;
+            }
+        }
+        if(textvar[0] == "app:layout_constraintTop_toTopOf"){
+            if(reltypeY == 4){
+                reltypeY = 1;
+            }
+            else{
+                console.log(reltypeY);
+                reltypeY = 3;
+            }
+        }
+        if(textvar[0] == "tools:layout_editor_absoluteY"){
+            positionY = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            
+        }
+             
+        if(textvar[0] == "tools:layout_editor_absoluteX"){
+            positionX = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            
+        }
+       }
+        var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}" + "}";
+        console.log(size);
+        var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
+        console.log(position);
+        var spec = "{ \"ctrl\":" + ctrl + ",\"visible\":" + visible + ",\"itemspec\":{ \"initialState\": 0, \"type\": \"radio\", \"states\": [ { \"name\":\"default\", \"normal\": { \"cornerradius\":{ \"val\": 0 , \"type\": 0 }, \"type\": \"rectangle\", \"fill\": { \"type\" : -1 }, \"label\": { \"font\" : { \"name\": \"System\", \"size\": { \"val\" : 0.6, \"type\":1 } }, \"color\": \"-Text Primary-\", \"vAlign\":\"center\", \"hAlign\": \"left\", \"offset\": { \"val\": 10, \"type\" : 0}, \"val\": { \"en_US\": \"label\"} }, \"icon\": { \"size\" : { \"w\": { \"val\": 1, \"type\": 3 }, \"h\":{ \"val\" : 0.8, \"type\" : 1} }, \"image\" : { \"ref\" : \"sys\", \"val\" : \"checkbox_radio_off.svg\", \"type\": 1, \"color\": \"-Component Primary-\" }, \"align\": \"left\" } } }, { \"name\" : \"selected\", \"normal\": { \"icon\": { \"image\" : { \"ref\" : \"sys\", \"val\" : \"checkbox_radio_on.svg\", \"type\": 1, \"color\" : \"-Component Primary-\"} } } } ] , \"margins\" : { \"x\": { \"val\": 0, \"type\":0 }, \"y\" : { \"val\": 0, \"type\": 0} } }, \"opacity\": 1, \"events\": []," + size + "," + position + "},";
+        console.log(spec);
+        /*var json = " \"w\":  {\"val\": 142, \"type\": 0,\"reltype\": 0}";
+            json = json.replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
+
+        console.log(json);*/
+    }
+    
+    /*
+    TextInput
+    */
+    
+    if(file2[0] == "<EditText"){
+        ctrl = 23;
+        console.log("Edit Text");
+        //Parse through each line
+       for( i = 1; i < file2.length; i++){
+
+        //Get rid of padding
+        file2[i] = file2[i].replace(/\s/g, '');
+
+
+        //Seperate declaration from value
+        var textvar = file2[i].split('=');
+       // console.log(textvar);
+        //console.log(textvar[0]);
+        //console.log(textvar[1]);
+
+           if(textvar[0] == "android:layout_width"){
+            /* IMPLEMENT IF WRAP CONTENT*/
+            //width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            //width = "\"w\": { \"val\":142,\"type\":0,\"reltype\":0},";
+            width = 147;
+            console.log(width);
+        }
+        if(textvar[0] == "android:layout_height"){
+            /* IMPLEMENT IF WRAP CONTENT*/
+            //height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            //height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
+            height = 50;
+        }
+        if(textvar[0] == "android:text"){
+
+            value = textvar[1];
+        }
+        if(textvar[0] == "android:rotation"){
+
+            rotation = textvar[1];   
+           }
+        if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
+            if(reltypeY == 3){
+                reltypeY = 1;
+            }
+            else{
+                reltypeY = 4;
+            }
+
+        }
+        if(textvar[0] == "app:layout_constraintLeft_toLeftOf"){
+            if(reltypeX == 2){
+                reltypeX = 1;
+            }
+            else{
+                reltypeX = 0;
+            }
+        }
+        if(textvar[0] == "app:layout_constraintRight_toRightOf"){
+            if(reltypeX == 0){
+                reltypeX = 1;
+            }
+            else{
+                reltypeX = 2;
+            }
+        }
+        if(textvar[0] == "app:layout_constraintTop_toTopOf"){
+            if(reltypeY == 4){
+                reltypeY = 1;
+            }
+            else{
+                console.log(reltypeY);
+                reltypeY = 3;
+            }
+        }
+        if(textvar[0] == "tools:layout_editor_absoluteY"){
+            positionY = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            
+        }
+             
+        if(textvar[0] == "tools:layout_editor_absoluteX"){
+            positionX = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            
+        }
+       }
+        var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}" + "}";
+        console.log(size);
+        var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
+        console.log(position);
+        var spec = "{ \"ctrl\":" + ctrl + ",\"visible\":" + visible + ",\"itemspec\":{ \"placeholder\": { \"color\": \"-Text Secondary-\", \"val\": { \"en_US\": \"placeholder text\"} }, \"numlines\": 1, \"returnkeytype\": 0, \"autocorrect\": false, \"autocaps\": 0, \"keyboardtype\": 0, \"password\": false, \"focuskeyboard\": true, \"clearsonedit\": false, \"background\": { \"fill\": { \"type\": 0 , \"val\": \"-Text Reversed-\"}, \"type\": \"rectangle\", \"border\" : { \"width\": { \"val\" : 2, \"type\": 0}, \"color\":\"-Text Secondary-\"}, \"visible\":true}, \"val\": { \"en_US\":" + value + "}, \"hAlign\": \"left\", \"font\": { \"name\": \"System\", \"size\": { \"val\": 0.5, \"type\":1 }}, \"color\": \"-Text Primary-\", \"margins\": { \"x\": { \"val\": 5, \"type\":0 }}}, \"opacity\": 1, \"type\" : \"standard\", \"id\": \"5982257e28f15d6e36b1ff78\", \"name\": \"userinput-1\", \"systemtype\": \"userinput-1\", \"events\": [], " + size + "," +position + "} }";
+        console.log(spec);
+        /*var json = " \"w\":  {\"val\": 142, \"type\": 0,\"reltype\": 0}";
+            json = json.replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
+
+        console.log(json);*/
+    }
+    
+    /*
+    Switch
+    */
+    if(file2[0] == "<Switch"){
+        ctrl = 38;
+        console.log("Switch");
+        //Parse through each line
+       for( i = 1; i < file2.length; i++){
+
+        //Get rid of padding
+        file2[i] = file2[i].replace(/\s/g, '');
+
+
+        //Seperate declaration from value
+        var textvar = file2[i].split('=');
+       // console.log(textvar);
+        //console.log(textvar[0]);
+        //console.log(textvar[1]);
+
+        if(textvar[0] == "android:layout_width"){
+            /* IMPLEMENT IF WRAP CONTENT*/
+            width = textvar[1];
+            //width = "\"w\": { \"val\":142,\"type\":0,\"reltype\":0},";
+            console.log(width);
+        }
+        if(textvar[0] == "android:layout_height"){
+            /* IMPLEMENT IF WRAP CONTENT*/
+            height = textvar[1];
+            //height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
+
+        }
+        if(textvar[0] == "android:text"){
+
+            value = textvar[1];
+        }
+        if(textvar[0] == "android:rotation"){
+
+            rotation = textvar[1];   
+           }
+        if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
+            if(reltypeY == 3){
+                reltypeY = 1;
+            }
+            else{
+                reltypeY = 4;
+            }
+
+        }
+        if(textvar[0] == "app:layout_constraintLeft_toLeftOf"){
+            if(reltypeX == 2){
+                reltypeX = 1;
+            }
+            else{
+                reltypeX = 0;
+            }
+        }
+        if(textvar[0] == "app:layout_constraintRight_toRightOf"){
+            if(reltypeX == 0){
+                reltypeX = 1;
+            }
+            else{
+                reltypeX = 2;
+            }
+        }
+        if(textvar[0] == "app:layout_constraintTop_toTopOf"){
+            if(reltypeY == 4){
+                reltypeY = 1;
+            }
+            else{
+                console.log(reltypeY);
+                reltypeY = 3;
+            }
+        }
+        if(textvar[0] == "tools:layout_editor_absoluteY"){
+            positionY = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            
+        }
+             
+        if(textvar[0] == "tools:layout_editor_absoluteX"){
+            positionX = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            
+        }
+       }
+        var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}" + "}";
+        console.log(size);
+        var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
+        console.log(position);
+        var spec = "{ \"ctrl\":" + ctrl + ",\"visible\":" + visible + ",\"itemspec\":{\"offcolor\": \"-Component Accent-\", \"oncolor\": \"-Text Primary-\", \"thumbcolor\" : \"-Component Secondary-\", \"selected\": false}, \"events\":[],  "+ size + "," + position + "}, \"opacity\" : 1, \"id\": \"59836724650090a03702a172\", \"name\": \"switch-1\", \"systemtype\": \"switch-1\" }";
         console.log(spec);
         /*var json = " \"w\":  {\"val\": 142, \"type\": 0,\"reltype\": 0}";
             json = json.replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');

@@ -54,3 +54,29 @@
         android:text="CheckBox"
         tools:layout_editor_absoluteY="87dp"
         tools:layout_editor_absoluteX="48dp" />
+
+    <RadioButton
+        android:id="@+id/radioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RadioButton"
+        tools:layout_editor_absoluteX="48dp"
+        tools:layout_editor_absoluteY="145dp" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        tools:layout_editor_absoluteX="153dp"
+        tools:layout_editor_absoluteY="137dp" />
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="166dp"
+        android:layout_height="40dp"
+        android:text="Switch"
+        tools:layout_editor_absoluteX="64dp"
+        tools:layout_editor_absoluteY="208dp" />

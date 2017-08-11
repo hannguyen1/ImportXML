@@ -103,3 +103,9 @@
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="36dp"
         tools:layout_editor_absoluteY="248dp" />
+
+    <WebView
+        android:layout_width="225dp"
+        android:layout_height="218dp"
+        tools:layout_editor_absoluteX="48dp"
+        tools:layout_editor_absoluteY="277dp" />

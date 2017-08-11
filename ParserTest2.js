@@ -31,7 +31,9 @@ for(j=0; j < filemain.length; j++){
 
 
 
-    //If Object is a text view
+    /*
+        TextView
+    */
     if(file2[0] == "<TextView"){
         ctrl = 3;
         console.log("textview");
@@ -48,13 +50,15 @@ for(j=0; j < filemain.length; j++){
 
         if(textvar[0] == "android:layout_width"){
             /* IMPLEMENT IF WRAP CONTENT*/
-            //width = textvar[1];
-            width = "\"w\": { \"val\":142,\"type\":0,\"reltype\":0},";
+            //width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            //width = "\"w\": { \"val\":142,\"type\":0,\"reltype\":0},";
+            width = 142;
         }
         if(textvar[0] == "android:layout_height"){
             /* IMPLEMENT IF WRAP CONTENT*/
-            //height = textvar[1];
-            height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
+            //height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+           // height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
+            height = 36;
 
         }
         if(textvar[0] == "android:text"){
@@ -99,18 +103,28 @@ for(j=0; j < filemain.length; j++){
                 reltypeY = 3;
             }
         }
+           
+        if(textvar[0] == "tools:layout_editor_absoluteY"){
+            positionY = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            
+        }
+             
+        if(textvar[0] == "tools:layout_editor_absoluteX"){
+            positionX = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            
+        }
        }
-        var size = "\"size\":{" + width + height + "}";
+        var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}" + "}";
         console.log(size);
-        var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + "}," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
+        var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
         console.log(position);
         var spec = "{ \"ctrl\":"+ctrl+ ",\"visible\":" + visible + ",\"itemspec\":{ \"val\":{ \"en_US\":" + value + "}, \"hAlign\":" + hAlign + "," + font + size + "," + position;
         console.log(spec);
     }
 
-/* 
+    /* 
     IMAGE
-*/
+    */
     
     
     if(file2[0] == "<ImageView"){
@@ -194,18 +208,18 @@ for(j=0; j < filemain.length; j++){
         value = "\"default_image.svg\"";
         var size = "\"size\":{" + width + height + "}";
         console.log(size);
-        var position = "{ \"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + "}," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
+        var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + "}," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
         console.log(position);
-        var spec = "\"ctrl\":"+ctrl+ ",\"events\": [], \"systemtype\": \"image-1\"," + position + "},\"visible\":" + visible + "," + size + ",\"itemspec\":{ \"fill\":{ \"type\":" + picType + ",\"locked\":" + locked + ", \"selInitImage\":" + selInitImage + ",\"val\": " + value + ",\"ref\":" + ref + ",\"scale\":" + scale + ",\"opacity\":" + opacity + "},\"type\":" +typeShape
+        var spec = "{ \"ctrl\":"+ctrl+ ",\"events\": [], \"systemtype\": \"image-1\"," + position + "},\"visible\":" + visible + "," + size + ",\"itemspec\":{ \"fill\":{ \"type\":" + picType + ",\"locked\":" + locked + ", \"selInitImage\":" + selInitImage + ",\"val\": " + value + ",\"ref\":" + ref + ",\"scale\":" + scale + ",\"opacity\":" + opacity + "},\"type\":" +typeShape
         console.log(spec);
         }
     /*
     
-        Button
+    Button
         
     */
     
-        if(file2[0] == "<Button"){
+    if(file2[0] == "<Button"){
         ctrl = 22;
         var type = 0;
         console.log("Button");
@@ -841,12 +855,12 @@ if(textvar[0] == "android:layout_width"){
 
         if(textvar[0] == "android:layout_width"){
             /* IMPLEMENT IF WRAP CONTENT*/
-            width = textvar[1];
+            width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
             //width = "\"w\": { \"val\":142,\"type\":0,\"reltype\":0},";
         }
         if(textvar[0] == "android:layout_height"){
             /* IMPLEMENT IF WRAP CONTENT*/
-            height = textvar[1];
+            height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
             //height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
 
         }
@@ -1090,10 +1104,6 @@ if(textvar[0] == "android:layout_width"){
             positionX = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
             
         }
-        if(textvar[0] == "style=\"?android:attr/progressBarStyle\""){
-            
-            
-        }
        }
         var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}" + "}";
         console.log(size);
@@ -1111,6 +1121,94 @@ if(textvar[0] == "android:layout_width"){
 
     }
     
+    /*
+    WebView
+    */
     
+    if(file2[0] == "<WebView"){
+        ctrl = 29;
+        console.log("WebView");
+        //Parse through each line
+       for( i = 1; i < file2.length; i++){
+
+        //Get rid of padding
+        file2[i] = file2[i].replace(/\s/g, '');
+
+
+        //Seperate declaration from value
+        var textvar = file2[i].split('=');
+
+
+        if(textvar[0] == "android:layout_width"){
+            /* IMPLEMENT IF WRAP CONTENT*/
+            width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            //width = "\"w\": { \"val\":142,\"type\":0,\"reltype\":0},";
+        }
+        if(textvar[0] == "android:layout_height"){
+            /* IMPLEMENT IF WRAP CONTENT*/
+            height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            //height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
+
+        }
+        if(textvar[0] == "android:text"){
+
+            value = textvar[1];
+        }
+        if(textvar[0] == "android:rotation"){
+
+            rotation = textvar[1];   
+           }
+        if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
+            if(reltypeY == 3){
+                reltypeY = 1;
+            }
+            else{
+                reltypeY = 4;
+            }
+
+        }
+        if(textvar[0] == "app:layout_constraintLeft_toLeftOf"){
+            if(reltypeX == 2){
+                reltypeX = 1;
+            }
+            else{
+                reltypeX = 0;
+            }
+        }
+        if(textvar[0] == "app:layout_constraintRight_toRightOf"){
+            if(reltypeX == 0){
+                reltypeX = 1;
+            }
+            else{
+                reltypeX = 2;
+            }
+        }
+        if(textvar[0] == "app:layout_constraintTop_toTopOf"){
+            if(reltypeY == 4){
+                reltypeY = 1;
+            }
+            else{
+                console.log(reltypeY);
+                reltypeY = 3;
+            }
+        }
+           
+        if(textvar[0] == "tools:layout_editor_absoluteY"){
+            positionY = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            
+        }
+             
+        if(textvar[0] == "tools:layout_editor_absoluteX"){
+            positionX = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            
+        }
+       }
+        var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}";
+        console.log(size);
+        var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
+        console.log(position);
+        var spec = "{ \"ctrl\":"+ctrl+ ",\"visible\":" + visible + ", \"opacity\": 1, \"itemspec\": { \"type\":0, \"val\" : \"http://www.phase2industries.com\", \"cache\": 0 }, \"id\": \"598de8d92bf0fdd004e158e0\", \"name\": \"webview-1\", \"systemtype\": \"webview-1\", \"events\": []," + size + "}," + position;
+        console.log(spec);
+    }
     
 }

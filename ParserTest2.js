@@ -3,8 +3,6 @@ var file = fs.readFileSync("test.xml","utf8");
 
 //Split file by its objects
 var filemain = file.split(/(?=<)/);
-//console.log(filemain);
-//console.log(filemain.length);
 //Split objects into its attributes
     var base = "\"background\": { \"opacity\" : 1, \"val\": \"-Background-\", \"type\":0 }, \"position\": { \"y\":{ \"type\": 1, \"val\": 0 }, \"x\": { \"type\": 1, \"val\" :0 }}, \"size\": { \"w\": { \"type\":1, \"val\":1 }, \"h\": { \"type\":1, \"val\":1 }}, \"controls\": [ ";
     var ControlNum = 0;
@@ -14,15 +12,17 @@ for(j=0; j < filemain.length; j++){
     var file2 = filemain[j].split('\n');
     var ButtonCount = 0;
     ButtonCount++;
-   // console.log(file2);
-
     //Global Base Variables
     var width = 0;
     var height = 0;
     var hAlign = "\"left\"";
     var value = " ";
-    var fontSize = 12;
-    var font = "\"font\": { \"name\": \"System\", \"size\": { \"val\": " + fontSize + ", \"type\": 0 }} ,\"color\": \"-Text Primary-\" },";
+    var fontSize = 14;
+    var textColor = "\"-Text Primary-\"";
+    var Color = "\"color\": " + textColor;
+    var textCaps = "false";
+    var allCaps = "\"allcaps\":" + textCaps;
+    var font = "\"font\": { \"name\": \"System\", \"size\": { \"val\": " + fontSize + ", \"type\": 0 }}";
     var ctrl = 0;
     var rotation = 0;
     var visible = "true";
@@ -45,11 +45,10 @@ for(j=0; j < filemain.length; j++){
         console.log("textview");
         //Parse through each line
        for( i = 1; i < file2.length; i++){
-
+        
         //Get rid of padding
-        file2[i] = file2[i].replace(/\s/g, '');
-
-
+        file2[i] = file2[i].trim();
+        
         //Seperate declaration from value
         var textvar = file2[i].split('=');
 
@@ -71,10 +70,30 @@ for(j=0; j < filemain.length; j++){
 
             value = textvar[1];
         }
+           
+        if(textvar[0] == "android:textSize"){
+            
+            fontSize = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+        }
+        
+        if(textvar[0] == "android:textColor"){
+            
+            textColor = textvar[1];
+        }
+        
+        if(textvar[0] == "android:textAllCaps"){
+            
+            textCaps = textvar[1];
+            
+        }
         if(textvar[0] == "android:rotation"){
 
-            rotation = textvar[1];   
+            rotation = textvar[1];
            }
+        if(textvar[0] == "android:gravity"){
+            
+            hAlign = "\""+ textvar[1] + "\"";
+        }
         if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
             if(posSignaly == 1){
                 reltypeY = 1;
@@ -122,18 +141,18 @@ for(j=0; j < filemain.length; j++){
         if(textvar[0] == "tools:layout_editor_absoluteX"){
             positionX = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
             
-        }
+    }
        }
         
         var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}" + "}";
         var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
-        var spec = "{ \"ctrl\":"+ctrl+ ",\"visible\":" + visible + ",\"itemspec\":{ \"val\":{ \"en_US\":" + value + "}, \"hAlign\":" + hAlign + "," + font + size + "," + position + "}, \"id\": \" " + randomID + "\", \"name\": \"text-" + textcount+ "\" , \"systemtype\":\"text-" + textcount + "\", \"opacity\":1, \"type\":\"standard\" }";
+        var spec = "{ \"ctrl\":"+ctrl+ ",\"visible\":" + visible + ",\"itemspec\":{ \"val\":{ \"en_US\":" + value + "}, \"hAlign\":" + hAlign + "," + font + "," + Color + "," + allCaps + "}," + size + "," + position + "}, \"id\": \" " + randomID + "\", \"name\": \"text-" + textcount+ "\" , \"systemtype\":\"text-" + textcount + "\", \"opacity\":1, \"type\":\"standard\" }";
         if (ControlNum > 0 ){
             console.log("WORKING??");
             base = base + " , ";   
         }
         ControlNum++;
-        console.log(ControlNum);
+        console.log(spec);
 
         base = base + spec ;
     }
@@ -157,7 +176,7 @@ for(j=0; j < filemain.length; j++){
          for( i = 1; i < file2.length; i++){
 
         //Get rid of padding
-        file2[i] = file2[i].replace(/\s/g, '');
+        file2[i] = file2[i].trim();
 
 
         //Seperate declaration from value
@@ -248,11 +267,12 @@ for(j=0; j < filemain.length; j++){
         console.log("Button");
         reltypeY = 0;
         reltypeX = 0;
+        textColor = "\"-Text Reversed-\"";
         //Parse through each line
        for( i = 1; i < file2.length; i++){
 
         //Get rid of padding
-        file2[i] = file2[i].replace(/\s/g, '');
+        file2[i] = file2[i].trim();
 
 
         //Seperate declaration from value
@@ -277,10 +297,29 @@ for(j=0; j < filemain.length; j++){
 
             value = textvar[1];
         }
+        
+        if(textvar[0] == "android:textSize"){
+            
+            fontSize = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+        }
+        
+        if(textvar[0] == "android:textColor"){
+            textColor = textvar[1];
+        }
+        
+        if(textvar[0] == "android:textAllCaps"){
+            
+            textCaps = textvar[1];
+            
+        }
         if(textvar[0] == "android:rotation"){
 
-            rotation = textvar[1];   
+            rotation = textvar[1];
            }
+        if(textvar[0] == "android:gravity"){
+            
+            hAlign = "\""+ textvar[1] + "\"";
+        }
         if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
             if(posSignaly == 1){
                 reltypeY = 1;
@@ -322,7 +361,7 @@ for(j=0; j < filemain.length; j++){
        }
         var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}" + "}";
         var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
-        var spec = "{ \"ctrl\":"+ctrl+ ",\"visible\":" + visible + ",\"itemspec\":{ \"states\": [ { \"name\": \"default\", \"normal\": { \"fill\": { \"type\":" + type + ",\"val\": \"-Component Primary-\" }, \"cornerradius\":{ \"val\": 0, \"type\": 0 }, \"type\": \"rectangle\", \"tapthrough\": true, \"label\":{ \"val\":{ \"en_US\":" + value + " }, \"offset\": { \"val\": 0, \"type\": 0 },\"hAlign\": \"center\", \"vAlign\": \"center\", \"color\": \"-Text Reversed-\",\"font\": { \"name\": \"System\", \"size\": { \"val\": 0.45,\"type\": 1} } } }, \"pressed\": { \"fill\": { \"type\": 0, \"val\": \"-Component Secondary-\" } }, \"disabled\": { \"fill\": { \"type\": 0, \"val\": \"-Component Accent-\" }, \"label\": { \"color\": \"-Text Secondary-\" } } } ], \"margins\": { \"x\": { \"val\": 10,\"type\": 0 }, \"y\": { \"val\": 0, \"type\": 0 } } }, \"opacity\": 1, \"events\": []," + size + "," + position + "}," + "\"id\": \"" + randomID + "\", \"name\": \"button-" + ButtonCount + "\", \"systemtype\" : \"button-" + ButtonCount + "\"}";
+        var spec = "{ \"ctrl\":"+ctrl+ ",\"visible\":" + visible + ",\"itemspec\":{ \"states\": [ { \"name\": \"default\", \"normal\": { \"fill\": { \"type\":" + type + ",\"val\": \"-Component Primary-\" }, \"cornerradius\":{ \"val\": 0, \"type\": 0 }, \"type\": \"rectangle\", \"tapthrough\": true, \"label\":{ \"val\":{ \"en_US\":" + value + " }, \"offset\": { \"val\": 0, \"type\": 0 },\"hAlign\": \"center\", \"vAlign\": \"center\", \"color\":" + Color + "," + font +" } }, \"pressed\": { \"fill\": { \"type\": 0, \"val\": \"-Component Secondary-\" } }, \"disabled\": { \"fill\": { \"type\": 0, \"val\": \"-Component Accent-\" }, \"label\": { \"color\": \"-Text Secondary-\" } } } ], \"margins\": { \"x\": { \"val\": 10,\"type\": 0 }, \"y\": { \"val\": 0, \"type\": 0 } } }, \"opacity\": 1, \"events\": []," + size + "," + position + "}," + "\"id\": \"" + randomID + "\", \"name\": \"button-" + ButtonCount + "\", \"systemtype\" : \"button-" + ButtonCount + "\"}";
         if (ControlNum > 0 ){
             base = base + " , ";   
         }
@@ -347,7 +386,7 @@ for(j=0; j < filemain.length; j++){
        for( i = 1; i < file2.length; i++){
 
         //Get rid of padding
-        file2[i] = file2[i].replace(/\s/g, '');
+        file2[i] = file2[i].trim();
 
 
         //Seperate declaration from value
@@ -373,6 +412,30 @@ for(j=0; j < filemain.length; j++){
 
             rotation = textvar[1];   
            }
+        if(textvar[0] == "android:textSize"){
+            
+            fontSize = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+        }
+        
+        if(textvar[0] == "android:textColor"){
+            
+            textColor = textvar[1];
+        }
+        
+        if(textvar[0] == "android:textAllCaps"){
+            
+            textCaps = textvar[1];
+            
+        }
+        if(textvar[0] == "android:rotation"){
+
+            rotation = textvar[1];
+           }
+        if(textvar[0] == "android:gravity"){
+            
+            hAlign = "\""+ textvar[1] + "\"";
+        }
+           
         if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
             if(posSignaly == 1){
                 reltypeY = 1;
@@ -444,7 +507,7 @@ for(j=0; j < filemain.length; j++){
        for( i = 1; i < file2.length; i++){
 
         //Get rid of padding
-        file2[i] = file2[i].replace(/\s/g, '');
+        file2[i] = file2[i].trim();
 
 
         //Seperate declaration from value
@@ -455,20 +518,47 @@ for(j=0; j < filemain.length; j++){
             width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
             //width = "\"w\": { \"val\":142,\"type\":0,\"reltype\":0},";
         }
+           
         if(textvar[0] == "android:layout_height"){
             /* IMPLEMENT IF WRAP CONTENT*/
             height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
             //height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
 
         }
+           
         if(textvar[0] == "android:text"){
 
             value = textvar[1];
         }
+           
         if(textvar[0] == "android:rotation"){
 
             rotation = textvar[1];   
            }
+           
+        if(textvar[0] == "android:textSize"){
+            
+            fontSize = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+        }
+        
+        if(textvar[0] == "android:textColor"){
+            
+            textColor = textvar[1];
+        }
+        
+        if(textvar[0] == "android:textAllCaps"){
+            
+            textCaps = textvar[1];
+            
+        }
+        if(textvar[0] == "android:rotation"){
+
+            rotation = textvar[1];
+           }
+        if(textvar[0] == "android:gravity"){
+            
+            hAlign = "\""+ textvar[1] + "\"";
+        }
         if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
             if(posSignaly == 1){
                 reltypeY = 1;
@@ -540,7 +630,7 @@ for(j=0; j < filemain.length; j++){
        for( i = 1; i < file2.length; i++){
 
         //Get rid of padding
-        file2[i] = file2[i].replace(/\s/g, '');
+        file2[i] = file2[i].trim();
 
 
         //Seperate declaration from value
@@ -566,6 +656,30 @@ for(j=0; j < filemain.length; j++){
 
             rotation = textvar[1];   
            }
+           
+        if(textvar[0] == "android:textSize"){
+            
+            fontSize = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+        }
+        
+        if(textvar[0] == "android:textColor"){
+            
+            textColor = textvar[1];
+        }
+        
+        if(textvar[0] == "android:textAllCaps"){
+            
+            textCaps = textvar[1];
+            
+        }
+        if(textvar[0] == "android:rotation"){
+
+            rotation = textvar[1];
+           }
+        if(textvar[0] == "android:gravity"){
+            
+            hAlign = "\""+ textvar[1] + "\"";
+        }
         if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
             if(posSignaly == 1){
                 reltypeY = 1;
@@ -635,7 +749,7 @@ for(j=0; j < filemain.length; j++){
        for( i = 1; i < file2.length; i++){
 
         //Get rid of padding
-        file2[i] = file2[i].replace(/\s/g, '');
+        file2[i] = file2[i].trim();
 
 
         //Seperate declaration from value
@@ -661,6 +775,30 @@ for(j=0; j < filemain.length; j++){
 
             rotation = textvar[1];   
            }
+           
+        if(textvar[0] == "android:textSize"){
+            
+            fontSize = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+        }
+        
+        if(textvar[0] == "android:textColor"){
+            
+            textColor = textvar[1];
+        }
+        
+        if(textvar[0] == "android:textAllCaps"){
+            
+            textCaps = textvar[1];
+            
+        }
+        if(textvar[0] == "android:rotation"){
+
+            rotation = textvar[1];
+           }
+        if(textvar[0] == "android:gravity"){
+            
+            hAlign = "\""+ textvar[1] + "\"";
+        }
         if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
             if(posSignaly == 1){
                 reltypeY = 1;
@@ -731,7 +869,7 @@ for(j=0; j < filemain.length; j++){
        for( i = 1; i < file2.length; i++){
 
         //Get rid of padding
-        file2[i] = file2[i].replace(/\s/g, '');
+        file2[i] = file2[i].trim();
 
 
         //Seperate declaration from value
@@ -758,6 +896,30 @@ for(j=0; j < filemain.length; j++){
 
             rotation = textvar[1];   
            }
+
+        if(textvar[0] == "android:textSize"){
+            
+            fontSize = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+        }
+        
+        if(textvar[0] == "android:textColor"){
+            
+            textColor = textvar[1];
+        }
+        
+        if(textvar[0] == "android:textAllCaps"){
+            
+            textCaps = textvar[1];
+            
+        }
+        if(textvar[0] == "android:rotation"){
+
+            rotation = textvar[1];
+           }
+        if(textvar[0] == "android:gravity"){
+            
+            hAlign = "\""+ textvar[1] + "\"";
+        }
         if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
             if(posSignaly == 1){
                 reltypeY = 1;
@@ -808,7 +970,7 @@ for(j=0; j < filemain.length; j++){
        }
         var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}" + "}";
         var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
-        var spec = "{\"ctrl\":" + ctrl + ",\"visible\":" + visible + ",\"itemspec\":{ \"initialState\": 0, \"type\": \"radio\", \"states\": [ { \"name\":\"default\", \"normal\": { \"type\": \"rectangle\", \"fill\": { \"type\" : -1 }, \"label\": { \"font\" : { \"name\": \"System\", \"size\": { \"val\" : 0.6, \"type\":1 } }, \"color\": \"-Text Primary-\", \"vAlign\":\"center\", \"hAlign\": \"left\", \"offset\": { \"val\": 10, \"type\" : 0}, \"val\": { \"en_US\":" + value + " } }, \"icon\": { \"size\" : { \"w\": { \"val\": 1, \"type\": 3 }, \"h\":{ \"val\" : 0.8, \"type\" : 1} }, \"image\" : { \"ref\" : \"sys\", \"val\" : \"checkbox_radio_off.svg\", \"type\": 1, \"color\": \"-Component Primary-\" }, \"align\": \"left\" } }}, { \"name\": \"selected\", \"normal\": { \"icon\": { \"image\": { \"ref\":\"sys\", \"val\":\"checkbox_radio_on.svg\", \"type\": 1, \"color\": \"-Component Primary-\" } } } }  ] , \"margins\" : { \"x\": { \"val\": 0, \"type\":0 }, \"y\" : { \"val\": 0, \"type\": 0} } }, \"opacity\": 1, \"events\": []," + size + "," + position + " }, \"id\": \"" + randomID + "\", \"name\": \"radio-" + RadioCount + "\", \"systemtype\" : \"radio-" + RadioCount + "\"}";
+        var spec = "{\"ctrl\":" + ctrl + ",\"visible\":" + visible + ",\"itemspec\":{ \"initialState\": 0, \"type\": \"radio\", \"states\": [ { \"name\":\"default\", \"normal\": { \"type\": \"rectangle\", \"fill\": { \"type\" : -1 }, \"label\": { " + font + "," + color + ", \"vAlign\":\"center\", \"hAlign\": \"left\", \"offset\": { \"val\": 10, \"type\" : 0}, \"val\": { \"en_US\":" + value + " } }, \"icon\": { \"size\" : { \"w\": { \"val\": 1, \"type\": 3 }, \"h\":{ \"val\" : 0.8, \"type\" : 1} }, \"image\" : { \"ref\" : \"sys\", \"val\" : \"checkbox_radio_off.svg\", \"type\": 1, \"color\": \"-Component Primary-\" }, \"align\": \"left\" } }}, { \"name\": \"selected\", \"normal\": { \"icon\": { \"image\": { \"ref\":\"sys\", \"val\":\"checkbox_radio_on.svg\", \"type\": 1, \"color\": \"-Component Primary-\" } } } }  ] , \"margins\" : { \"x\": { \"val\": 0, \"type\":0 }, \"y\" : { \"val\": 0, \"type\": 0} } }, \"opacity\": 1, \"events\": []," + size + "," + position + " }, \"id\": \"" + randomID + "\", \"name\": \"radio-" + RadioCount + "\", \"systemtype\" : \"radio-" + RadioCount + "\"}";
         if (ControlNum > 0 ){
             base = base + " , ";   
         }
@@ -828,7 +990,7 @@ for(j=0; j < filemain.length; j++){
        for( i = 1; i < file2.length; i++){
 
         //Get rid of padding
-        file2[i] = file2[i].replace(/\s/g, '');
+        file2[i] = file2[i].trim();
 
 
         //Seperate declaration from value
@@ -855,6 +1017,30 @@ for(j=0; j < filemain.length; j++){
 
             rotation = textvar[1];   
            }
+           
+        if(textvar[0] == "android:textSize"){
+            
+            fontSize = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+        }
+        
+        if(textvar[0] == "android:textColor"){
+            
+            textColor = textvar[1];
+        }
+        
+        if(textvar[0] == "android:textAllCaps"){
+            
+            textCaps = textvar[1];
+            
+        }
+        if(textvar[0] == "android:rotation"){
+
+            rotation = textvar[1];
+           }
+        if(textvar[0] == "android:gravity"){
+            
+            hAlign = "\""+ textvar[1] + "\"";
+        }
         if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
             if(posSignaly == 1){
                 reltypeY = 1;
@@ -925,7 +1111,7 @@ for(j=0; j < filemain.length; j++){
        for( i = 1; i < file2.length; i++){
 
         //Get rid of padding
-        file2[i] = file2[i].replace(/\s/g, '');
+        file2[i] = file2[i].trim();
 
 
         //Seperate declaration from value
@@ -951,6 +1137,30 @@ for(j=0; j < filemain.length; j++){
 
             rotation = textvar[1];   
            }
+        
+        if(textvar[0] == "android:textSize"){
+            
+            fontSize = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+        }
+        
+        if(textvar[0] == "android:textColor"){
+            
+            textColor = textvar[1];
+        }
+        
+        if(textvar[0] == "android:textAllCaps"){
+            
+            textCaps = textvar[1];
+            
+        }
+        if(textvar[0] == "android:rotation"){
+
+            rotation = textvar[1];
+           }
+        if(textvar[0] == "android:gravity"){
+            
+            hAlign = "\""+ textvar[1] + "\"";
+        }
         if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
             if(posSignaly == 1){
                 reltypeY = 1;
@@ -1021,7 +1231,7 @@ for(j=0; j < filemain.length; j++){
        for( i = 1; i < file2.length; i++){
 
         //Get rid of padding
-        file2[i] = file2[i].replace(/\s/g, '');
+        file2[i] = file2[i].trim();
 
 
         //Seperate declaration from value
@@ -1049,6 +1259,29 @@ for(j=0; j < filemain.length; j++){
 
             rotation = textvar[1];   
            }
+        if(textvar[0] == "android:textSize"){
+            
+            fontSize = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+        }
+        
+        if(textvar[0] == "android:textColor"){
+            
+            textColor = textvar[1];
+        }
+        
+        if(textvar[0] == "android:textAllCaps"){
+            
+            textCaps = textvar[1];
+            
+        }
+        if(textvar[0] == "android:rotation"){
+
+            rotation = textvar[1];
+           }
+        if(textvar[0] == "android:gravity"){
+            
+            hAlign = "\""+ textvar[1] + "\"";
+        }
         if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
             if(posSignaly == 1){
                 reltypeY = 1;
@@ -1118,7 +1351,7 @@ for(j=0; j < filemain.length; j++){
        for( i = 1; i < file2.length; i++){
 
         //Get rid of padding
-        file2[i] = file2[i].replace(/\s/g, '');
+        file2[i] = file2[i].trim();
 
 
         //Seperate declaration from value
@@ -1154,6 +1387,30 @@ for(j=0; j < filemain.length; j++){
 
             rotation = textvar[1];   
            }
+           
+        if(textvar[0] == "android:textSize"){
+            
+            fontSize = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+        }
+        
+        if(textvar[0] == "android:textColor"){
+            
+            textColor = textvar[1];
+        }
+        
+        if(textvar[0] == "android:textAllCaps"){
+            
+            textCaps = textvar[1];
+            
+        }
+        if(textvar[0] == "android:rotation"){
+
+            rotation = textvar[1];
+           }
+        if(textvar[0] == "android:gravity"){
+            
+            hAlign = "\""+ textvar[1] + "\"";
+        }
         if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
             if(posSignaly == 1){
                 reltypeY = 1;
@@ -1232,7 +1489,7 @@ for(j=0; j < filemain.length; j++){
        for( i = 1; i < file2.length; i++){
 
         //Get rid of padding
-        file2[i] = file2[i].replace(/\s/g, '');
+        file2[i] = file2[i].trim();
 
 
         //Seperate declaration from value
@@ -1258,6 +1515,29 @@ for(j=0; j < filemain.length; j++){
 
             rotation = textvar[1];   
            }
+            if(textvar[0] == "android:textSize"){
+            
+            fontSize = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+        }
+        
+        if(textvar[0] == "android:textColor"){
+            
+            textColor = textvar[1];
+        }
+        
+        if(textvar[0] == "android:textAllCaps"){
+            
+            textCaps = textvar[1];
+            
+        }
+        if(textvar[0] == "android:rotation"){
+
+            rotation = textvar[1];
+           }
+        if(textvar[0] == "android:gravity"){
+            
+            hAlign = "\""+ textvar[1] + "\"";
+        }
         if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
             if(posSignaly == 1){
                 reltypeY = 1;
@@ -1324,7 +1604,7 @@ for(j=0; j < filemain.length; j++){
 }
 
     base = base + "], \"events\": [], \"systemtype\": \"home\", \"device\": 0, \"platform\": 1, \"orientation\": 3, \"_mergeBase\": {\"ident\": \"598e0e1747d1296735a0a518\", \"name\": { \"en_US\":\"Home\"}, \"_id\":\"598e0e17723970f82be2df75\", \"route\": \"screens\", \"attributes\": null," + base + "], \"events\": [], \"systemtype\": \"home\", \"device\": 0, \"platform\": 1, \"orientation\": 3}, \"attributes\": {} }";
-   console.log(base);
+  // console.log(base);
     
     //console.log(base);
 function uniqueId() {

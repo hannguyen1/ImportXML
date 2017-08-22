@@ -8,12 +8,21 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="112dp"
-        android:layout_height="46dp"
+        android:layout_width="106dp"
+        android:layout_height="50dp"
         android:text="Sample Layout Centered Text"
+        android:textSize="14sp"
+        android:textColor="#3F51B5"
+        android:gravity="center"
+        android:shadowColor="#646464ff"
+        android:shadowDx="1dp"
+        android:shadowDy="1dp"
+        android:shadowRadius="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-         />
+        app:layout_constraintVertical_bias="0.501" />
+
+
 </android.support.constraint.ConstraintLayout>

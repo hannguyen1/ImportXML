@@ -36,6 +36,11 @@ for(j=0; j < filemain.length; j++){
     var posSignalx = 0;
     var posSignaly = 0;
     var randomID = uniqueId();
+    var shadow = 0;
+    var shadowColor = "#646464ff";
+    var shadowDx = 0;
+    var shadowDy = 0;
+    var shadowRadius = 0;
     console.log(randomID);
     //TextView
     if(file2[0] == "<TextView"){
@@ -92,7 +97,7 @@ for(j=0; j < filemain.length; j++){
            }
         if(textvar[0] == "android:gravity"){
             
-            hAlign = "\""+ textvar[1] + "\"";
+            hAlign =  textvar[1];
         }
         if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
             if(posSignaly == 1){
@@ -141,20 +146,42 @@ for(j=0; j < filemain.length; j++){
         if(textvar[0] == "tools:layout_editor_absoluteX"){
             positionX = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
             
-    }
+        }
+        
+        if(textvar[0] == "android:shadowColor"){
+            shadowColor = textvar[1];
+            shadow = 1;   
+        }
+        
+        if(textvar[0] == "android:shadowDx"){
+            shadowDx = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+        }
+        
+        if(textvar[0] == "android:shadowDy"){
+            shadowDy = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+
+        }
+           
+        if(textvar[0] == "android:shadowRadius") {
+            shadowRadius = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+        }
        }
         
         var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}" + "}";
         var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
-        var spec = "{ \"ctrl\":"+ctrl+ ",\"visible\":" + visible + ",\"itemspec\":{ \"val\":{ \"en_US\":" + value + "}, \"hAlign\":" + hAlign + "," + font + "," + Color + "," + allCaps + "}," + size + "," + position + "}, \"id\": \" " + randomID + "\", \"name\": \"text-" + textcount+ "\" , \"systemtype\":\"text-" + textcount + "\", \"opacity\":1, \"type\":\"standard\" }";
+        var spec = "{ \"ctrl\":"+ctrl+ ",\"visible\":" + visible + ",\"itemspec\":{ \"val\":{ \"en_US\":" + value + "}, \"hAlign\":" + hAlign + "," + font + "," + Color + "," + allCaps;
+        if (shadow == 1) {
+            spec = spec + ", \"shadow\": {\"color\": " + shadowColor + ",\"radius\":{ \"val\": " + shadowRadius + ",\"type\":0}, \"offset\": { \"x\": { \"val\":" + shadowDx + ",\"type\":0}, \"y\":{ \"val\":" + shadowDy + ",\"type\": 0 }}}";
+        }
+        spec = spec + "},";
+        var jsonFinal = spec + size + "," + position + "}, \"id\": \" " + randomID + "\", \"name\": \"text-" + textcount+ "\" , \"systemtype\":\"text-" + textcount + "\", \"opacity\":1, \"type\":\"standard\" }";
         if (ControlNum > 0 ){
             console.log("WORKING??");
             base = base + " , ";   
         }
         ControlNum++;
-        console.log(spec);
 
-        base = base + spec ;
+        base = base + jsonFinal ;
     }
 
     //ImageView
@@ -243,19 +270,42 @@ for(j=0; j < filemain.length; j++){
             positionX = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
             
         }
-    }
+             
+        if(textvar[0] == "android:shadowColor"){
+            shadowColor = textvar[1];
+            shadow = 1;   
+        }
+        
+        if(textvar[0] == "android:shadowDx"){
+            shadowDx = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+        }
+        
+        if(textvar[0] == "android:shadowDy"){
+            shadowDy = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+
+        }
+           
+        if(textvar[0] == "android:shadowRadius") {
+            shadowRadius = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+        }
+}
         
         value = "\"default_image.svg\"";
         var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}" + "}";
         var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
-        var spec = "{ \"ctrl\":"+ctrl+ ",\"events\": [], \"systemtype\": \"image-" + ImageCount + " \"," + position + "},\"visible\":" + visible + "," + size + ",\"itemspec\":{ \"fill\":{ \"type\":" + picType + ",\"locked\":" + locked + ", \"selInitImage\":" + selInitImage + ",\"val\": " + value + ",\"ref\":" + ref + ",\"scale\":" + scale + ",\"opacity\":" + opacity + "},\"type\":" +typeShape + "}, \"opacity\":1, \"id\":\"" + randomID + "\", \"name\": \"image-" + ImageCount + "\"}";
+        var spec = "{ \"ctrl\":"+ctrl+ ",\"events\": [], \"systemtype\": \"image-" + ImageCount + " \"," + position + "},\"visible\":" + visible + "," + size + ",\"itemspec\":{ \"fill\":{ \"type\":" + picType + ",\"locked\":" + locked + ", \"selInitImage\":" + selInitImage + ",\"val\": " + value + ",\"ref\":" + ref + ",\"scale\":" + scale + ",\"opacity\":" + opacity + "},\"type\":" +typeShape;
+        if (shadow == 1) {
+            spec = spec + ", \"shadow\": {\"color\": " + shadowColor + ",\"radius\":{ \"val\": " + shadowRadius + ",\"type\":0}, \"offset\": { \"x\": { \"val\":" + shadowDx + ",\"type\":0}, \"y\":{ \"val\":" + shadowDy + ",\"type\": 0 }}}";
+        }
+        
+        var finalJson = spec + ", \"opacity\":1, \"id\":\"" + randomID + "\", \"name\": \"image-" + ImageCount + "\"}";
         if (ControlNum > 0 ){
             base = base + " , ";
             console.log("WORKING??");
 
         }
         ControlNum++;
-        base = base + spec ;
+        base = base + finalJson ;
         
         }
     
@@ -318,7 +368,7 @@ for(j=0; j < filemain.length; j++){
            }
         if(textvar[0] == "android:gravity"){
             
-            hAlign = "\""+ textvar[1] + "\"";
+            hAlign = textvar[1];
         }
         if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
             if(posSignaly == 1){
@@ -358,16 +408,40 @@ for(j=0; j < filemain.length; j++){
                 posSignaly = 1;
             }
         }
+        
+        if(textvar[0] == "android:shadowColor"){
+            shadowColor = textvar[1];
+            shadow = 1;   
+        }
+        
+        if(textvar[0] == "android:shadowDx"){
+            shadowDx = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+        }
+        
+        if(textvar[0] == "android:shadowDy"){
+            shadowDy = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+
+        }
+           
+        if(textvar[0] == "android:shadowRadius") {
+            shadowRadius = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+        }
        }
         var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}" + "}";
         var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
-        var spec = "{ \"ctrl\":"+ctrl+ ",\"visible\":" + visible + ",\"itemspec\":{ \"states\": [ { \"name\": \"default\", \"normal\": { \"fill\": { \"type\":" + type + ",\"val\": \"-Component Primary-\" }, \"cornerradius\":{ \"val\": 0, \"type\": 0 }, \"type\": \"rectangle\", \"tapthrough\": true, \"label\":{ \"val\":{ \"en_US\":" + value + " }, \"offset\": { \"val\": 0, \"type\": 0 },\"hAlign\": \"center\", \"vAlign\": \"center\", \"color\":" + Color + "," + font +" } }, \"pressed\": { \"fill\": { \"type\": 0, \"val\": \"-Component Secondary-\" } }, \"disabled\": { \"fill\": { \"type\": 0, \"val\": \"-Component Accent-\" }, \"label\": { \"color\": \"-Text Secondary-\" } } } ], \"margins\": { \"x\": { \"val\": 10,\"type\": 0 }, \"y\": { \"val\": 0, \"type\": 0 } } }, \"opacity\": 1, \"events\": []," + size + "," + position + "}," + "\"id\": \"" + randomID + "\", \"name\": \"button-" + ButtonCount + "\", \"systemtype\" : \"button-" + ButtonCount + "\"}";
+        var spec = "{ \"ctrl\":"+ctrl+ ",\"visible\":" + visible + ",\"itemspec\":{ \"states\": [ { \"name\": \"default\", \"normal\": { \"fill\": { \"type\":" + type + ",\"val\": \"-Component Primary-\" }, \"cornerradius\":{ \"val\": 0, \"type\": 0 }, \"type\": \"rectangle\", \"tapthrough\": true, \"label\":{ \"val\":{ \"en_US\":" + value + " }, \"offset\": { \"val\": 0, \"type\": 0 },\"hAlign\": \"center\", \"vAlign\": \"center\"," + Color + "," + font +" } }, \"pressed\": { \"fill\": { \"type\": 0, \"val\": \"-Component Secondary-\" } }, \"disabled\": { \"fill\": { \"type\": 0, \"val\": \"-Component Accent-\" }, \"label\": { \"color\": \"-Text Secondary-\" } } } ], \"margins\": { \"x\": { \"val\": 10,\"type\": 0 }, \"y\": { \"val\": 0, \"type\": 0 } } "
+        
+        if (shadow == 1) {
+            spec = spec + ", \"shadow\": {\"color\": " + shadowColor + ",\"radius\":{ \"val\": " + shadowRadius + ",\"type\":0}, \"offset\": { \"x\": { \"val\":" + shadowDx + ",\"type\":0}, \"y\":{ \"val\":" + shadowDy + ",\"type\": 0 }}}";
+        }
+        
+        var finalJson = spec + "}, \"opacity\": 1, \"events\": []," + size + "," + position + "}," + "\"id\": \"" + randomID + "\", \"name\": \"button-" + ButtonCount + "\", \"systemtype\" : \"button-" + ButtonCount + "\"}";
         if (ControlNum > 0 ){
             base = base + " , ";   
         }
         ControlNum++;
 
-        base = base + spec ;
+        base = base + finalJson ;
     }
     
     
@@ -433,7 +507,7 @@ for(j=0; j < filemain.length; j++){
            }
         if(textvar[0] == "android:gravity"){
             
-            hAlign = "\""+ textvar[1] + "\"";
+            hAlign = textvar[1];
         }
            
         if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
@@ -557,7 +631,7 @@ for(j=0; j < filemain.length; j++){
            }
         if(textvar[0] == "android:gravity"){
             
-            hAlign = "\""+ textvar[1] + "\"";
+            hAlign = textvar[1];
         }
         if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
             if(posSignaly == 1){
@@ -609,7 +683,7 @@ for(j=0; j < filemain.length; j++){
        }
         var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}" + "}";
         var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
-        var spec = "{ \"ctrl\":" + ctrl + ",\"systemtype\": \"listcollection-"+ ListCount +"\",\"visible\":" + visible + ",\"itemspec\":{ \"datatype\": 1, \"paging\": false, \"bounces\": true, \"showscroll\": false, \"label\": { \"itemspec\":{ \"font\":{ \"name\": \"Normal\", \"size\":{ \"val\":30, \"type\":0 } }, \"color\":\"#ffffffff\",\"hAlign\":\"center\", \"vAlign\":\"center\", \"val\":{ \"en_US\": \"\" }}, \"val\":{\"en_US\":\"\"}, \"ctrl\": 3, \"position\":{ \"x\":{ \"type\" : 1, \"reltype\": 1, \"val\":0 }, \"y\": { \"type\": 1, \"reltype\": 1, \"val\": 0 } }, \"size\":{\"w\": { \"val\":1, \"type\":1, \"reltype\": 0}, \"h\": { \"val\":1, \"type\": 1, \"reltype\": 3} }, \"visible\":" + visible + ",\"opacity\":1, \"type\": \"standard\",\"id\": \"" + randomID + "_label\" }, \"scrollstyle\": 0, \"spacing\":{ \"size\": {\"val\": 6, \"type\":0 }, \"fill\": { \"type\": -1 } }, \"views\": [{ \"view\": { \"route\" : \"panels\", \"ident\": \"listitem1\", \"background\": { \"type\": -1}, \"controls\":[], \"size\": { \"w\": { \"type\" : 1, \"val\" :1}, \"h\": { \"type\" : 1, \"val\" :1 } }, \"position\" : { \"y\" : { \"type\" : 1, \"val\" : 0}, \"x\": { \"type\" : 1, \"val\" :0 } } }, \"template\" : true } ], \"visibleitems\": 3, \"links\": [] }, \"opacity\": 1, \"events\": [], " + size + "," + position + "}," + "\"id\": \"" + randomID + "\", \"name\": \"listcollection-" + ListCount + "\"}";
+        var spec = "{ \"ctrl\":" + ctrl + ",\"systemtype\": \"listcollection-"+ ListCount +"\",\"visible\":" + visible + ",\"itemspec\":{ \"datatype\": 1, \"paging\": false, \"bounces\": true, \"showscroll\": false, \"label\": { \"itemspec\":{ " + font + ", " + Color + ",\"hAlign\":" + hAlign + ", \"vAlign\":\"center\", \"val\":{ \"en_US\": \"\" }}, \"val\":{\"en_US\":\"\"}, \"ctrl\": 3, \"position\":{ \"x\":{ \"type\" : 1, \"reltype\": 1, \"val\":0 }, \"y\": { \"type\": 1, \"reltype\": 1, \"val\": 0 } }, \"size\":{\"w\": { \"val\":1, \"type\":1, \"reltype\": 0}, \"h\": { \"val\":1, \"type\": 1, \"reltype\": 3} }, \"visible\":" + visible + ",\"opacity\":1, \"type\": \"standard\",\"id\": \"" + randomID + "_label\" }, \"scrollstyle\": 0, \"spacing\":{ \"size\": {\"val\": 6, \"type\":0 }, \"fill\": { \"type\": -1 } }, \"views\": [{ \"view\": { \"route\" : \"panels\", \"ident\": \"listitem1\", \"background\": { \"type\": -1}, \"controls\":[], \"size\": { \"w\": { \"type\" : 1, \"val\" :1}, \"h\": { \"type\" : 1, \"val\" :1 } }, \"position\" : { \"y\" : { \"type\" : 1, \"val\" : 0}, \"x\": { \"type\" : 1, \"val\" :0 } } }, \"template\" : true } ], \"visibleitems\": 3, \"links\": [] }, \"opacity\": 1, \"events\": [], " + size + "," + position + "}," + "\"id\": \"" + randomID + "\", \"name\": \"listcollection-" + ListCount + "\"}";
         if (ControlNum > 0 ){
             base = base + " , ";   
         }
@@ -678,7 +752,7 @@ for(j=0; j < filemain.length; j++){
            }
         if(textvar[0] == "android:gravity"){
             
-            hAlign = "\""+ textvar[1] + "\"";
+            hAlign = textvar[1];
         }
         if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
             if(posSignaly == 1){
@@ -730,7 +804,7 @@ for(j=0; j < filemain.length; j++){
        }
         var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}" + "}";
         var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
-        var spec = "{ \"ctrl\":" + ctrl + ",\"systemtype\": \"gridcollection-" +GridCount+ "\",\"visible\":" + visible + ",\"itemspec\":{ \"datatype\": 1, \"paging\": false, \"bounces\": true, \"showscroll\": false, \"label\": { \"itemspec\":{ \"font\":{ \"name\": \"Normal\", \"size\":{ \"val\":30, \"type\":0 } }, \"color\":\"#ffffffff\",\"hAlign\":\"center\", \"vAlign\":\"center\", \"val\":{ \"en_US\": \"\" }}, \"val\":{\"en_US\":\"\"}, \"ctrl\": 3, \"position\":{ \"x\":{ \"type\" : 1, \"reltype\": 1, \"val\":0 }, \"y\": { \"type\": 1, \"reltype\": 1, \"val\": 0 } }, \"size\":{\"w\": { \"val\":1, \"type\":1, \"reltype\": 0}, \"h\": { \"val\":1, \"type\": 1, \"reltype\": 3} }, \"visible\":" + visible + ",\"opacity\":1, \"type\": \"standard\",\"id\": \"5980e9e8e72038eea896e598_label\" }, \"scrollstyle\": 0, \"spacing\":{ \"size\": {\"val\": 6, \"type\":0 }, \"fill\": { \"type\": -1 } }, \"views\": [{ \"view\": { \"route\" : \"panels\", \"ident\": \"griditem1\", \"background\": { \"type\": -1}, \"controls\":[], \"size\": { \"w\": { \"type\" : 1, \"val\" :1}, \"h\": { \"type\" : 1, \"val\" :1 } }, \"position\" : { \"y\" : { \"type\" : 1, \"val\" : 0}, \"x\": { \"type\" : 1, \"val\" :0 } } }, \"template\" : true } ], \"visibleitems\": 3, \"visiblecols\": 3, \"links\": [] }, \"opacity\": 1, \"events\": [], " + size + "," + position + "}, \"id\": \"" + randomID + "\", \"name\": \"gridcollection-" + GridCount + "\"}";
+        var spec = "{ \"ctrl\":" + ctrl + ",\"systemtype\": \"gridcollection-" +GridCount+ "\",\"visible\":" + visible + ",\"itemspec\":{ \"datatype\": 1, \"paging\": false, \"bounces\": true, \"showscroll\": false, \"label\": { \"itemspec\":{ " + font + "," + Color + ",\"hAlign\":" + hAlign + ", \"vAlign\":\"center\", \"val\":{ \"en_US\": \"\" }}, \"val\":{\"en_US\":\"\"}, \"ctrl\": 3, \"position\":{ \"x\":{ \"type\" : 1, \"reltype\": 1, \"val\":0 }, \"y\": { \"type\": 1, \"reltype\": 1, \"val\": 0 } }, \"size\":{\"w\": { \"val\":1, \"type\":1, \"reltype\": 0}, \"h\": { \"val\":1, \"type\": 1, \"reltype\": 3} }, \"visible\":" + visible + ",\"opacity\":1, \"type\": \"standard\",\"id\": \"5980e9e8e72038eea896e598_label\" }, \"scrollstyle\": 0, \"spacing\":{ \"size\": {\"val\": 6, \"type\":0 }, \"fill\": { \"type\": -1 } }, \"views\": [{ \"view\": { \"route\" : \"panels\", \"ident\": \"griditem1\", \"background\": { \"type\": -1}, \"controls\":[], \"size\": { \"w\": { \"type\" : 1, \"val\" :1}, \"h\": { \"type\" : 1, \"val\" :1 } }, \"position\" : { \"y\" : { \"type\" : 1, \"val\" : 0}, \"x\": { \"type\" : 1, \"val\" :0 } } }, \"template\" : true } ], \"visibleitems\": 3, \"visiblecols\": 3, \"links\": [] }, \"opacity\": 1, \"events\": [], " + size + "," + position + "}, \"id\": \"" + randomID + "\", \"name\": \"gridcollection-" + GridCount + "\"}";
         if (ControlNum > 0 ){
             base = base + " , ";   
         }
@@ -797,7 +871,7 @@ for(j=0; j < filemain.length; j++){
            }
         if(textvar[0] == "android:gravity"){
             
-            hAlign = "\""+ textvar[1] + "\"";
+            hAlign = textvar[1];
         }
         if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
             if(posSignaly == 1){
@@ -829,7 +903,7 @@ for(j=0; j < filemain.length; j++){
             }
         }
         if(textvar[0] == "app:layout_constraintTop_toTopOf"){
-            if(posSignaly == 1){
+            if(posSignaly == 1){it 
                 reltypeY = 1;
             }
             else{
@@ -846,10 +920,28 @@ for(j=0; j < filemain.length; j++){
             positionX = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
             
         }
+           
+        if(textvar[0] == "android:shadowColor"){
+            shadowColor = textvar[1];
+            shadow = 1;   
+        }
+        
+        if(textvar[0] == "android:shadowDx"){
+            shadowDx = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+        }
+        
+        if(textvar[0] == "android:shadowDy"){
+            shadowDy = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+
+        }
+           
+        if(textvar[0] == "android:shadowRadius") {
+            shadowRadius = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+        }
        }
         var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}" + "}";
         var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
-        var spec = "{\"ctrl\":" + ctrl + ",\"visible\":" + visible + ",\"itemspec\":{ \"initialState\": 0, \"type\": \"toggle\", \"states\": [ { \"name\":\"default\", \"normal\": { \"type\": \"rectangle\", \"fill\": { \"type\" : -1 }, \"label\": { \"font\" : { \"name\": \"System\", \"size\": { \"val\" : 0.6, \"type\":1 } }, \"color\": \"-Text Primary-\", \"vAlign\":\"center\", \"hAlign\": \"left\", \"offset\": { \"val\": 10, \"type\" : 0}, \"val\": { \"en_US\":" + value + "} }, \"icon\": { \"size\" : { \"w\": { \"val\": 1, \"type\": 3 }, \"h\":{ \"val\" : 0.8, \"type\" : 1} }, \"image\" : { \"ref\" : \"sys\", \"val\" : \"checkbox_checkbox_off.svg\", \"type\": 1, \"color\": \"-Component Primary-\" }, \"align\": \"left\" } }}, { \"name\": \"selected\", \"normal\": { \"icon\": { \"image\": { \"ref\":\"sys\", \"val\":\"checkbox_checkbox_on.svg\", \"type\": 1, \"color\": \"-Component Primary-\" } } } }  ] , \"margins\" : { \"x\": { \"val\": 0, \"type\":0 }, \"y\" : { \"val\": 0, \"type\": 0} } }, \"opacity\": 1, \"events\": []," + size + "," + position + " }, \"id\": \"" + randomID + "\", \"name\": \"toggle-" + CheckCount + "\", \"systemtype\" : \"toggle-" + CheckCount + "\"}";
+        var spec = "{\"ctrl\":" + ctrl + ",\"visible\":" + visible + ",\"itemspec\":{ \"initialState\": 0, \"type\": \"toggle\", \"states\": [ { \"name\":\"default\", \"normal\": { \"type\": \"rectangle\", \"fill\": { \"type\" : -1 }, \"label\": { " + font + "," + Color + ", \"vAlign\":\"center\", \"hAlign\": \"left\", \"offset\": { \"val\": 10, \"type\" : 0}, \"val\": { \"en_US\":" + value + "} }, \"icon\": { \"size\" : { \"w\": { \"val\": 1, \"type\": 3 }, \"h\":{ \"val\" : 0.8, \"type\" : 1} }, \"image\" : { \"ref\" : \"sys\", \"val\" : \"checkbox_checkbox_off.svg\", \"type\": 1, \"color\": \"-Component Primary-\" }, \"align\": \"left\" } }}, { \"name\": \"selected\", \"normal\": { \"icon\": { \"image\": { \"ref\":\"sys\", \"val\":\"checkbox_checkbox_on.svg\", \"type\": 1, \"color\": \"-Component Primary-\" } } } }  ] , \"margins\" : { \"x\": { \"val\": 0, \"type\":0 }, \"y\" : { \"val\": 0, \"type\": 0} } }, \"opacity\": 1, \"events\": []," + size + "," + position + " }, \"id\": \"" + randomID + "\", \"name\": \"toggle-" + CheckCount + "\", \"systemtype\" : \"toggle-" + CheckCount + "\"}";
         if (ControlNum > 0 ){
             base = base + " , ";   
         }
@@ -918,7 +1010,7 @@ for(j=0; j < filemain.length; j++){
            }
         if(textvar[0] == "android:gravity"){
             
-            hAlign = "\""+ textvar[1] + "\"";
+            hAlign = textvar[1];
         }
         if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
             if(posSignaly == 1){
@@ -970,7 +1062,7 @@ for(j=0; j < filemain.length; j++){
        }
         var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}" + "}";
         var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
-        var spec = "{\"ctrl\":" + ctrl + ",\"visible\":" + visible + ",\"itemspec\":{ \"initialState\": 0, \"type\": \"radio\", \"states\": [ { \"name\":\"default\", \"normal\": { \"type\": \"rectangle\", \"fill\": { \"type\" : -1 }, \"label\": { " + font + "," + color + ", \"vAlign\":\"center\", \"hAlign\": \"left\", \"offset\": { \"val\": 10, \"type\" : 0}, \"val\": { \"en_US\":" + value + " } }, \"icon\": { \"size\" : { \"w\": { \"val\": 1, \"type\": 3 }, \"h\":{ \"val\" : 0.8, \"type\" : 1} }, \"image\" : { \"ref\" : \"sys\", \"val\" : \"checkbox_radio_off.svg\", \"type\": 1, \"color\": \"-Component Primary-\" }, \"align\": \"left\" } }}, { \"name\": \"selected\", \"normal\": { \"icon\": { \"image\": { \"ref\":\"sys\", \"val\":\"checkbox_radio_on.svg\", \"type\": 1, \"color\": \"-Component Primary-\" } } } }  ] , \"margins\" : { \"x\": { \"val\": 0, \"type\":0 }, \"y\" : { \"val\": 0, \"type\": 0} } }, \"opacity\": 1, \"events\": []," + size + "," + position + " }, \"id\": \"" + randomID + "\", \"name\": \"radio-" + RadioCount + "\", \"systemtype\" : \"radio-" + RadioCount + "\"}";
+        var spec = "{\"ctrl\":" + ctrl + ",\"visible\":" + visible + ",\"itemspec\":{ \"initialState\": 0, \"type\": \"radio\", \"states\": [ { \"name\":\"default\", \"normal\": { \"type\": \"rectangle\", \"fill\": { \"type\" : -1 }, \"label\": { " + font + "," + Color + ", \"vAlign\":\"center\", \"hAlign\": \"left\", \"offset\": { \"val\": 10, \"type\" : 0}, \"val\": { \"en_US\":" + value + " } }, \"icon\": { \"size\" : { \"w\": { \"val\": 1, \"type\": 3 }, \"h\":{ \"val\" : 0.8, \"type\" : 1} }, \"image\" : { \"ref\" : \"sys\", \"val\" : \"checkbox_radio_off.svg\", \"type\": 1, \"color\": \"-Component Primary-\" }, \"align\": \"left\" } }}, { \"name\": \"selected\", \"normal\": { \"icon\": { \"image\": { \"ref\":\"sys\", \"val\":\"checkbox_radio_on.svg\", \"type\": 1, \"color\": \"-Component Primary-\" } } } }  ] , \"margins\" : { \"x\": { \"val\": 0, \"type\":0 }, \"y\" : { \"val\": 0, \"type\": 0} } }, \"opacity\": 1, \"events\": []," + size + "," + position + " }, \"id\": \"" + randomID + "\", \"name\": \"radio-" + RadioCount + "\", \"systemtype\" : \"radio-" + RadioCount + "\"}";
         if (ControlNum > 0 ){
             base = base + " , ";   
         }
@@ -1039,7 +1131,7 @@ for(j=0; j < filemain.length; j++){
            }
         if(textvar[0] == "android:gravity"){
             
-            hAlign = "\""+ textvar[1] + "\"";
+            hAlign = textvar[1];
         }
         if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
             if(posSignaly == 1){
@@ -1088,16 +1180,41 @@ for(j=0; j < filemain.length; j++){
             positionX = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
             
         }
+           
+        if(textvar[0] == "android:shadowColor"){
+            shadowColor = textvar[1];
+            shadow = 1;   
+        }
+        
+        if(textvar[0] == "android:shadowDx"){
+            shadowDx = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+        }
+        
+        if(textvar[0] == "android:shadowDy"){
+            shadowDy = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+
+        }
+           
+        if(textvar[0] == "android:shadowRadius") {
+            shadowRadius = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+        }
+           
        }
         var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}" + "}";
         var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
-        var spec = "{ \"ctrl\":" + ctrl + ",\"visible\":" + visible + ",\"itemspec\":{ \"placeholder\": { \"color\": \"-Text Secondary-\", \"val\": { \"en_US\": \"placeholder text\"} }, \"numlines\": 1, \"returnkeytype\": 0, \"autocorrect\": false, \"autocaps\": 0, \"keyboardtype\": 0, \"password\": false, \"focuskeyboard\": true, \"clearsonedit\": false, \"background\": { \"fill\": { \"type\": 0 , \"val\": \"-Text Reversed-\"}, \"type\": \"rectangle\", \"border\" : { \"width\": { \"val\" : 2, \"type\": 0}, \"color\":\"-Text Secondary-\"}, \"visible\":true}, \"val\": { \"en_US\":" + value + "}, \"hAlign\": \"left\", \"font\": { \"name\": \"System\", \"size\": { \"val\": 0.5, \"type\":1 }}, \"color\": \"-Text Primary-\", \"margins\": { \"x\": { \"val\": 5, \"type\":0 }}}, \"opacity\": 1, \"type\" : \"standard\", \"id\": \"" + randomID + "\", \"name\": \"userinput-" + EditCount + "\", \"systemtype\": \"userinput-" + EditCount + "\", \"events\": [], " + size + "," +position + "} }";
+        var spec = "{ \"ctrl\":" + ctrl + ",\"visible\":" + visible + ",\"itemspec\":{ \"placeholder\": { \"color\": \"-Text Secondary-\", \"val\": { \"en_US\": \"placeholder text\"} }, \"numlines\": 1, \"returnkeytype\": 0, \"autocorrect\": false, \"autocaps\": 0, \"keyboardtype\": 0, \"password\": false, \"focuskeyboard\": true, \"clearsonedit\": false, \"background\": { \"fill\": { \"type\": 0 , \"val\": \"-Text Reversed-\"}, \"type\": \"rectangle\", \"border\" : { \"width\": { \"val\" : 2, \"type\": 0}, \"color\":\"-Text Secondary-\"}, \"visible\":true}, \"val\": { \"en_US\":" + value + "}, \"hAlign\": \"left\", \"font\": { \"name\": \"System\", \"size\": { \"val\": 0.5, \"type\":1 }}, \"color\": \"-Text Primary-\", \"margins\": { \"x\": { \"val\": 5, \"type\":0 }}
+        
+        if (shadow == 1) {
+            spec = spec + ", \"shadow\": {\"color\": " + shadowColor + ",\"radius\":{ \"val\": " + shadowRadius + ",\"type\":0}, \"offset\": { \"x\": { \"val\":" + shadowDx + ",\"type\":0}, \"y\":{ \"val\":" + shadowDy + ",\"type\": 0 }}}";
+        }
+        
+        var finalJson = spec + "}, \"opacity\": 1, \"type\" : \"standard\", \"id\": \"" + randomID + "\", \"name\": \"userinput-" + EditCount + "\", \"systemtype\": \"userinput-" + EditCount + "\", \"events\": [], " + size + "," +position + "} }";
         if (ControlNum > 0 ){
             base = base + " , ";   
         }
         ControlNum++;
 
-        base = base + spec ;
+        base = base + finalJson ;
     }
     
     //Switch
@@ -1133,11 +1250,7 @@ for(j=0; j < filemain.length; j++){
 
             value = textvar[1];
         }
-        if(textvar[0] == "android:rotation"){
-
-            rotation = textvar[1];   
-           }
-        
+           
         if(textvar[0] == "android:textSize"){
             
             fontSize = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
@@ -1159,7 +1272,7 @@ for(j=0; j < filemain.length; j++){
            }
         if(textvar[0] == "android:gravity"){
             
-            hAlign = "\""+ textvar[1] + "\"";
+            hAlign = textvar[1];
         }
         if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
             if(posSignaly == 1){
@@ -1280,7 +1393,7 @@ for(j=0; j < filemain.length; j++){
            }
         if(textvar[0] == "android:gravity"){
             
-            hAlign = "\""+ textvar[1] + "\"";
+            hAlign = textvar[1];
         }
         if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
             if(posSignaly == 1){
@@ -1329,16 +1442,40 @@ for(j=0; j < filemain.length; j++){
             positionX = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
             
         }
+           
+        if(textvar[0] == "android:shadowColor"){
+            shadowColor = textvar[1];
+            shadow = 1;   
+        }
+        
+        if(textvar[0] == "android:shadowDx"){
+            shadowDx = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+        }
+        
+        if(textvar[0] == "android:shadowDy"){
+            shadowDy = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+
+        }
+           
+        if(textvar[0] == "android:shadowRadius") {
+            shadowRadius = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+        }
        }
         var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}" + "}";
         var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
-        var spec = "{ \"ctrl\":" + ctrl + ",\"visible\":" + visible + ",\"itemspec\":{\"animations\": { \"value\": { \"damping\": 0.9, \"duration\": 0.5} }, \"thumb\": { \"fill\": { \"opacity\" : 1, \"val\": \"-Component Primary\", \"type\": 0 }, \"type\" : \"ellipse\", \"position\": { \"x\": { \"val\": -0.030000000000000002, \"type\" : 1 }, \"y\": { \"val\" : 0, \"type\" : 1 }}, \"size\": { \"w\": { \"val\" : 1, \"type\" : 3, \"reltype\" : 0}, \"h\":{ \"val\":1, \"type\":1, \"reltype\": 3}}, \"visible\": true }, \"bar\": { \"fill\" :{ \"opacity\": 1, \"val\": \"-Component Primary-\", \"type\": 0 }, \"type\" : \"rectangle\", \"position\": { \"x\": { \"val\" : 0, \"type\":1, \"reltype\": 0 }, \"y\": { \"val\": 0.25, \"type\":1, \"reltype\":3 }}, \"size\": { \"w\":{ \"val\" :1, \"type\": 1, \"reltype\" : 0 }, \"h\": { \"val\": 0.5, \"type\":1, \"reltype\":3 }}, \"visible\": true }, \"background\": { \"fill\": { \"opacity\": 1, \"val\" :\"-Component Accent-\", \"type\": 0},\"type\":\"rectangle\", \"position\": { \"x\": { \"val\":0, \"type\" : 1, \"reltype\" : 0 }, \"y\": { \"val\": 0.25, \"type\" : 1, \"reltype\" : 3 }}, \"size\": { \"w\":{ \"val\":1, \"type\": 1, \"reltype\":0}, \"h\":{ \"val\": 0.5, \"type\": 1, \"reltype\" : 3}}, \"visible\":true}, \"value\": 20, \"max\":100, \"min\":0, \"orientation\":1 }, \"events\": [], " + size + "," + position + "} ," + " \"opacity\":1, \"id\": \"" + randomID + "\", \"name\": \"slider-"+SeekCount + "\", \"systemtype\": \"slider-" + SeekCount + "\" }";
+        var spec = "{ \"ctrl\":" + ctrl + ",\"visible\":" + visible + ",\"itemspec\":{\"animations\": { \"value\": { \"damping\": 0.9, \"duration\": 0.5} }, \"thumb\": { \"fill\": { \"opacity\" : 1, \"val\": \"-Component Primary-\", \"type\": 0 }, \"type\" : \"ellipse\", \"position\": { \"x\": { \"val\": -0.030000000000000002, \"type\" : 1 }, \"y\": { \"val\" : 0, \"type\" : 1 }}, \"size\": { \"w\": { \"val\" : 1, \"type\" : 3, \"reltype\" : 0}, \"h\":{ \"val\":1, \"type\":1, \"reltype\": 3}}, \"visible\": true }, \"bar\": { \"fill\" :{ \"opacity\": 1, \"val\": \"-Component Primary-\", \"type\": 0 }, \"type\" : \"rectangle\", \"position\": { \"x\": { \"val\" : 0, \"type\":1, \"reltype\": 0 }, \"y\": { \"val\": 0.25, \"type\":1, \"reltype\":3 }}, \"size\": { \"w\":{ \"val\" :1, \"type\": 1, \"reltype\" : 0 }, \"h\": { \"val\": 0.5, \"type\":1, \"reltype\":3 }}, \"visible\": true }, \"background\": { \"fill\": { \"opacity\": 1, \"val\" :\"-Component Accent-\", \"type\": 0},\"type\":\"rectangle\", \"position\": { \"x\": { \"val\":0, \"type\" : 1, \"reltype\" : 0 }, \"y\": { \"val\": 0.25, \"type\" : 1, \"reltype\" : 3 }}, \"size\": { \"w\":{ \"val\":1, \"type\": 1, \"reltype\":0}, \"h\":{ \"val\": 0.5, \"type\": 1, \"reltype\" : 3}}, \"visible\":true}, \"value\": 20, \"max\":100, \"min\":0, \"orientation\":1 
+        
+        if (shadow == 1) {
+            spec = spec + ", \"shadow\": {\"color\": " + shadowColor + ",\"radius\":{ \"val\": " + shadowRadius + ",\"type\":0}, \"offset\": { \"x\": { \"val\":" + shadowDx + ",\"type\":0}, \"y\":{ \"val\":" + shadowDy + ",\"type\": 0 }}}";
+        }
+        
+        var finalJson = spec + "}, \"events\": [], " + size + "," + position + "} ," + " \"opacity\":1, \"id\": \"" + randomID + "\", \"name\": \"slider-"+SeekCount + "\", \"systemtype\": \"slider-" + SeekCount + "\" }";
         if (ControlNum > 0 ){
             base = base + " , ";   
         }
         ControlNum++;
 
-        base = base + spec ;
+        base = base + finalJson ;
     }
     
     //ProgressBar
@@ -1409,7 +1546,7 @@ for(j=0; j < filemain.length; j++){
            }
         if(textvar[0] == "android:gravity"){
             
-            hAlign = "\""+ textvar[1] + "\"";
+            hAlign = textvar[1];
         }
         if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
             if(posSignaly == 1){
@@ -1458,14 +1595,43 @@ for(j=0; j < filemain.length; j++){
             positionX = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
             
         }
+        if(textvar[0] == "android:shadowColor"){
+            shadowColor = textvar[1];
+            shadow = 1;   
+        }
+        
+        if(textvar[0] == "android:shadowDx"){
+            shadowDx = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+        }
+        
+        if(textvar[0] == "android:shadowDy"){
+            shadowDy = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+
+        }
+           
+        if(textvar[0] == "android:shadowRadius") {
+            shadowRadius = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+        }
        }
         var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}" + "}";
         var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
         if (ctrl == 31){
-            var spec = "{ \"ctrl\":" + ctrl + ",\"visible\":" + visible + ",\"itemspec\":{\"animations\": { \"value\": { \"damping\": 0.9, \"duration\": 0.5} }, \"thumb\": { \"fill\": { \"opacity\" : 1, \"val\": \"-Component Primary\", \"type\": 0 }, \"type\" : \"ellipse\", \"position\": { \"x\": { \"val\": -0.030000000000000002, \"type\" : 1 }, \"y\": { \"val\" : 0, \"type\" : 1 }}, \"size\": { \"w\": { \"val\" : 1, \"type\" : 3, \"reltype\" : 0}, \"h\":{ \"val\":1, \"type\":1, \"reltype\": 3}}, \"visible\": false }, \"bar\": { \"fill\" :{ \"opacity\": 1, \"val\": \"-Component Primary-\", \"type\": 0 }, \"type\" : \"rectangle\", \"position\": { \"x\": { \"val\" : 0, \"type\":1, \"reltype\": 0 }, \"y\": { \"val\": 0, \"type\":1, \"reltype\":3 }}, \"size\": { \"w\":{ \"val\" :1, \"type\": 1, \"reltype\" : 0 }, \"h\": { \"val\": 0.5, \"type\":1, \"reltype\":3 }}, \"visible\": true }, \"background\": { \"fill\": { \"opacity\": 1, \"val\" :\"-Component Accent-\", \"type\": 0},\"type\":\"rectangle\", \"position\": { \"x\": { \"val\":0, \"type\" : 1, \"reltype\" : 0 }, \"y\": { \"val\": 0, \"type\" : 1, \"reltype\" : 3 }}, \"size\": { \"w\":{ \"val\":1, \"type\": 1, \"reltype\":0}, \"h\":{ \"val\": 0.5, \"type\": 1, \"reltype\" : 3}}, \"visible\":true}, \"value\": 20, \"max\":100, \"min\":0, \"orientation\":1 }, \"opacity\":1, \"id\": \"" + randomID + "\", \"name\": \"progress-" + ProgressCount + "\", \"systemtype\": \"progress-" + ProgressCount + "\", \"events\": [], " + size + "," + position + "} }" ;
+            var spec = "{ \"ctrl\":" + ctrl + ",\"visible\":" + visible + ",\"itemspec\":{\"animations\": { \"value\": { \"damping\": 0.9, \"duration\": 0.5} }, \"thumb\": { \"fill\": { \"opacity\": 0, \"val\": \"-Component Primary-\", \"type\": 0 }, \"type\" : \"ellipse\", \"position\": { \"x\": { \"val\": -0.030000000000000002, \"type\" : 1 }, \"y\": { \"val\" : 0, \"type\" : 1 }}, \"size\": { \"w\": { \"val\" : 1, \"type\" : 3, \"reltype\" : 0}, \"h\":{ \"val\":1, \"type\":1, \"reltype\": 3}}, \"visible\": false }, \"bar\": { \"fill\" :{ \"opacity\": 1, \"val\": \"-Component Primary-\", \"type\": 0 }, \"type\" : \"rectangle\", \"position\": { \"x\": { \"val\" : 0, \"type\":1, \"reltype\": 0 }, \"y\": { \"val\": 0, \"type\":1, \"reltype\":3 }}, \"size\": { \"w\":{ \"val\" :1, \"type\": 1, \"reltype\" : 0 }, \"h\": { \"val\": 0.5, \"type\":1, \"reltype\":3 }}, \"visible\": true }, \"background\": { \"fill\": { \"opacity\": 1, \"val\" :\"-Component Accent-\", \"type\": 0},\"type\":\"rectangle\", \"position\": { \"x\": { \"val\":0, \"type\" : 1, \"reltype\" : 0 }, \"y\": { \"val\": 0, \"type\" : 1, \"reltype\" : 3 }}, \"size\": { \"w\":{ \"val\":1, \"type\": 1, \"reltype\":0}, \"h\":{ \"val\": 0.5, \"type\": 1, \"reltype\" : 3}}, \"visible\":true}, \"value\": 20, \"max\":100, \"min\":0, \"orientation\":1 "
+            
+            if (shadow == 1) {
+                spec = spec + ", \"shadow\": {\"color\": " + shadowColor + ",\"radius\":{ \"val\": " + shadowRadius + ",\"type\":0}, \"offset\": { \"x\": { \"val\":" + shadowDx + ",\"type\":0}, \"y\":{ \"val\":" + shadowDy + ",\"type\": 0 }}}";
+        }
+            
+            var finalJson = spec + "}, \"opacity\":1, \"id\": \"" + randomID + "\", \"name\": \"progress-" + ProgressCount + "\", \"systemtype\": \"progress-" + ProgressCount + "\", \"events\": [], " + size + "," + position + "} }" ;
         }
         if (ctrl == 19){
-            var spec = "{ \"ctrl\":" + ctrl + ",\"visible\":" + visible + ",\"itemspec\":{\"showStates\": false, \"background\": { \"fixedbackground\": true," + size + "," + position + "}, \"border\": { \"width\":{ \"val\": 0.11, \"type\":1 }, \"color\": \"-Component Accent-\" }, \"type\":\"ellipse\", \"fill\": { \"type\":-1 } }, \"bar\": { \"size\":{\"height\":{ \"val\": 0.11, \"type\" :1 }, \"h\":{\"val\":0.11, \"type\":1}}, \"fill\": {\"opacity\":1, \"val\": \"-Component Primary-\", \"type\": 0} }, \"clockwise\": true, \"fillmode\": 0, \"rate\": 1, \"progress\": 65, \"anglerange\": 360, \"startangle\":0, \"max\":100, \"min\":0, \"type\":0, \"radius\":{ \"val\":1, \"type\":1}}, \"opacity\":1, \"id\": \"" + randomID + "\", \"name\": \"progress-" + ProgressCount + "\", \"systemtype\": \"progress-" + ProgressCount + "\", " + size + "," + position + "} }" ;
+            var spec = "{ \"ctrl\":" + ctrl + ",\"visible\":" + visible + ",\"itemspec\":{\"showStates\": false, \"background\": { \"fixedbackground\": true," + size + "," + position + "}, \"border\": { \"width\":{ \"val\": 0.11, \"type\":1 }, \"color\": \"-Component Accent-\" }, \"type\":\"ellipse\", \"fill\": { \"type\":-1 } "
+            
+           if (shadow == 1) {
+            spec = spec + ", \"shadow\": {\"color\": " + shadowColor + ",\"radius\":{ \"val\": " + shadowRadius + ",\"type\":0}, \"offset\": { \"x\": { \"val\":" + shadowDx + ",\"type\":0}, \"y\":{ \"val\":" + shadowDy + ",\"type\": 0 }}}";
+        }
+            
+            var finalJson = spec +"}, \"bar\": { \"size\":{\"height\":{ \"val\": 0.11, \"type\" :1 }, \"h\":{\"val\":0.11, \"type\":1}}, \"fill\": {\"opacity\":1, \"val\": \"-Component Primary-\", \"type\": 0} }, \"clockwise\": true, \"fillmode\": 0, \"rate\": 1, \"progress\": 65, \"anglerange\": 360, \"startangle\":0, \"max\":100, \"min\":0, \"type\":0, \"radius\":{ \"val\":1, \"type\":1}}, \"opacity\":1, \"id\": \"" + randomID + "\", \"name\": \"progress-" + ProgressCount + "\", \"systemtype\": \"progress-" + ProgressCount + "\", " + size + "," + position + "} }" ;
             
         }
         
@@ -1536,7 +1702,7 @@ for(j=0; j < filemain.length; j++){
            }
         if(textvar[0] == "android:gravity"){
             
-            hAlign = "\""+ textvar[1] + "\"";
+            hAlign = textvar[1];
         }
         if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
             if(posSignaly == 1){
@@ -1604,7 +1770,7 @@ for(j=0; j < filemain.length; j++){
 }
 
     base = base + "], \"events\": [], \"systemtype\": \"home\", \"device\": 0, \"platform\": 1, \"orientation\": 3, \"_mergeBase\": {\"ident\": \"598e0e1747d1296735a0a518\", \"name\": { \"en_US\":\"Home\"}, \"_id\":\"598e0e17723970f82be2df75\", \"route\": \"screens\", \"attributes\": null," + base + "], \"events\": [], \"systemtype\": \"home\", \"device\": 0, \"platform\": 1, \"orientation\": 3}, \"attributes\": {} }";
-  // console.log(base);
+   console.log(base);
     
     //console.log(base);
 function uniqueId() {

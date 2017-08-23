@@ -1,15 +1,23 @@
 var fs = require('fs');
 var file = fs.readFileSync("test.xml","utf8");
+var filecolor = fs.readFileSync("colortest.xml","utf8");
 
+console.log(file);
 //Split file by its objects
 var filemain = file.split(/(?=<)/);
+console.log(filemain);
+//var filecolor2 = filecolor.split(/(?=<)/);
+//console.log(filecolor2);
+
 //Split objects into its attributes
     var base = "\"background\": { \"opacity\" : 1, \"val\": \"-Background-\", \"type\":0 }, \"position\": { \"y\":{ \"type\": 1, \"val\": 0 }, \"x\": { \"type\": 1, \"val\" :0 }}, \"size\": { \"w\": { \"type\":1, \"val\":1 }, \"h\": { \"type\":1, \"val\":1 }}, \"controls\": [ ";
     var ControlNum = 0;
 
 for(j=0; j < filemain.length; j++){
-    console.log("looptest");
+    //console.log("looptest");
     var file2 = filemain[j].split('\n');
+    //var filecolor3 = filecolor2[j].split('\n');
+    //console.log(filecolor3);
     var ButtonCount = 0;
     ButtonCount++;
     //Global Base Variables
@@ -41,13 +49,11 @@ for(j=0; j < filemain.length; j++){
     var shadowDx = 0;
     var shadowDy = 0;
     var shadowRadius = 0;
-    console.log(randomID);
     //TextView
     if(file2[0] == "<TextView"){
         ctrl = 3;
         var textcount = 0;
         textcount++;
-        console.log("textview");
         //Parse through each line
        for( i = 1; i < file2.length; i++){
         
@@ -1202,7 +1208,7 @@ for(j=0; j < filemain.length; j++){
        }
         var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}" + "}";
         var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
-        var spec = "{ \"ctrl\":" + ctrl + ",\"visible\":" + visible + ",\"itemspec\":{ \"placeholder\": { \"color\": \"-Text Secondary-\", \"val\": { \"en_US\": \"placeholder text\"} }, \"numlines\": 1, \"returnkeytype\": 0, \"autocorrect\": false, \"autocaps\": 0, \"keyboardtype\": 0, \"password\": false, \"focuskeyboard\": true, \"clearsonedit\": false, \"background\": { \"fill\": { \"type\": 0 , \"val\": \"-Text Reversed-\"}, \"type\": \"rectangle\", \"border\" : { \"width\": { \"val\" : 2, \"type\": 0}, \"color\":\"-Text Secondary-\"}, \"visible\":true}, \"val\": { \"en_US\":" + value + "}, \"hAlign\": \"left\", \"font\": { \"name\": \"System\", \"size\": { \"val\": 0.5, \"type\":1 }}, \"color\": \"-Text Primary-\", \"margins\": { \"x\": { \"val\": 5, \"type\":0 }}
+        var spec = "{ \"ctrl\":" + ctrl + ",\"visible\":" + visible + ",\"itemspec\":{ \"placeholder\": { \"color\": \"-Text Secondary-\", \"val\": { \"en_US\": \"placeholder text\"} }, \"numlines\": 1, \"returnkeytype\": 0, \"autocorrect\": false, \"autocaps\": 0, \"keyboardtype\": 0, \"password\": false, \"focuskeyboard\": true, \"clearsonedit\": false, \"background\": { \"fill\": { \"type\": 0 , \"val\": \"-Text Reversed-\"}, \"type\": \"rectangle\", \"border\" : { \"width\": { \"val\" : 2, \"type\": 0}, \"color\":\"-Text Secondary-\"}, \"visible\":true}, \"val\": { \"en_US\":" + value + "}, \"hAlign\": \"left\", \"font\": { \"name\": \"System\", \"size\": { \"val\": 0.5, \"type\":1 }}, \"color\": \"-Text Primary-\", \"margins\": { \"x\": { \"val\": 5, \"type\":0 }}";
         
         if (shadow == 1) {
             spec = spec + ", \"shadow\": {\"color\": " + shadowColor + ",\"radius\":{ \"val\": " + shadowRadius + ",\"type\":0}, \"offset\": { \"x\": { \"val\":" + shadowDx + ",\"type\":0}, \"y\":{ \"val\":" + shadowDy + ",\"type\": 0 }}}";
@@ -1463,7 +1469,7 @@ for(j=0; j < filemain.length; j++){
        }
         var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}" + "}";
         var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
-        var spec = "{ \"ctrl\":" + ctrl + ",\"visible\":" + visible + ",\"itemspec\":{\"animations\": { \"value\": { \"damping\": 0.9, \"duration\": 0.5} }, \"thumb\": { \"fill\": { \"opacity\" : 1, \"val\": \"-Component Primary-\", \"type\": 0 }, \"type\" : \"ellipse\", \"position\": { \"x\": { \"val\": -0.030000000000000002, \"type\" : 1 }, \"y\": { \"val\" : 0, \"type\" : 1 }}, \"size\": { \"w\": { \"val\" : 1, \"type\" : 3, \"reltype\" : 0}, \"h\":{ \"val\":1, \"type\":1, \"reltype\": 3}}, \"visible\": true }, \"bar\": { \"fill\" :{ \"opacity\": 1, \"val\": \"-Component Primary-\", \"type\": 0 }, \"type\" : \"rectangle\", \"position\": { \"x\": { \"val\" : 0, \"type\":1, \"reltype\": 0 }, \"y\": { \"val\": 0.25, \"type\":1, \"reltype\":3 }}, \"size\": { \"w\":{ \"val\" :1, \"type\": 1, \"reltype\" : 0 }, \"h\": { \"val\": 0.5, \"type\":1, \"reltype\":3 }}, \"visible\": true }, \"background\": { \"fill\": { \"opacity\": 1, \"val\" :\"-Component Accent-\", \"type\": 0},\"type\":\"rectangle\", \"position\": { \"x\": { \"val\":0, \"type\" : 1, \"reltype\" : 0 }, \"y\": { \"val\": 0.25, \"type\" : 1, \"reltype\" : 3 }}, \"size\": { \"w\":{ \"val\":1, \"type\": 1, \"reltype\":0}, \"h\":{ \"val\": 0.5, \"type\": 1, \"reltype\" : 3}}, \"visible\":true}, \"value\": 20, \"max\":100, \"min\":0, \"orientation\":1 
+        var spec = "{ \"ctrl\":" + ctrl + ",\"visible\":" + visible + ",\"itemspec\":{\"animations\": { \"value\": { \"damping\": 0.9, \"duration\": 0.5} }, \"thumb\": { \"fill\": { \"opacity\" : 1, \"val\": \"-Component Primary-\", \"type\": 0 }, \"type\" : \"ellipse\", \"position\": { \"x\": { \"val\": -0.030000000000000002, \"type\" : 1 }, \"y\": { \"val\" : 0, \"type\" : 1 }}, \"size\": { \"w\": { \"val\" : 1, \"type\" : 3, \"reltype\" : 0}, \"h\":{ \"val\":1, \"type\":1, \"reltype\": 3}}, \"visible\": true }, \"bar\": { \"fill\" :{ \"opacity\": 1, \"val\": \"-Component Primary-\", \"type\": 0 }, \"type\" : \"rectangle\", \"position\": { \"x\": { \"val\" : 0, \"type\":1, \"reltype\": 0 }, \"y\": { \"val\": 0.25, \"type\":1, \"reltype\":3 }}, \"size\": { \"w\":{ \"val\" :1, \"type\": 1, \"reltype\" : 0 }, \"h\": { \"val\": 0.5, \"type\":1, \"reltype\":3 }}, \"visible\": true }, \"background\": { \"fill\": { \"opacity\": 1, \"val\" :\"-Component Accent-\", \"type\": 0},\"type\":\"rectangle\", \"position\": { \"x\": { \"val\":0, \"type\" : 1, \"reltype\" : 0 }, \"y\": { \"val\": 0.25, \"type\" : 1, \"reltype\" : 3 }}, \"size\": { \"w\":{ \"val\":1, \"type\": 1, \"reltype\":0}, \"h\":{ \"val\": 0.5, \"type\": 1, \"reltype\" : 3}}, \"visible\":true}, \"value\": 20, \"max\":100, \"min\":0, \"orientation\":1";
         
         if (shadow == 1) {
             spec = spec + ", \"shadow\": {\"color\": " + shadowColor + ",\"radius\":{ \"val\": " + shadowRadius + ",\"type\":0}, \"offset\": { \"x\": { \"val\":" + shadowDx + ",\"type\":0}, \"y\":{ \"val\":" + shadowDy + ",\"type\": 0 }}}";
@@ -1770,7 +1776,7 @@ for(j=0; j < filemain.length; j++){
 }
 
     base = base + "], \"events\": [], \"systemtype\": \"home\", \"device\": 0, \"platform\": 1, \"orientation\": 3, \"_mergeBase\": {\"ident\": \"598e0e1747d1296735a0a518\", \"name\": { \"en_US\":\"Home\"}, \"_id\":\"598e0e17723970f82be2df75\", \"route\": \"screens\", \"attributes\": null," + base + "], \"events\": [], \"systemtype\": \"home\", \"device\": 0, \"platform\": 1, \"orientation\": 3}, \"attributes\": {} }";
-   console.log(base);
+   //console.log(base);
     
     //console.log(base);
 function uniqueId() {

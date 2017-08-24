@@ -2,12 +2,12 @@ var fs = require('fs');
 var file = fs.readFileSync("test.xml","utf8");
 var filecolor = fs.readFileSync("colortest.xml","utf8");
 
-console.log(file);
+var colorVar1 = "colorPrimaryDark";
+console.log(color(colorVar1));
+//console.log(filecolor);
 //Split file by its objects
 var filemain = file.split(/(?=<)/);
-console.log(filemain);
-//var filecolor2 = filecolor.split(/(?=<)/);
-//console.log(filecolor2);
+
 
 //Split objects into its attributes
     var base = "\"background\": { \"opacity\" : 1, \"val\": \"-Background-\", \"type\":0 }, \"position\": { \"y\":{ \"type\": 1, \"val\": 0 }, \"x\": { \"type\": 1, \"val\" :0 }}, \"size\": { \"w\": { \"type\":1, \"val\":1 }, \"h\": { \"type\":1, \"val\":1 }}, \"controls\": [ ";
@@ -16,8 +16,7 @@ console.log(filemain);
 for(j=0; j < filemain.length; j++){
     //console.log("looptest");
     var file2 = filemain[j].split('\n');
-    //var filecolor3 = filecolor2[j].split('\n');
-    //console.log(filecolor3);
+
     var ButtonCount = 0;
     ButtonCount++;
     //Global Base Variables
@@ -1784,5 +1783,28 @@ function uniqueId() {
     return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g,() => {
         return(Math.random()*16|0).toString(16);
     })
+    
+}
+
+function color(colorVar){
+    
+    //var filecolor2 = filecolor.split(/(?=<)/);
+    var filecolor2 = filecolor.split('\n');
+    console.log(filecolor2);
+    for(j=2; j < filecolor2.length; j++){
+        filecolor3 = filecolor2[j].split('<');
+        filecolor3 = filecolor3[1].split('>');
+        var colorIdent = filecolor2[1];
+        filecolor3 = filecolor3[0].split('=');
+        var colorName = filecolor3[1].replace(/"/g, "");
+            if (colorName == colorVar){
+                break;
+            }
+    }
+    /*console.log(colorIdent);
+    console.log(colorName);
+    console.log(colorVar);*/
+    
+        return colorIdent;
     
 }

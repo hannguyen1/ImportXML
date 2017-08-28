@@ -1,9 +1,12 @@
 var fs = require('fs');
 var file = fs.readFileSync("test.xml","utf8");
 var filecolor = fs.readFileSync("colortest.xml","utf8");
+var filestring = fs.readFileSync("stringtest.xml","utf8");
 
 var colorVar1 = "colorPrimaryDark";
-console.log(color(colorVar1));
+var stringVar1 = "app_name";
+//console.log(color(colorVar1));
+console.log(string(stringVar1));
 //console.log(filecolor);
 //Split file by its objects
 var filemain = file.split(/(?=<)/);
@@ -77,7 +80,8 @@ for(j=0; j < filemain.length; j++){
 
         }
         if(textvar[0] == "android:text"){
-
+            StringRef = textvar[1].split("/");
+            console.log(StringRef);
             value = textvar[1];
         }
            
@@ -159,16 +163,19 @@ for(j=0; j < filemain.length; j++){
         }
         
         if(textvar[0] == "android:shadowDx"){
-            shadowDx = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+              shadowDx = textvar[1].split("\"");
+              console.log(parseFloat(shadowDx[1]))
         }
         
         if(textvar[0] == "android:shadowDy"){
-            shadowDy = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
-
+              shadowDy = textvar[1].split("\"");
+              console.log(parseFloat(shadowDy[1]))
         }
            
         if(textvar[0] == "android:shadowRadius") {
-            shadowRadius = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+              shadowRadius = textvar[1].split("\"");
+              console.log(parseFloat(shadowRadius[1]));
+            //shadowRadius = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
         }
        }
         
@@ -298,7 +305,7 @@ for(j=0; j < filemain.length; j++){
         value = "\"default_image.svg\"";
         var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}" + "}";
         var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
-        var spec = "{ \"ctrl\":"+ctrl+ ",\"events\": [], \"systemtype\": \"image-" + ImageCount + " \"," + position + "},\"visible\":" + visible + "," + size + ",\"itemspec\":{ \"fill\":{ \"type\":" + picType + ",\"locked\":" + locked + ", \"selInitImage\":" + selInitImage + ",\"val\": " + value + ",\"ref\":" + ref + ",\"scale\":" + scale + ",\"opacity\":" + opacity + "},\"type\":" +typeShape;
+        var spec = "{ \"ctrl\":"+ctrl+ ",\"events\": [], \"systemtype\": \"image-" + ImageCount + " \"," + position + "},\"visible\":" + visible + "," + size + ",\"itemspec\":{ \"fill\":{ \"type\":" + picType + ",\"locked\":" + locked + ", \"selInitImage\":" + selInitImage + ",\"val\": " + value + ",\"ref\":" + ref + ",\"scale\":" + scale + ",\"opacity\":" + opacity + "},\"type\":" +typeShape + "}";
         if (shadow == 1) {
             spec = spec + ", \"shadow\": {\"color\": " + shadowColor + ",\"radius\":{ \"val\": " + shadowRadius + ",\"type\":0}, \"offset\": { \"x\": { \"val\":" + shadowDx + ",\"type\":0}, \"y\":{ \"val\":" + shadowDy + ",\"type\": 0 }}}";
         }
@@ -1791,7 +1798,7 @@ function color(colorVar){
     //var filecolor2 = filecolor.split(/(?=<)/);
     var filecolor2 = filecolor.split('\n');
     console.log(filecolor2);
-    for(j=2; j < filecolor2.length; j++){
+    for(j=1; j < filecolor2.length; j++){
         filecolor3 = filecolor2[j].split('<');
         filecolor3 = filecolor3[1].split('>');
         var colorIdent = filecolor2[1];
@@ -1806,5 +1813,28 @@ function color(colorVar){
     console.log(colorVar);*/
     
         return colorIdent;
+    
+}
+
+function string(stringVar){
+    
+    //var filecolor2 = filecolor.split(/(?=<)/);
+    var filestring2 = filestring.split('\n');
+    console.log(filestring2);
+    for(j=1; j < filestring2.length; j++){
+        filestring3 = filestring2[j].split('<');
+        filestring3 = filestring3[1].split('>');
+        var stringIdent = filestring3[1];
+        filestring3 = filestring3[0].split('=');
+        var stringName = filestring3[1].replace(/"/g, "");
+            if (stringName == stringVar){
+                break;
+            }
+    }
+    /*console.log(colorIdent);
+    console.log(colorName);
+    console.log(colorVar);*/
+    
+        return stringIdent;
     
 }

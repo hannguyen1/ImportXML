@@ -9,6 +9,8 @@
     <color name="red">#FF0000</color>
     <color name="darkRed">#b60000</color>
     <color name="black">#000000</color>
+    <color name="shadow_color">#000000</color>
 
     <color name="textColorPrimary">#212121</color>
+    
 </resources>

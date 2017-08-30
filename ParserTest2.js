@@ -17,6 +17,7 @@ var filemain = file.split(/(?=<)/);
 
 for(j=0; j < filemain.length; j++){
     //console.log("looptest");
+    console.log(j);
     var file2 = filemain[j].split('\n');
 
     var ButtonCount = 0;
@@ -106,8 +107,60 @@ for(j=0; j < filemain.length; j++){
         }
         
         if(textvar[0] == "android:textColor"){
+            console.log(textvar);
             
-            textColor = textvar[1];
+            colorVar1 = textvar[1].split("/");
+            if(colorVar1[0] == "\"@color"){
+                colorVar1 = colorVar1[1].split("\"");
+                textColor = color(colorVar1[0]);
+            }
+            
+            else if (colorVar1[0] == "\"@android:color"){
+                colorVar1 = colorVar1[1].split("\"");
+                if(colorVar1[0] == "black"){
+                    textColor = "#000000";
+                }
+                if(colorVar1[0] == "blue"){
+                    textColor = "#0000FF";
+                }
+                if(colorVar1[0] == "cyan"){
+                    textColor = "#00FFFF";
+                }
+                if(colorVar1[0] == "dkgray"){
+                    textColor = "#2f4f4f";
+                }
+                if(colorVar1[0] == "gray"){
+                    textColor = "#808080";
+                }
+                if(colorVar1[0] == "green"){
+                    textColor = "#008000";
+                }
+                if(colorVar1[0] == "ltgray"){
+                    textColor = "#D3D3D3";
+                }
+                if(colorVar1[0] == "magenta"){
+                    textColor = "#FF00FF";
+                }
+                if(colorVar1[0] == "red"){
+                    textColor = "#FF0000";
+                }
+                if(colorVar1[0] == "transparent"){
+                    //transparent??
+                    textColor = "#FFFFFF";
+                }
+                if(colorVar1[0] == "white"){
+                    textColor = "#FFFFFF";
+                }
+                if(colorVar1[0] == "yellow"){
+                    textColor = "#FFFF00";
+                }
+            }
+                
+            else{
+                textColor = textvar[1];
+            }
+            
+            console.log(textColor);
         }
         
         if(textvar[0] == "android:textAllCaps"){
@@ -201,6 +254,8 @@ for(j=0; j < filemain.length; j++){
               shadowRadius = parseFloat(shadowRadius[1]);
             //shadowRadius = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
         }
+           
+        if(textvar[0] == "android:layout_centerHorizontal"
        }
         
         var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}" + "}";
@@ -1831,26 +1886,25 @@ function color(colorVar){
     var colorVal;
     //var filecolor2 = filecolor.split(/(?=<)/);
     var filecolor2 = filecolor.split('\n');
-    for(j=2; j < filecolor2.length-2; j++){
-        filecolor3 = filecolor2[j].split('<');
-                console.log(filecolor3);
-
+    for(k=2; k < filecolor2.length-2; k++){
+        
+        if(filecolor2[k] == ""){
+            
+        }
+        else{
+            
+        filecolor3 = filecolor2[k].split('<');
         filecolor3 = filecolor3[1].split('>');
-                console.log(filecolor3);
-
         var colorIdent = filecolor3[1];
         filecolor3 = filecolor3[0].split('=');
-        console.log(filecolor3);
         var colorName = filecolor3[1].replace(/"/g, "");
-        console.log(colorName);
             if (colorName == colorVar){
                 colorVal = "\"" + colorIdent + "\"";
                 break;
             }
+        }
     }
-    /*console.log(colorIdent);
-    console.log(colorName);
-    console.log(colorVar);*/
+
     
         return colorVal;
     
@@ -1860,10 +1914,12 @@ function string(stringVar){
     var stringVal = "";
     //var filecolor2 = filecolor.split(/(?=<)/);
     var filestring2 = filestring.split('\n');
-    for(j=1; j < filestring2.length-2; j++){
-        console.log(j);
-        //console.log(filestring2);
-        filestring3 = filestring2[j].split('<');
+    for(g=1; g < filestring2.length-2; g++){
+        if(filestring2[g] == ""){
+            
+        }
+        else{
+            filestring3 = filestring2[g].split('<');
         console.log(filestring3);
         filestring3 = filestring3[1].split('>');
         var stringIdent = filestring3[1];
@@ -1873,6 +1929,7 @@ function string(stringVar){
                     stringVal = "\""+stringIdent+"\"";
                     break;
             }
+        }
     }
     /*console.log(colorIdent);
     console.log(colorName);

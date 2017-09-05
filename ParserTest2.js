@@ -2,7 +2,6 @@ var fs = require('fs');
 var file = fs.readFileSync("test.xml","utf8");
 var filecolor = fs.readFileSync("colortest.xml","utf8");
 var filestring = fs.readFileSync("stringtest.xml","utf8");
-
 var colorVar1 = "colorPrimaryDark";
 var stringVar1 = "app_name";
 //console.log(color(colorVar1));
@@ -14,12 +13,12 @@ var filemain = file.split(/(?=<)/);
 //Split objects into its attributes
     var base = "\"background\": { \"opacity\" : 1, \"val\": \"-Background-\", \"type\":0 }, \"position\": { \"y\":{ \"type\": 1, \"val\": 0 }, \"x\": { \"type\": 1, \"val\" :0 }}, \"size\": { \"w\": { \"type\":1, \"val\":1 }, \"h\": { \"type\":1, \"val\":1 }}, \"controls\": [ ";
     var ControlNum = 0;
-
+//Arrays to keep track of control name and unique ID
+    var controlName = [];
+    var uniID = [];
 for(j=0; j < filemain.length; j++){
     //console.log("looptest");
-    console.log(j);
-    var file2 = filemain[j].split('\n');
-
+    var file2 = filemain[j].split('\r\n');
     var ButtonCount = 0;
     ButtonCount++;
     //Global Base Variables
@@ -51,6 +50,7 @@ for(j=0; j < filemain.length; j++){
     var shadowDx = 0;
     var shadowDy = 0;
     var shadowRadius = 0;
+    var layoutBelow = 0;
     //TextView
     if(file2[0] == "<TextView"){
         ctrl = 3;
@@ -64,8 +64,15 @@ for(j=0; j < filemain.length; j++){
         
         //Seperate declaration from value
     var textvar = file2[i].split('=');
-
-
+        if(textvar[0] == "android:id"){
+            var idVar = textvar[1].split("/");
+            idVar = idVar[1].split("\"");
+            console.log("ID");
+            console.log(idVar[0]);
+            controlName.push(idVar[0]);
+            uniID.push(randomID);
+            
+        }
         if(textvar[0] == "android:layout_width"){
             /* IMPLEMENT IF WRAP CONTENT*/
             if (textvar[1] == "\"wrap_content\""){
@@ -107,7 +114,6 @@ for(j=0; j < filemain.length; j++){
         }
         
         if(textvar[0] == "android:textColor"){
-            console.log(textvar);
             
             colorVar1 = textvar[1].split("/");
             if(colorVar1[0] == "\"@color"){
@@ -160,7 +166,6 @@ for(j=0; j < filemain.length; j++){
                 textColor = textvar[1];
             }
             
-            console.log(textColor);
         }
         
         if(textvar[0] == "android:textAllCaps"){
@@ -255,11 +260,42 @@ for(j=0; j < filemain.length; j++){
             //shadowRadius = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
         }
            
-        if(textvar[0] == "android:layout_centerHorizontal"
+        if(textvar[0] == "android:layout_centerHorizontal"){
+           
+               reltypeX = 1;
+           }
+        if(textvar[0] == "android:layout_below"){
+            console.log("layout below");
+            var layoutVar = textvar[1].split("/");
+            layoutVar = layoutVar[1].split("\"");
+            console.log("layoutvar");
+            console.log(layoutVar[0]);
+            console.log(controlName);
+            for (l = 0; l < controlName.length; l++ ){
+                if (layoutVar == controlName[l]){
+                    var ID = uniID[l];
+                    console.log("here");
+                }
+                
+            }
+            console.log("ID HERE");
+            console.log(ID);
+            layoutBelow = 1;
+            reltypeY = 8;
+            
+        }  
        }
         
         var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}" + "}";
+        if (layoutBelow == 1) {
+            var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + ", \"id\": \"" + ID + "\"}";
+            
+            
+        }
+        
+        else{
         var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
+        }
         var spec = "{ \"ctrl\":"+ctrl+ ",\"visible\":" + visible + ",\"itemspec\":{ \"val\":{ \"en_US\":" + value + "}, \"hAlign\":" + hAlign + "," + font + "," + Color + "," + allCaps;
         if (shadow == 1) {
             spec = spec + ", \"shadow\": {\"color\": " + shadowColor + ",\"radius\":{ \"val\": " + shadowRadius + ",\"type\":0}, \"offset\": { \"x\": { \"val\":" + shadowDx + ",\"type\":0}, \"y\":{ \"val\":" + shadowDy + ",\"type\": 0 }}}";
@@ -267,7 +303,6 @@ for(j=0; j < filemain.length; j++){
         spec = spec + "},";
         var jsonFinal = spec + size + "," + position + "}, \"id\": \" " + randomID + "\", \"name\": \"text-" + textcount+ "\" , \"systemtype\":\"text-" + textcount + "\", \"opacity\":1, \"type\":\"standard\" }";
         if (ControlNum > 0 ){
-            console.log("WORKING??");
             base = base + " , ";   
         }
         ControlNum++;
@@ -278,7 +313,6 @@ for(j=0; j < filemain.length; j++){
     //ImageView
     
     if(file2[0] == "<ImageView"){
-        console.log("imageview");
         ctrl = 24;
         picType = 1;
         var ImageCount = 0;
@@ -403,7 +437,6 @@ for(j=0; j < filemain.length; j++){
         var finalJson = spec + ", \"opacity\":1, \"id\":\"" + randomID + "\", \"name\": \"image-" + ImageCount + "\"}";
         if (ControlNum > 0 ){
             base = base + " , ";
-            console.log("WORKING??");
 
         }
         ControlNum++;
@@ -1864,14 +1897,14 @@ for(j=0; j < filemain.length; j++){
         ControlNum++;
 
         base = base + spec ;
-        
-        console.log(spec);
-    }
+            }
 
 }
 
     base = base + "], \"events\": [], \"systemtype\": \"home\", \"device\": 0, \"platform\": 1, \"orientation\": 3, \"_mergeBase\": {\"ident\": \"598e0e1747d1296735a0a518\", \"name\": { \"en_US\":\"Home\"}, \"_id\":\"598e0e17723970f82be2df75\", \"route\": \"screens\", \"attributes\": null," + base + "], \"events\": [], \"systemtype\": \"home\", \"device\": 0, \"platform\": 1, \"orientation\": 3}, \"attributes\": {} }";
-   console.log(base);
+   //console.log(base);
+    console.log(controlName);
+    console.log(uniID);
     
     //console.log(base);
 function uniqueId() {
@@ -1885,7 +1918,7 @@ function uniqueId() {
 function color(colorVar){
     var colorVal;
     //var filecolor2 = filecolor.split(/(?=<)/);
-    var filecolor2 = filecolor.split('\n');
+    var filecolor2 = filecolor.split('\r\n');
     for(k=2; k < filecolor2.length-2; k++){
         
         if(filecolor2[k] == ""){
@@ -1913,14 +1946,13 @@ function color(colorVar){
 function string(stringVar){
     var stringVal = "";
     //var filecolor2 = filecolor.split(/(?=<)/);
-    var filestring2 = filestring.split('\n');
+    var filestring2 = filestring.split('\r\n');
     for(g=1; g < filestring2.length-2; g++){
         if(filestring2[g] == ""){
             
         }
         else{
             filestring3 = filestring2[g].split('<');
-        console.log(filestring3);
         filestring3 = filestring3[1].split('>');
         var stringIdent = filestring3[1];
         filestring3 = filestring3[0].split('=');

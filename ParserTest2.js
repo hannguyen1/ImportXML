@@ -11,14 +11,14 @@ var filemain = file.split(/(?=<)/);
 
 
 //Split objects into its attributes
-    var base = "\"background\": { \"opacity\" : 1, \"val\": \"-Background-\", \"type\":0 }, \"position\": { \"y\":{ \"type\": 1, \"val\": 0 }, \"x\": { \"type\": 1, \"val\" :0 }}, \"size\": { \"w\": { \"type\":1, \"val\":1 }, \"h\": { \"type\":1, \"val\":1 }}, \"controls\": [ ";
+    var base = "\"attributes\":{}, \"background\": { \"opacity\" : 1, \"val\": \"-Background-\", \"type\":0 }, \"position\": { \"y\":{ \"type\": 1, \"val\": 0 }, \"x\": { \"type\": 1, \"val\" :0 }}, \"size\": { \"w\": { \"type\":1, \"val\":1 }, \"h\": { \"type\":1, \"val\":1 }}, \"controls\": [ ";
     var ControlNum = 0;
 //Arrays to keep track of control name and unique ID
     var controlName = [];
     var uniID = [];
 for(j=0; j < filemain.length; j++){
     //console.log("looptest");
-    var file2 = filemain[j].split('\r\n');
+    var file2 = filemain[j].split('\n');
     var ButtonCount = 0;
     ButtonCount++;
     //Global Base Variables
@@ -53,6 +53,8 @@ for(j=0; j < filemain.length; j++){
     var layoutBelow = 0;
     //TextView
     if(file2[0] == "<TextView"){
+        console.log("test");
+
         ctrl = 3;
         var textcount = 0;
         textcount++;
@@ -76,7 +78,8 @@ for(j=0; j < filemain.length; j++){
         if(textvar[0] == "android:layout_width"){
             /* IMPLEMENT IF WRAP CONTENT*/
             if (textvar[1] == "\"wrap_content\""){
-                width = 100;
+                console.log("wrap content");
+                width = 200;
             }
             else{
                 width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
@@ -87,12 +90,11 @@ for(j=0; j < filemain.length; j++){
         if(textvar[0] == "android:layout_height"){
             /* IMPLEMENT IF WRAP CONTENT*/
             if (textvar[1] == "\"wrap_content\""){
-                width = 100;
+                height = 30;
             }
             else{
-                width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+                height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
             }
-            height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
            // height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
             //height = 36;
 
@@ -234,8 +236,8 @@ for(j=0; j < filemain.length; j++){
             colorVar1= textvar[1].split("/");
             if (colorVar1[0] == "\"@color"){
                 colorVar1 = colorVar1[1].split("\"");
-                console.log(colorVar1[0]);
                 shadowColor = color(colorVar1[0]);
+ 
             }
             else{
                 shadowColor = textvar[1];
@@ -265,27 +267,22 @@ for(j=0; j < filemain.length; j++){
                reltypeX = 1;
            }
         if(textvar[0] == "android:layout_below"){
-            console.log("layout below");
             var layoutVar = textvar[1].split("/");
             layoutVar = layoutVar[1].split("\"");
-            console.log("layoutvar");
-            console.log(layoutVar[0]);
-            console.log(controlName);
             for (l = 0; l < controlName.length; l++ ){
-                if (layoutVar == controlName[l]){
+
+                if (layoutVar[0] == controlName[l]){
                     var ID = uniID[l];
                     console.log("here");
                 }
                 
             }
-            console.log("ID HERE");
             console.log(ID);
             layoutBelow = 1;
             reltypeY = 8;
             
         }  
        }
-        
         var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}" + "}";
         if (layoutBelow == 1) {
             var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + ", \"id\": \"" + ID + "\"}";
@@ -301,7 +298,7 @@ for(j=0; j < filemain.length; j++){
             spec = spec + ", \"shadow\": {\"color\": " + shadowColor + ",\"radius\":{ \"val\": " + shadowRadius + ",\"type\":0}, \"offset\": { \"x\": { \"val\":" + shadowDx + ",\"type\":0}, \"y\":{ \"val\":" + shadowDy + ",\"type\": 0 }}}";
         }
         spec = spec + "},";
-        var jsonFinal = spec + size + "," + position + "}, \"id\": \" " + randomID + "\", \"name\": \"text-" + textcount+ "\" , \"systemtype\":\"text-" + textcount + "\", \"opacity\":1, \"type\":\"standard\" }";
+        var jsonFinal = spec + size + "," + position + "}, \"id\": \"" + randomID + "\", \"name\": \"text-" + textcount+ "\" , \"systemtype\":\"text-" + textcount + "\", \"opacity\":1, \"type\":\"standard\" }";
         if (ControlNum > 0 ){
             base = base + " , ";   
         }
@@ -333,7 +330,17 @@ for(j=0; j < filemain.length; j++){
 
         //Seperate declaration from value
         var textvar = file2[i].split('=');
-
+        
+             
+        if(textvar[0] == "android:id"){
+            var idVar = textvar[1].split("/");
+            idVar = idVar[1].split("\"");
+            console.log("ID");
+            console.log(idVar[0]);
+            controlName.push(idVar[0]);
+            uniID.push(randomID);
+            
+        }
         if(textvar[0] == "android:layout_width"){
             /* IMPLEMENT IF WRAP CONTENT*/
             if (textvar[1] == "\"wrap_content\""){
@@ -348,12 +355,11 @@ for(j=0; j < filemain.length; j++){
         if(textvar[0] == "android:layout_height"){
             /* IMPLEMENT IF WRAP CONTENT*/
             if (textvar[1] == "\"wrap_content\""){
-                width = 100;
+                height = 100;
             }
             else{
-                width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+                height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
             }
-            height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
            // height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
             //height = 36;
 
@@ -424,6 +430,35 @@ for(j=0; j < filemain.length; j++){
         if(textvar[0] == "android:shadowRadius") {
             shadowRadius = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
         }
+             
+              if(textvar[0] == "android:layout_below"){
+            console.log("layout below");
+            var layoutVar = textvar[1].split("/");
+            layoutVar = layoutVar[1].split("\"");
+            console.log("layoutvar");
+            console.log(layoutVar[0]);
+            console.log(controlName);
+            for (l = 0; l < controlName.length; l++ ){
+                console.log(l);
+                console.log(layoutVar[0]);
+                console.log(controlName[l])
+                if (layoutVar[0] == controlName[l]){
+                    var ID = uniID[l];
+                    console.log("here");
+                }
+                
+            }
+            console.log("ID HERE");
+            console.log(ID);
+            layoutBelow = 1;
+            reltypeY = 8;
+            
+        }
+             
+         if(textvar[0] == "android:layout_centerHorizontal"){
+           
+               reltypeX = 1;
+           }
 }
         
         value = "\"default_image.svg\"";
@@ -1901,12 +1936,11 @@ for(j=0; j < filemain.length; j++){
 
 }
 
-    base = base + "], \"events\": [], \"systemtype\": \"home\", \"device\": 0, \"platform\": 1, \"orientation\": 3, \"_mergeBase\": {\"ident\": \"598e0e1747d1296735a0a518\", \"name\": { \"en_US\":\"Home\"}, \"_id\":\"598e0e17723970f82be2df75\", \"route\": \"screens\", \"attributes\": null," + base + "], \"events\": [], \"systemtype\": \"home\", \"device\": 0, \"platform\": 1, \"orientation\": 3}, \"attributes\": {} }";
-   //console.log(base);
+    base = base + "], \"events\": [], \"systemtype\": \"homtest\", \"device\": 0, \"platform\": 1, \"orientation\": 3}";
+   console.log(base);
     console.log(controlName);
     console.log(uniID);
     
-    //console.log(base);
 function uniqueId() {
     const timestamp = (Date.now() / 1000 | 0).toString(16);
     return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g,() => {
@@ -1916,13 +1950,12 @@ function uniqueId() {
 }
 
 function color(colorVar){
-    var colorVal;
+    var colorVal="";
     //var filecolor2 = filecolor.split(/(?=<)/);
-    var filecolor2 = filecolor.split('\r\n');
+    var filecolor2 = filecolor.split('\n');
     for(k=2; k < filecolor2.length-2; k++){
         
         if(filecolor2[k] == ""){
-            
         }
         else{
             
@@ -1930,6 +1963,7 @@ function color(colorVar){
         filecolor3 = filecolor3[1].split('>');
         var colorIdent = filecolor3[1];
         filecolor3 = filecolor3[0].split('=');
+        console.log(filecolor3);
         var colorName = filecolor3[1].replace(/"/g, "");
             if (colorName == colorVar){
                 colorVal = "\"" + colorIdent + "\"";
@@ -1946,13 +1980,13 @@ function color(colorVar){
 function string(stringVar){
     var stringVal = "";
     //var filecolor2 = filecolor.split(/(?=<)/);
-    var filestring2 = filestring.split('\r\n');
+    var filestring2 = filestring.split('\n');
     for(g=1; g < filestring2.length-2; g++){
         if(filestring2[g] == ""){
             
         }
         else{
-            filestring3 = filestring2[g].split('<');
+        filestring3 = filestring2[g].split('<');
         filestring3 = filestring3[1].split('>');
         var stringIdent = filestring3[1];
         filestring3 = filestring3[0].split('=');

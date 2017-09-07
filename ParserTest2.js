@@ -8,17 +8,17 @@ var stringVar1 = "app_name";
 //console.log(filecolor);
 //Split file by its objects
 var filemain = file.split(/(?=<)/);
-
-
 //Split objects into its attributes
     var base = "\"attributes\":{}, \"background\": { \"opacity\" : 1, \"val\": \"-Background-\", \"type\":0 }, \"position\": { \"y\":{ \"type\": 1, \"val\": 0 }, \"x\": { \"type\": 1, \"val\" :0 }}, \"size\": { \"w\": { \"type\":1, \"val\":1 }, \"h\": { \"type\":1, \"val\":1 }}, \"controls\": [ ";
     var ControlNum = 0;
 //Arrays to keep track of control name and unique ID
     var controlName = [];
     var uniID = [];
-for(j=0; j < filemain.length; j++){
+for(j=0; j < filemain.length+1; j++){
     //console.log("looptest");
+    console.log(j);
     var file2 = filemain[j].split('\n');
+    console.log(file2[0]);
     var ButtonCount = 0;
     ButtonCount++;
     //Global Base Variables
@@ -373,7 +373,7 @@ for(j=0; j < filemain.length; j++){
                 posSignaly = 1;
             }
 
-        }
+        }   
         if(textvar[0] == "app:layout_constraintLeft_toLeftOf"){
             if(posSignalx == 1){
                 reltypeX = 1;
@@ -617,22 +617,21 @@ for(j=0; j < filemain.length; j++){
     
     //ScrollView
     
-    /*if(file2[0] == "<ScrollView"){
+    if(file2[0] == "<ScrollView"){
         ctrl = 18;
         var ScrollCount = 0;
         ScrollCount++;
         console.log("ScrollView");
         //Parse through each line
-        j++;
+        //j++;
         var file3 = filemain[j].split('\n');
-        j++;
+       // j++;
 
        for( i = 1; i < file2.length; i++){
-
+            
         //Get rid of padding
         file2[i] = file2[i].trim();
-
-
+        console.log(file2[i]);
         //Seperate declaration from value
         var textvar = file2[i].split('=');
 
@@ -737,7 +736,7 @@ for(j=0; j < filemain.length; j++){
         ControlNum++;
 
         base = base + spec ;
-    }*/
+    }
     
     //ListView
     

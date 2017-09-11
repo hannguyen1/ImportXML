@@ -26,6 +26,9 @@ var filemain = file.split(/(?=<)/);
     var SwitchCount = 0;
     var ProgressCount = 0;
     var WebCount = 0;
+    var LinearCount = 0;
+    var positionLinear = 0 ;
+    var LinearSignal = 0;
 for(j=0; j < filemain.length; j++){
     //console.log("looptest");
     console.log(j);
@@ -93,8 +96,11 @@ for(j=0; j < filemain.length; j++){
         if(textvar[0] == "android:layout_width"){
             /* IMPLEMENT IF WRAP CONTENT*/
             if (textvar[1] == "\"wrap_content\""){
-                console.log("wrap content");
                 width = 200;
+            }
+            else if (textvar[1] == "\"match_parent\""){
+                width = 0;
+                reltypeX = 14;
             }
             else{
                 width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
@@ -106,6 +112,10 @@ for(j=0; j < filemain.length; j++){
             /* IMPLEMENT IF WRAP CONTENT*/
             if (textvar[1] == "\"wrap_content\""){
                 height = 30;
+            }
+            else if (textvar[1] == "\"match_parent\""){
+                height = 0;
+                reltypeY = 14;
             }
             else{
                 height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
@@ -345,10 +355,14 @@ for(j=0; j < filemain.length; j++){
             uniID.push(randomID);
             
         }
-        if(textvar[0] == "android:layout_width"){
+           if(textvar[0] == "android:layout_width"){
             /* IMPLEMENT IF WRAP CONTENT*/
             if (textvar[1] == "\"wrap_content\""){
-                width = 100;
+                width = 200;
+            }
+            else if (textvar[1] == "\"match_parent\""){
+                width = 0;
+                reltypeX = 14;
             }
             else{
                 width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
@@ -359,7 +373,11 @@ for(j=0; j < filemain.length; j++){
         if(textvar[0] == "android:layout_height"){
             /* IMPLEMENT IF WRAP CONTENT*/
             if (textvar[1] == "\"wrap_content\""){
-                height = 100;
+                height = 30;
+            }
+            else if (textvar[1] == "\"match_parent\""){
+                height = 0;
+                reltypeY = 14;
             }
             else{
                 height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
@@ -508,7 +526,11 @@ for(j=0; j < filemain.length; j++){
         if(textvar[0] == "android:layout_width"){
             /* IMPLEMENT IF WRAP CONTENT*/
             if (textvar[1] == "\"wrap_content\""){
-                width = 100;
+                width = 200;
+            }
+            else if (textvar[1] == "\"match_parent\""){
+                width = 0;
+                reltypeX = 14;
             }
             else{
                 width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
@@ -519,7 +541,11 @@ for(j=0; j < filemain.length; j++){
         if(textvar[0] == "android:layout_height"){
             /* IMPLEMENT IF WRAP CONTENT*/
             if (textvar[1] == "\"wrap_content\""){
-                height = 100;
+                height = 30;
+            }
+            else if (textvar[1] == "\"match_parent\""){
+                height = 0;
+                reltypeY = 14;
             }
             else{
                 height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
@@ -666,8 +692,11 @@ for(j=0; j < filemain.length; j++){
         if(textvar[0] == "android:layout_width"){
             /* IMPLEMENT IF WRAP CONTENT*/
             if (textvar[1] == "\"wrap_content\""){
-                console.log("wrap content Scroll");
                 width = 200;
+            }
+            else if (textvar[1] == "\"match_parent\""){
+                width = 0;
+                reltypeX = 14;
             }
             else{
                 width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
@@ -678,8 +707,11 @@ for(j=0; j < filemain.length; j++){
         if(textvar[0] == "android:layout_height"){
             /* IMPLEMENT IF WRAP CONTENT*/
             if (textvar[1] == "\"wrap_content\""){
-                console.log("wrapcontent height");
                 height = 30;
+            }
+            else if (textvar[1] == "\"match_parent\""){
+                height = 0;
+                reltypeY = 14;
             }
             else{
                 height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
@@ -894,16 +926,35 @@ for(j=0; j < filemain.length; j++){
         //Seperate declaration from value
         var textvar = file2[i].split('=');
 
-           if(textvar[0] == "android:layout_width"){
+        if(textvar[0] == "android:layout_width"){
             /* IMPLEMENT IF WRAP CONTENT*/
-            width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            if (textvar[1] == "\"wrap_content\""){
+                width = 200;
+            }
+            else if (textvar[1] == "\"match_parent\""){
+                width = 0;
+                reltypeX = 14;
+            }
+            else{
+                width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            }
             //width = "\"w\": { \"val\":142,\"type\":0,\"reltype\":0},";
+            //width = 142;
         }
-           
         if(textvar[0] == "android:layout_height"){
             /* IMPLEMENT IF WRAP CONTENT*/
-            height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
-            //height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
+            if (textvar[1] == "\"wrap_content\""){
+                height = 30;
+            }
+            else if (textvar[1] == "\"match_parent\""){
+                height = 0;
+                reltypeY = 14;
+            }
+            else{
+                height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            }
+           // height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
+            //height = 36;
 
         }
            
@@ -1017,15 +1068,35 @@ for(j=0; j < filemain.length; j++){
         var textvar = file2[i].split('=');
 
 
-           if(textvar[0] == "android:layout_width"){
+        if(textvar[0] == "android:layout_width"){
             /* IMPLEMENT IF WRAP CONTENT*/
-            width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            if (textvar[1] == "\"wrap_content\""){
+                width = 200;
+            }
+            else if (textvar[1] == "\"match_parent\""){
+                width = 0;
+                reltypeX = 14;
+            }
+            else{
+                width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            }
             //width = "\"w\": { \"val\":142,\"type\":0,\"reltype\":0},";
+            //width = 142;
         }
         if(textvar[0] == "android:layout_height"){
             /* IMPLEMENT IF WRAP CONTENT*/
-            height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
-            //height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
+            if (textvar[1] == "\"wrap_content\""){
+                height = 30;
+            }
+            else if (textvar[1] == "\"match_parent\""){
+                height = 0;
+                reltypeY = 14;
+            }
+            else{
+                height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            }
+           // height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
+            //height = 36;
 
         }
         if(textvar[0] == "android:text"){
@@ -1135,15 +1206,35 @@ for(j=0; j < filemain.length; j++){
         var textvar = file2[i].split('=');
 
 
-           if(textvar[0] == "android:layout_width"){
+        if(textvar[0] == "android:layout_width"){
             /* IMPLEMENT IF WRAP CONTENT*/
-            width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            if (textvar[1] == "\"wrap_content\""){
+                width = 200;
+            }
+            else if (textvar[1] == "\"match_parent\""){
+                width = 0;
+                reltypeX = 14;
+            }
+            else{
+                width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            }
             //width = "\"w\": { \"val\":142,\"type\":0,\"reltype\":0},";
+            //width = 142;
         }
         if(textvar[0] == "android:layout_height"){
             /* IMPLEMENT IF WRAP CONTENT*/
-            height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
-            //height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
+            if (textvar[1] == "\"wrap_content\""){
+                height = 30;
+            }
+            else if (textvar[1] == "\"match_parent\""){
+                height = 0;
+                reltypeY = 14;
+            }
+            else{
+                height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            }
+           // height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
+            //height = 36;
 
         }
         if(textvar[0] == "android:text"){
@@ -1272,17 +1363,36 @@ for(j=0; j < filemain.length; j++){
         var textvar = file2[i].split('=');
 
 
-           if(textvar[0] == "android:layout_width"){
+        if(textvar[0] == "android:layout_width"){
             /* IMPLEMENT IF WRAP CONTENT*/
-            //width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            if (textvar[1] == "\"wrap_content\""){
+                width = 200;
+            }
+            else if (textvar[1] == "\"match_parent\""){
+                width = 0;
+                reltypeX = 14;
+            }
+            else{
+                width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            }
             //width = "\"w\": { \"val\":142,\"type\":0,\"reltype\":0},";
-            width = 147;
+            //width = 142;
         }
         if(textvar[0] == "android:layout_height"){
             /* IMPLEMENT IF WRAP CONTENT*/
-            //height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
-            //height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
-            height = 50;
+            if (textvar[1] == "\"wrap_content\""){
+                height = 30;
+            }
+            else if (textvar[1] == "\"match_parent\""){
+                height = 0;
+                reltypeY = 14;
+            }
+            else{
+                height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            }
+           // height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
+            //height = 36;
+
         }
         if(textvar[0] == "android:text"){
 
@@ -1540,13 +1650,33 @@ for(j=0; j < filemain.length; j++){
 
         if(textvar[0] == "android:layout_width"){
             /* IMPLEMENT IF WRAP CONTENT*/
-            width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            if (textvar[1] == "\"wrap_content\""){
+                width = 200;
+            }
+            else if (textvar[1] == "\"match_parent\""){
+                width = 0;
+                reltypeX = 14;
+            }
+            else{
+                width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            }
             //width = "\"w\": { \"val\":142,\"type\":0,\"reltype\":0},";
+            //width = 142;
         }
         if(textvar[0] == "android:layout_height"){
             /* IMPLEMENT IF WRAP CONTENT*/
-            height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
-            //height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
+            if (textvar[1] == "\"wrap_content\""){
+                height = 30;
+            }
+            else if (textvar[1] == "\"match_parent\""){
+                height = 0;
+                reltypeY = 14;
+            }
+            else{
+                height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            }
+           // height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
+            //height = 36;
 
         }
         if(textvar[0] == "android:text"){
@@ -1656,15 +1786,35 @@ for(j=0; j < filemain.length; j++){
         //console.log(textvar[0]);
         //console.log(textvar[1]);
 
-        if(textvar[0] == "android:layout_width"){
+           if(textvar[0] == "android:layout_width"){
             /* IMPLEMENT IF WRAP CONTENT*/
-            width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);;
+            if (textvar[1] == "\"wrap_content\""){
+                width = 200;
+            }
+            else if (textvar[1] == "\"match_parent\""){
+                width = 0;
+                reltypeX = 14;
+            }
+            else{
+                width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            }
             //width = "\"w\": { \"val\":142,\"type\":0,\"reltype\":0},";
+            //width = 142;
         }
         if(textvar[0] == "android:layout_height"){
             /* IMPLEMENT IF WRAP CONTENT*/
-            height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);;
-            //height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
+            if (textvar[1] == "\"wrap_content\""){
+                height = 30;
+            }
+            else if (textvar[1] == "\"match_parent\""){
+                height = 0;
+                reltypeY = 14;
+            }
+            else{
+                height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            }
+           // height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
+            //height = 36;
 
         }
         if(textvar[0] == "android:text"){
@@ -1807,15 +1957,33 @@ for(j=0; j < filemain.length; j++){
         }
         if(textvar[0] == "android:layout_width"){
             /* IMPLEMENT IF WRAP CONTENT*/
-            width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);;
+            if (textvar[1] == "\"wrap_content\""){
+                width = 200;
+            }
+            else if (textvar[1] == "\"match_parent\""){
+                width = 0;
+                reltypeX = 14;
+            }
+            else{
+                width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            }
             //width = "\"w\": { \"val\":142,\"type\":0,\"reltype\":0},";
-            //width= 90;
+            //width = 142;
         }
         if(textvar[0] == "android:layout_height"){
             /* IMPLEMENT IF WRAP CONTENT*/
-            height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);;
-            //height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
-            //height = 90;
+            if (textvar[1] == "\"wrap_content\""){
+                height = 30;
+            }
+            else if (textvar[1] == "\"match_parent\""){
+                height = 0;
+                reltypeY = 14;
+            }
+            else{
+                height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            }
+           // height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
+            //height = 36;
 
         }
         if(textvar[0] == "android:text"){
@@ -1965,13 +2133,33 @@ for(j=0; j < filemain.length; j++){
 
         if(textvar[0] == "android:layout_width"){
             /* IMPLEMENT IF WRAP CONTENT*/
-            width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            if (textvar[1] == "\"wrap_content\""){
+                width = 200;
+            }
+            else if (textvar[1] == "\"match_parent\""){
+                width = 0;
+                reltypeX = 14;
+            }
+            else{
+                width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            }
             //width = "\"w\": { \"val\":142,\"type\":0,\"reltype\":0},";
+            //width = 142;
         }
         if(textvar[0] == "android:layout_height"){
             /* IMPLEMENT IF WRAP CONTENT*/
-            height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
-            //height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
+            if (textvar[1] == "\"wrap_content\""){
+                height = 30;
+            }
+            else if (textvar[1] == "\"match_parent\""){
+                height = 0;
+                reltypeY = 14;
+            }
+            else{
+                height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            }
+           // height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
+            //height = 36;
 
         }
         if(textvar[0] == "android:text"){
@@ -2070,6 +2258,61 @@ for(j=0; j < filemain.length; j++){
         
         base = base + "]}, \"opacity\": 1, \"id\": \"" + randomID + "\", \"name\": \"scrollcontainer-" + ScrollCount + "\"}";
 
+    }
+    if(file2[0] == "<LinearLayout"){
+        console.log("LinearLayout");
+        LinearCount++;
+        //Parse through each line
+        //j++;
+        var file3 = filemain[j].split('\n');
+       // j++;
+
+       for( i = 1; i < file2.length; i++){
+            //Get rid of padding
+        file2[i] = file2[i].trim();
+        console.log(file2[i]);
+        //Seperate declaration from value
+        var textvar = file2[i].split('=');
+        if(textvar[0] == "android:layout_width"){
+            /* IMPLEMENT IF WRAP CONTENT*/
+            if (textvar[1] == "\"wrap_content\""){  
+                width = 200;
+            }
+            else if (textvar[1] == "\"match_parent\""){
+                width = 0;
+                reltypeX = 14;
+            }
+            else{
+                width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            }
+            //width = "\"w\": { \"val\":142,\"type\":0,\"reltype\":0},";
+            //width = 142;
+        }
+        if(textvar[0] == "android:layout_height"){
+            /* IMPLEMENT IF WRAP CONTENT*/
+            if (textvar[1] == "\"wrap_content\""){
+                height = 425;
+            }
+            else if (textvar[1] == "\"match_parent\""){
+                height = 0;
+                reltypeY = 14;
+            }
+            else{
+                
+                height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            }
+           // height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
+            //height = 36;
+
+        }
+           
+           LinearSignal = 1;
+       }
+        
+    }
+    if(file2[0]=="</LinearLayout>"){
+        
+        
     }
 }
 

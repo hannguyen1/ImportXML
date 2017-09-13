@@ -29,6 +29,7 @@ var filemain = file.split(/(?=<)/);
     var LinearCount = 0;
     var positionLinear = 0 ;
     var LinearSignal = 0;
+    var positionTotal = 0;
 for(j=0; j < filemain.length; j++){
     //console.log("looptest");
     console.log(j);
@@ -50,8 +51,10 @@ for(j=0; j < filemain.length; j++){
     var ctrl = 0;
     var rotation = 0;
     var visible = "true";
-    var reltypeX = 0;
-    var reltypeY = 0;
+    var sizereltypeX = 0;
+    var sizereltypeY = 3;
+    var posreltypeX = 0;
+    var posreltypeY = 0;
     var positionX = 0;
     var positionY = 0;
     var postypeX = 0;
@@ -100,7 +103,7 @@ for(j=0; j < filemain.length; j++){
             }
             else if (textvar[1] == "\"match_parent\""){
                 width = 0;
-                reltypeX = 14;
+                sizereltypeX = 14;
             }
             else{
                 width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
@@ -115,7 +118,7 @@ for(j=0; j < filemain.length; j++){
             }
             else if (textvar[1] == "\"match_parent\""){
                 height = 0;
-                reltypeY = 14;
+                sizereltypeY = 14;
             }
             else{
                 height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
@@ -207,10 +210,10 @@ for(j=0; j < filemain.length; j++){
         }
         if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
             if(posSignaly == 1){
-                reltypeY = 1;
+                posreltypeY = 1;
             }
             else{
-                reltypeY = 4;
+                posreltypeY = 4;
                 posSignaly = 1;
             }
 
@@ -218,28 +221,28 @@ for(j=0; j < filemain.length; j++){
         if(textvar[0] == "app:layout_constraintLeft_toLeftOf"){
 
             if(posSignalx == 1){
-                reltypeX = 1;
+                posreltypeX = 1;
             }
             else{
-                reltypeX = 0;
+                posreltypeX = 0;
                 posSignalx = 1;
             }
         }
         if(textvar[0] == "app:layout_constraintRight_toRightOf"){
             if(posSignalx == 1){
-                reltypeX = 1;
+                posreltypeX = 1;
             }
             else{
-                reltypeX = 2;
+                posreltypeX = 2;
                 posSignalx = 1;
             }
         }
         if(textvar[0] == "app:layout_constraintTop_toTopOf"){
             if(posSignaly == 1){
-                reltypeY = 1;
+                posreltypeY = 1;
             }
             else{
-                reltypeY = 3;
+                posreltypeY = 3;
                 posSignaly = 1;
             }
         }       
@@ -278,7 +281,7 @@ for(j=0; j < filemain.length; j++){
             //shadowRadius = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
         } 
         if(textvar[0] == "android:layout_centerHorizontal"){
-               reltypeX = 1;
+               posreltypeX = 1;
            }
         if(textvar[0] == "android:layout_below"){
             var layoutVar = textvar[1].split("/");
@@ -293,26 +296,26 @@ for(j=0; j < filemain.length; j++){
             }
             console.log(ID);
             layoutBelow = 1;
-            reltypeY = 8;
+            posreltypeY = 8;
             
         }  
        }
         
-        if (LinearSignal == 1){
+        if (LinearSignal > 0){
             positionY = positionLinear;  
-            
+            positionTotal = positionTotal + positionLinear;
             positionLinear = positionLinear + height;
             
         }
-        var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}" + "}";
+        var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":" + sizereltypeX + "}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":" + sizereltypeY + "}" + "}";
         if (layoutBelow == 1) {
-            var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + ", \"id\": \"" + ID + "\"}";
+            var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + posreltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +posreltypeY + ", \"id\": \"" + ID + "\"}";
             
             
         }
         
         else{
-        var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
+        var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + posreltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +posreltypeY + "}";
         }
         var spec = "{ \"ctrl\":"+ctrl+ ",\"visible\":" + visible + ",\"itemspec\":{ \"val\":{ \"en_US\":" + value + "}, \"hAlign\":" + hAlign + "," + font + "," + Color + "," + allCaps;
         if (shadow == 1) {
@@ -340,8 +343,6 @@ for(j=0; j < filemain.length; j++){
         var scale = 1;
         var opacity = 1;
         var typeShape = "\"rectangle\"";
-        reltypeY = 0;
-        reltypeX = 0;
          for( i = 1; i < file2.length; i++){
 
         //Get rid of padding
@@ -368,7 +369,7 @@ for(j=0; j < filemain.length; j++){
             }
             else if (textvar[1] == "\"match_parent\""){
                 width = 0;
-                reltypeX = 14;
+                sizereltypeX = 14;
             }
             else{
                 width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
@@ -383,7 +384,7 @@ for(j=0; j < filemain.length; j++){
             }
             else if (textvar[1] == "\"match_parent\""){
                 height = 0;
-                reltypeY = 14;
+                sizereltypeY = 14;
             }
             else{
                 height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
@@ -394,39 +395,39 @@ for(j=0; j < filemain.length; j++){
         }
         if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
             if(posSignaly == 1){
-                reltypeY = 1;
+                posreltypeY = 1;
             }
             else{
-                reltypeY = 4;
+                posreltypeY = 4;
                 posSignaly = 1;
             }
 
         }   
         if(textvar[0] == "app:layout_constraintLeft_toLeftOf"){
             if(posSignalx == 1){
-                reltypeX = 1;
+                posreltypeX = 1;
             }
             else{
-                reltypeX = 0;
+                posreltypeX = 0;
                 posSignalx = 1;
             }
         }
         if(textvar[0] == "app:layout_constraintRight_toRightOf"){
 
             if(posSignalx == 1){
-                reltypeX = 1;
+                posreltypeX = 1;
             }
             else{
-                reltypeX = 2;
+                posreltypeX = 2;
                 posSignalx = 1;
             }
         }
         if(textvar[0] == "app:layout_constraintTop_toTopOf"){
             if(posSignaly == 1){
-                reltypeY = 1;
+                posreltypeY = 1;
             }
             else{
-                reltypeY = 3;
+                posreltypeY = 3;
                 posSignaly = 1;
             }
         }
@@ -472,18 +473,18 @@ for(j=0; j < filemain.length; j++){
             console.log("ID HERE");
             console.log(ID);
             layoutBelow = 1;
-            reltypeY = 8;
+            posreltypeY = 8;
             
         }          
         if(textvar[0] == "android:layout_centerHorizontal"){
            
-               reltypeX = 1;
+               posreltypeX = 1;
            }
 }
         
         value = "\"default_image.svg\"";
-        var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}" + "}";
-        var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
+        var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":" + sizereltypeX + "}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":" + sizereltypeY + "}" + "}";
+        var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + posreltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +posreltypeY + "}";
         var spec = "{ \"ctrl\":"+ctrl+ ",\"events\": [], \"systemtype\": \"image-" + ImageCount + " \"," + position + "},\"visible\":" + visible + "," + size + ",\"itemspec\":{ \"fill\":{ \"type\":" + picType + ",\"locked\":" + locked + ", \"selInitImage\":" + selInitImage + ",\"val\": " + value + ",\"ref\":" + ref + ",\"scale\":" + scale + ",\"opacity\":" + opacity + "},\"type\":" +typeShape + "}";
         if (shadow == 1) {
             spec = spec + ", \"shadow\": {\"color\": " + shadowColor + ",\"radius\":{ \"val\": " + shadowRadius + ",\"type\":0}, \"offset\": { \"x\": { \"val\":" + shadowDx + ",\"type\":0}, \"y\":{ \"val\":" + shadowDy + ",\"type\": 0 }}}";
@@ -506,8 +507,6 @@ for(j=0; j < filemain.length; j++){
         var type = 0;
         console.log("Button");
         buttonCount++;
-        reltypeY = 0;
-        reltypeX = 0;
         textColor = "\"-Text Reversed-\"";
         //Parse through each line
        for( i = 1; i < file2.length; i++){
@@ -536,7 +535,7 @@ for(j=0; j < filemain.length; j++){
             }
             else if (textvar[1] == "\"match_parent\""){
                 width = 0;
-                reltypeX = 14;
+                sizereltypeX = 14;
             }
             else{
                 width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
@@ -551,7 +550,7 @@ for(j=0; j < filemain.length; j++){
             }
             else if (textvar[1] == "\"match_parent\""){
                 height = 0;
-                reltypeY = 14;
+                sizereltypeY = 14;
             }
             else{
                 height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
@@ -562,36 +561,36 @@ for(j=0; j < filemain.length; j++){
         }
         if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
             if(posSignaly == 1){
-                reltypeY = 1;
+                posreltypeY = 1;
             }
             else{
-                reltypeY = 4;
+                posreltypeY = 4;
                 posSignaly = 1;
             }
 
         }   
         if(textvar[0] == "app:layout_constraintLeft_toLeftOf"){
             if(posSignalx == 1){
-                reltypeX = 1;
+                posreltypeX = 1;
             }
             else{
-                reltypeX = 0;
+                posreltypeX = 0;
                 posSignalx = 1;
             }
         }
         if(textvar[0] == "app:layout_constraintRight_toRightOf"){
 
             if(posSignalx == 1){
-                reltypeX = 1;
+                posreltypeX = 1;
             }
             else{
-                reltypeX = 2;
+                posreltypeX = 2;
                 posSignalx = 1;
             }
         }
         if(textvar[0] == "app:layout_constraintTop_toTopOf"){
             if(posSignaly == 1){
-                reltypeY = 1;
+                posreltypeY = 1;
             }
             else{
                 reltypeY = 3;
@@ -640,16 +639,16 @@ for(j=0; j < filemain.length; j++){
             console.log("ID HERE");
             console.log(ID);
             layoutBelow = 1;
-            reltypeY = 8;
+            posreltypeY = 8;
             
         }          
         if(textvar[0] == "android:layout_centerHorizontal"){
            
-               reltypeX = 1;
+               posreltypeX = 1;
            }
        }
-        var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}" + "}";
-        var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
+        var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":" + sizereltypeX + "}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":" + sizereltypeY + "}" + "}";
+        var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + posreltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +posreltypeY + "}";
         var spec = "{ \"ctrl\":"+ctrl+ ",\"visible\":" + visible + ",\"itemspec\":{ \"states\": [ { \"name\": \"default\", \"normal\": { \"fill\": { \"type\":" + type + ",\"val\": \"-Component Primary-\" }, \"cornerradius\":{ \"val\": 0, \"type\": 0 }, \"type\": \"rectangle\", \"tapthrough\": true, \"label\":{ \"val\":{ \"en_US\":" + value + " }, \"offset\": { \"val\": 0, \"type\": 0 },\"hAlign\": \"center\", \"vAlign\": \"center\"," + Color + "," + font +" } }, \"pressed\": { \"fill\": { \"type\": 0, \"val\": \"-Component Secondary-\" } }, \"disabled\": { \"fill\": { \"type\": 0, \"val\": \"-Component Accent-\" }, \"label\": { \"color\": \"-Text Secondary-\" } } } ], \"margins\": { \"x\": { \"val\": 10,\"type\": 0 }, \"y\": { \"val\": 0, \"type\": 0 } } "
         
         if (shadow == 1) {
@@ -702,7 +701,7 @@ for(j=0; j < filemain.length; j++){
             }
             else if (textvar[1] == "\"match_parent\""){
                 width = 0;
-                reltypeX = 14;
+                sizereltypeX = 14;
             }
             else{
                 width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
@@ -717,7 +716,7 @@ for(j=0; j < filemain.length; j++){
             }
             else if (textvar[1] == "\"match_parent\""){
                 height = 0;
-                reltypeY = 14;
+                sizereltypeY = 14;
             }
             else{
                 height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
@@ -809,39 +808,39 @@ for(j=0; j < filemain.length; j++){
         }
         if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
             if(posSignaly == 1){
-                reltypeY = 1;
+                posreltypeY = 1;
             }
             else{
-                reltypeY = 4;
+                posreltypeY = 4;
                 posSignaly = 1;
             }
 
         }
         if(textvar[0] == "app:layout_constraintLeft_toLeftOf"){
             if(posSignalx == 1){
-                reltypeX = 1;
+                posreltypeX = 1;
             }
             else{
-                reltypeX = 0;
+                posreltypeX = 0;
                 posSignalx = 1;
             }
         }
         if(textvar[0] == "app:layout_constraintRight_toRightOf"){
 
             if(posSignalx == 1){
-                reltypeX = 1;
+               posreltypeX = 1;
             }
             else{
-                reltypeX = 2;
+                posreltypeX = 2;
                 posSignalx = 1;
             }
         }
         if(textvar[0] == "app:layout_constraintTop_toTopOf"){
             if(posSignaly == 1){
-                reltypeY = 1;
+                posreltypeY = 1;
             }
             else{
-                reltypeY = 3;
+                posreltypeY = 3;
                 posSignaly = 1;
             }
         }     
@@ -896,12 +895,12 @@ for(j=0; j < filemain.length; j++){
             }
             console.log(ID);
             layoutBelow = 1;
-            reltypeY = 8;
+            posreltypeY = 8;
             
         }  
        }
-        var size = "\"size\":{ \"w\": { \"val\":" + "300" +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + "400" +",\"type\":0,\"reltype\":0}" + "}";
-        var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + "}," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
+        var size = "\"size\":{ \"w\": { \"val\":" + "300" +",\"type\":0,\"reltype\":" + posreltypeX + "}," + "\"h\": { \"val\":" + "400" +",\"type\":0,\"reltype\":" + posreltypeY + "}" + "}";
+        var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + posreltypeX + "}," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" + posreltypeY + "}";
         var spec = "{\"ctrl\":"+ctrl+ ", \"events\":[], \"systemtype\": \"scrollcontainer-1\"," + position + "},\"visible\":" + visible + "," + size + ",\"itemspec\":{\"paging\": false, \"bounces\":true, \"showscroll\": false, \"scrollstyle\": 0, \"controls\" : [";
         
         
@@ -939,7 +938,7 @@ for(j=0; j < filemain.length; j++){
             }
             else if (textvar[1] == "\"match_parent\""){
                 width = 0;
-                reltypeX = 14;
+                sizereltypeX = 14;
             }
             else{
                 width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
@@ -954,7 +953,7 @@ for(j=0; j < filemain.length; j++){
             }
             else if (textvar[1] == "\"match_parent\""){
                 height = 0;
-                reltypeY = 14;
+                sizereltypeY = 14;
             }
             else{
                 height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
@@ -1096,7 +1095,7 @@ for(j=0; j < filemain.length; j++){
             }
             else if (textvar[1] == "\"match_parent\""){
                 height = 0;
-                reltypeY = 14;
+                postypeY = 14;
             }
             else{
                 height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
@@ -1234,7 +1233,7 @@ for(j=0; j < filemain.length; j++){
             }
             else if (textvar[1] == "\"match_parent\""){
                 height = 0;
-                reltypeY = 14;
+                postypeY = 14;
             }
             else{
                 height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
@@ -1391,7 +1390,7 @@ for(j=0; j < filemain.length; j++){
             }
             else if (textvar[1] == "\"match_parent\""){
                 height = 0;
-                reltypeY = 14;
+                postypeY = 14;
             }
             else{
                 height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
@@ -1676,7 +1675,7 @@ for(j=0; j < filemain.length; j++){
             }
             else if (textvar[1] == "\"match_parent\""){
                 height = 0;
-                reltypeY = 14;
+                postypeY = 14;
             }
             else{
                 height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
@@ -1814,7 +1813,7 @@ for(j=0; j < filemain.length; j++){
             }
             else if (textvar[1] == "\"match_parent\""){
                 height = 0;
-                reltypeY = 14;
+                postypeY = 14;
             }
             else{
                 height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
@@ -1983,7 +1982,7 @@ for(j=0; j < filemain.length; j++){
             }
             else if (textvar[1] == "\"match_parent\""){
                 height = 0;
-                reltypeY = 14;
+                postypeY = 14;
             }
             else{
                 height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
@@ -2159,7 +2158,7 @@ for(j=0; j < filemain.length; j++){
             }
             else if (textvar[1] == "\"match_parent\""){
                 height = 0;
-                reltypeY = 14;
+                postypeY = 14;
             }
             else{
                 height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
@@ -2301,7 +2300,7 @@ for(j=0; j < filemain.length; j++){
             }
             else if (textvar[1] == "\"match_parent\""){
                 height = 0;
-                reltypeY = 14;
+                postypeY = 14;
             }
             else{
                 
@@ -2312,13 +2311,13 @@ for(j=0; j < filemain.length; j++){
 
         }
            
-           LinearSignal = 1;
+           LinearSignal = LinearSignal + 1;
            positionLinear = 0;
        }
         
     }
     if(file2[0]=="</LinearLayout>"){
-        LinearSignal = 0;
+        LinearSignal = LinearSignal - 1;
         
     }
 }

@@ -216,6 +216,7 @@ for(j=0; j < filemain.length; j++){
 
         }
         if(textvar[0] == "app:layout_constraintLeft_toLeftOf"){
+
             if(posSignalx == 1){
                 reltypeX = 1;
             }
@@ -225,7 +226,6 @@ for(j=0; j < filemain.length; j++){
             }
         }
         if(textvar[0] == "app:layout_constraintRight_toRightOf"){
-
             if(posSignalx == 1){
                 reltypeX = 1;
             }
@@ -267,7 +267,7 @@ for(j=0; j < filemain.length; j++){
         if(textvar[0] == "android:shadowDx"){
               shadowDx = textvar[1].split("\"");
               shadowDx = (parseFloat(shadowDx[1]))
-        } 
+        } 3 
         if(textvar[0] == "android:shadowDy"){
               shadowDy = textvar[1].split("\"");
               shadowDy = parseFloat(shadowDy[1])
@@ -278,7 +278,6 @@ for(j=0; j < filemain.length; j++){
             //shadowRadius = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
         } 
         if(textvar[0] == "android:layout_centerHorizontal"){
-           
                reltypeX = 1;
            }
         if(textvar[0] == "android:layout_below"){
@@ -298,6 +297,13 @@ for(j=0; j < filemain.length; j++){
             
         }  
        }
+        
+        if (LinearSignal == 1){
+            positionY = positionLinear;  
+            
+            positionLinear = positionLinear + height;
+            
+        }
         var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}" + "}";
         if (layoutBelow == 1) {
             var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + ", \"id\": \"" + ID + "\"}";
@@ -2307,11 +2313,12 @@ for(j=0; j < filemain.length; j++){
         }
            
            LinearSignal = 1;
+           positionLinear = 0;
        }
         
     }
     if(file2[0]=="</LinearLayout>"){
-        
+        LinearSignal = 0;
         
     }
 }

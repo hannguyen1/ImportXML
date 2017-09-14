@@ -54,7 +54,7 @@ for(j=0; j < filemain.length; j++){
     var sizereltypeX = 0;
     var sizereltypeY = 3;
     var posreltypeX = 0;
-    var posreltypeY = 0;
+    var posreltypeY = 3;
     var positionX = 0;
     var positionY = 0;
     var postypeX = 0;
@@ -113,15 +113,15 @@ for(j=0; j < filemain.length; j++){
         }
         if(textvar[0] == "android:layout_height"){
             /* IMPLEMENT IF WRAP CONTENT*/
-            if (textvar[1] == "\"wrap_content\""){
+            if (textvar[0] == "\"wrap_content\""){
                 height = 30;
             }
-            else if (textvar[1] == "\"match_parent\""){
+            else if (textvar[0] == "\"match_parent\""){
                 height = 0;
                 sizereltypeY = 14;
             }
             else{
-                height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+                height = textvar[0].match(/[a-zA-Z] +|[0-9]+/g);
             }
            // height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
             //height = 36;
@@ -204,6 +204,26 @@ for(j=0; j < filemain.length; j++){
 
             rotation = textvar[1];
            }
+        if(textvar[0] == "android:layout_gravity"){
+            console.log("center");
+            console.log(textvar[1]);
+            if(textvar[1]== "\"center\""){
+                posreltypeX = 1;
+                posreltypeY = 1;
+            }
+            
+            if(textvar[1]== "\"center_horizontal\""){
+            console.log("here1");
+
+                posreltypeX = 1;
+            }
+            
+            if(textvar[1]== "\"center_vertical\""){
+                posreltypeY = 1;
+            }
+            
+            
+        }
         if(textvar[0] == "android:gravity"){
             
             hAlign =  textvar[1];
@@ -1504,40 +1524,120 @@ for(j=0; j < filemain.length; j++){
 
 
         //Seperate declaration from value
-        var textvar = file2[i].split('=');
-
-
-           if(textvar[0] == "android:layout_width"){
+    var textvar = file2[i].split('=');
+        if(textvar[0] == "android:id"){
+            var idVar = textvar[1].split("/");
+            idVar = idVar[1].split("\"");
+            console.log("ID");
+            console.log(idVar[0]);
+            controlName.push(idVar[0]);
+            uniID.push(randomID);
+            
+        }
+        if(textvar[0] == "android:layout_width"){
             /* IMPLEMENT IF WRAP CONTENT*/
-            //width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            if (textvar[1] == "\"wrap_content\""){
+                width = 200;
+            }
+            else if (textvar[1] == "\"match_parent\""){
+                width = 0;
+                sizereltypeX = 14;
+            }
+            else{
+                width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            }
             //width = "\"w\": { \"val\":142,\"type\":0,\"reltype\":0},";
-            width = 147;
+            //width = 142;
         }
         if(textvar[0] == "android:layout_height"){
             /* IMPLEMENT IF WRAP CONTENT*/
-            //height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
-            //height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
-            height = 50;
-        }
-        if(textvar[0] == "android:text"){
+            console.log("layout height");
+            textvar = textvar[1].split("/");
+            console.log(textvar);
+            if (textvar[0] == "\"wrap_content\""){
+                height = 30;
+            }
+            else if (textvar[0] == "\"match_parent\""){
+                height = 0;
+                sizereltypeY = 14;
+            }
+            else{
+                height = textvar[0].match(/[a-zA-Z] +|[0-9]+/g);
+            }
+            
+            console.log(height);
+           // height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
+            //height = 36;
 
-            value = textvar[1];
         }
-        if(textvar[0] == "android:rotation"){
-
-            rotation = textvar[1];   
-           }
-           
+        if(textvar[0] == "android:text" || textvar[0] == "android:hint"){
+            stringVar1 = textvar[1].split("/");
+            if (stringVar1[0] == "\"@string"){
+               stringVar1 = stringVar1[1].split("\"");
+                value = string(stringVar1[0]);
+            }
+            else{
+                value = textvar[1];
+            }
+        }
         if(textvar[0] == "android:textSize"){
             
             fontSize = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
         }
-        
         if(textvar[0] == "android:textColor"){
             
-            textColor = textvar[1];
+            colorVar1 = textvar[1].split("/");
+            if(colorVar1[0] == "\"@color"){
+                colorVar1 = colorVar1[1].split("\"");
+                textColor = color(colorVar1[0]);
+            }
+            
+            else if (colorVar1[0] == "\"@android:color"){
+                colorVar1 = colorVar1[1].split("\"");
+                if(colorVar1[0] == "black"){
+                    textColor = "#000000";
+                }
+                if(colorVar1[0] == "blue"){
+                    textColor = "#0000FF";
+                }
+                if(colorVar1[0] == "cyan"){
+                    textColor = "#00FFFF";
+                }
+                if(colorVar1[0] == "dkgray"){
+                    textColor = "#2f4f4f";
+                }
+                if(colorVar1[0] == "gray"){
+                    textColor = "#808080";
+                }
+                if(colorVar1[0] == "green"){
+                    textColor = "#008000";
+                }
+                if(colorVar1[0] == "ltgray"){
+                    textColor = "#D3D3D3";
+                }
+                if(colorVar1[0] == "magenta"){
+                    textColor = "#FF00FF";
+                }
+                if(colorVar1[0] == "red"){
+                    textColor = "#FF0000";
+                }
+                if(colorVar1[0] == "transparent"){
+                    //transparent??
+                    textColor = "#FFFFFF";
+                }
+                if(colorVar1[0] == "white"){
+                    textColor = "#FFFFFF";
+                }
+                if(colorVar1[0] == "yellow"){
+                    textColor = "#FFFF00";
+                }
+            }
+                
+            else{
+                textColor = textvar[1];
+            }
+            
         }
-        
         if(textvar[0] == "android:textAllCaps"){
             
             textCaps = textvar[1];
@@ -1547,79 +1647,139 @@ for(j=0; j < filemain.length; j++){
 
             rotation = textvar[1];
            }
+        if(textvar[0] == "android:layout_gravity"){
+            console.log("center");
+            console.log(textvar[1]);
+            if(textvar[1]== "\"center\""){
+                posreltypeX = 1;
+                posreltypeY = 1;
+            }
+            
+            if(textvar[1]== "\"center_horizontal\""){
+            console.log("here1");
+
+                posreltypeX = 1;
+            }
+            
+            if(textvar[1]== "\"center_vertical\""){
+                posreltypeY = 1;
+            }
+            
+            
+        }
         if(textvar[0] == "android:gravity"){
             
-            hAlign = textvar[1];
+            hAlign =  textvar[1];
         }
         if(textvar[0] == "app:layout_constraintBottom_toBottomOf"){
             if(posSignaly == 1){
-                reltypeY = 1;
+                posreltypeY = 1;
             }
             else{
-                reltypeY = 4;
+                posreltypeY = 4;
                 posSignaly = 1;
             }
 
         }
         if(textvar[0] == "app:layout_constraintLeft_toLeftOf"){
+
             if(posSignalx == 1){
-                reltypeX = 1;
+                posreltypeX = 1;
             }
             else{
-                reltypeX = 0;
+                posreltypeX = 0;
                 posSignalx = 1;
             }
         }
         if(textvar[0] == "app:layout_constraintRight_toRightOf"){
-
             if(posSignalx == 1){
-                reltypeX = 1;
+                posreltypeX = 1;
             }
             else{
-                reltypeX = 2;
+                posreltypeX = 2;
                 posSignalx = 1;
             }
         }
         if(textvar[0] == "app:layout_constraintTop_toTopOf"){
             if(posSignaly == 1){
-                reltypeY = 1;
+                posreltypeY = 1;
             }
             else{
-                reltypeY = 3;
+                posreltypeY = 3;
                 posSignaly = 1;
             }
-        }
+        }       
         if(textvar[0] == "tools:layout_editor_absoluteY"){
             positionY = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
             
-        }
-             
+        }         
         if(textvar[0] == "tools:layout_editor_absoluteX"){
             positionX = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
             
-        }
-           
+        }   
         if(textvar[0] == "android:shadowColor"){
-            shadowColor = textvar[1];
+            colorVar1= textvar[1].split("/");
+            if (colorVar1[0] == "\"@color"){
+                colorVar1 = colorVar1[1].split("\"");
+                shadowColor = color(colorVar1[0]);
+ 
+            }
+            else{
+                shadowColor = textvar[1];
+            }
+            
             shadow = 1;   
-        }
-        
+        }        
         if(textvar[0] == "android:shadowDx"){
-            shadowDx = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+              shadowDx = textvar[1].split("\"");
+              shadowDx = (parseFloat(shadowDx[1]))
+        } 3 
+        if(textvar[0] == "android:shadowDy"){
+              shadowDy = textvar[1].split("\"");
+              shadowDy = parseFloat(shadowDy[1])
+        }   
+        if(textvar[0] == "android:shadowRadius") {
+              shadowRadius = textvar[1].split("\"");
+              shadowRadius = parseFloat(shadowRadius[1]);
+            //shadowRadius = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+        } 
+        if(textvar[0] == "android:layout_centerHorizontal"){
+               posreltypeX = 1;
+           }
+        if(textvar[0] == "android:layout_below"){
+            var layoutVar = textvar[1].split("/");
+            layoutVar = layoutVar[1].split("\"");
+            for (l = 0; l < controlName.length; l++ ){
+
+                if (layoutVar[0] == controlName[l]){
+                    var ID = uniID[l];
+                    console.log("here");
+                }
+                
+            }
+            console.log(ID);
+            layoutBelow = 1;
+            posreltypeY = 8;
+            
+        }  
+       }
+        
+        if (LinearSignal > 0){
+            positionY = positionLinear;  
+            positionTotal = positionTotal + positionLinear;
+            positionLinear = positionLinear + height;
+            
+        }
+        var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":" + sizereltypeX + "}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":" + sizereltypeY + "}" + "}";
+        if (layoutBelow == 1) {
+            var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + posreltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +posreltypeY + ", \"id\": \"" + ID + "\"}";
+            
+            
         }
         
-        if(textvar[0] == "android:shadowDy"){
-            shadowDy = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
-
+        else{
+        var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + posreltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +posreltypeY + "}";
         }
-           
-        if(textvar[0] == "android:shadowRadius") {
-            shadowRadius = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
-        }
-           
-       }
-        var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":0}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":3}" + "}";
-        var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + reltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +reltypeY + "}";
         var spec = "{ \"ctrl\":" + ctrl + ",\"visible\":" + visible + ",\"itemspec\":{ \"placeholder\": { \"color\": \"-Text Secondary-\", \"val\": { \"en_US\": \"placeholder text\"} }, \"numlines\": 1, \"returnkeytype\": 0, \"autocorrect\": false, \"autocaps\": 0, \"keyboardtype\": 0, \"password\": false, \"focuskeyboard\": true, \"clearsonedit\": false, \"background\": { \"fill\": { \"type\": 0 , \"val\": \"-Text Reversed-\"}, \"type\": \"rectangle\", \"border\" : { \"width\": { \"val\" : 2, \"type\": 0}, \"color\":\"-Text Secondary-\"}, \"visible\":true}, \"val\": { \"en_US\":" + value + "}, \"hAlign\": \"left\", \"font\": { \"name\": \"System\", \"size\": { \"val\": 0.5, \"type\":1 }}, \"color\": \"-Text Primary-\", \"margins\": { \"x\": { \"val\": 5, \"type\":0 }}";
         
         if (shadow == 1) {
@@ -2322,7 +2482,7 @@ for(j=0; j < filemain.length; j++){
     }
 }
 
-    base = base + "], \"events\": [], \"systemtype\": \"test\", \"device\": 0, \"platform\": 1, \"orientation\": 3}";
+    base = base + "], \"events\": [], \"systemtype\": \"test1\", \"device\": 0, \"platform\": 1, \"orientation\": 3}";
    console.log(base);
     console.log(controlName);
     console.log(uniID);

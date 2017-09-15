@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/add_dental_layout"
+    android:id="@+id/edit_client_layout"
     android:background="@drawable/background_color">
 
     <!--Creates a toolbar at the top of the page-->
@@ -13,323 +13,142 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            >
 
-            <!--Builds an input box for Diagnostic PPO-->
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/add_diagnostic_ppo_edit_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:layout_marginTop="20dp">
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/add_diagnostic_ppo_edittext"
-                    android:hint="@string/add_dental_diagnostic_ppo_hint"
-                    android:inputType="text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <!--Builds an input box for Diagnostic Premier-->
-
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/add_diagnostic_premier_edit_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:layout_marginTop="20dp">
-
-                <EditText
-                    android:id="@+id/add_diagnostic_premier_edittext"
-                    android:hint="@string/add_dental_diagnostic_premier_hint"
-                    android:inputType="text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <!--Builds an input box for Diagnostic Non Participating-->
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/add_diagnostic_non_participating_edit_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:layout_marginTop="20dp">
-
-                <EditText
-                    android:id="@+id/add_diagnostic_non_participating_edittext"
-                    android:hint="@string/add_dental_diagnostic_non_participating_hint"
-                    android:inputType="text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <!--Builds an input box for Basic PPO-->
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/add_basic_ppo_edit_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:layout_marginTop="20dp">
-
-                <EditText
-                    android:id="@+id/add_basic_ppo_edittext"
-                    android:hint="@string/add_dental_basic_ppo_hint"
-                    android:inputType="text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <!--Builds an input box for Basic Premier-->
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/add_basic_premier_edit_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:layout_marginTop="20dp">
-
-                <EditText
-                    android:id="@+id/add_basic_premier_edittext"
-                    android:hint="@string/add_dental_basic_premier_hint"
-                    android:inputType="text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <!--Builds an input box for Basic Non Participating-->
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/add_basic_non_participating_edit_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:layout_marginTop="20dp">
-
-                <EditText
-                    android:id="@+id/add_basic_non_participating_edittext"
-                    android:hint="@string/add_dental_basic_non_participating_hint"
-                    android:inputType="text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <!--Builds an input box for Prosthodontic PPO-->
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/add_prosthodontic_ppo_edit_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:layout_marginTop="20dp">
-
-                <EditText
-                    android:id="@+id/add_prosthodontic_ppo_edittext"
-                    android:hint="@string/add_dental_prosthodontic_ppo_hint"
-                    android:inputType="text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <!--Builds an input box for Prosthodontic Premier-->
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/add_prosthodontic_premier_edit_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:layout_marginTop="20dp">
-
-                <EditText
-                    android:id="@+id/add_prosthodontic_premier_edittext"
-                    android:hint="@string/add_dental_prosthodontic_premier_hint"
-                    android:inputType="text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-                    
-            </android.support.design.widget.TextInputLayout>
-
-            <!--Builds an input box for Prosthodontic Non Participating-->
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/add_prosthodontic_non_participating_edit_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:layout_marginTop="20dp">
-
-                <EditText
-                    android:id="@+id/add_prosthodontic_non_participating_edittext"
-                    android:hint="@string/add_dental_prosthodontic_non_participating_hint"
-                    android:inputType="text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <!--Builds an input box for Orthodontic PPO-->
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/add_orthodontic_ppo_edit_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:layout_marginTop="20dp">
-
-                <EditText
-                    android:id="@+id/add_orthodontic_ppo_edittext"
-                    android:hint="@string/add_dental_orthodontic_ppo_hint"
-                    android:inputType="text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <!--Builds an input box for Orthodontic Premier-->
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/add_orthodontic_premier_edit_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:layout_marginTop="20dp">
-
-                <EditText
-                    android:id="@+id/add_orthodontic_premier_edittext"
-                    android:hint="@string/add_dental_orthodontic_premier_hint"
-                    android:inputType="text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <!--Builds an input box for Orthodontic Non Participating-->
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/add_orthodontic_non_participating_edit_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:layout_marginTop="20dp">
-
-                <EditText
-                    android:id="@+id/add_orthodontic_non_participating_edittext"
-                    android:hint="@string/add_dental_orthodontic_non_participating_hint"
-                    android:inputType="text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <!--Builds an input box for Orthodontic Age PPO-->
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/add_orthodontic_age_ppo_edit_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:layout_marginTop="20dp">
-
-                <EditText
-                    android:id="@+id/add_orthodontic_age_ppo_edittext"
-                    android:hint="@string/add_dental_orthodontic_age_ppo_hint"
-                    android:inputType="text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <!--Builds an input box for Orthodontic Age Premier-->
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/add_orthodontic_age_premier_edit_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:layout_marginTop="20dp">
-
-                <EditText
-                    android:id="@+id/add_orthodontic_age_premier_edittext"
-                    android:hint="@string/add_dental_orthodontic_age_premier_hint"
-                    android:inputType="text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <!--Builds an input box Orthodontic Age Non Participating-->
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/add_orthodontic_age_non_participating_edit_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:layout_marginTop="20dp">
-
-                <EditText
-                    android:id="@+id/add_orthodontic_age_non_participating_edittext"
-                    android:hint="@string/add_dental_orthodontic_age_non_participating_hint"
-                    android:inputType="text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <!--Builds an input box for Deductible Input-->
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/add_deductable_input_edit_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:layout_marginTop="20dp">
-
-                <EditText
-                    android:id="@+id/add_deductable_input_edittext"
-                    android:hint="@string/add_dental_deductible_input_hint"
-                    android:inputType="textMultiLine"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <!--Builds an input box for Maximum Payment Input-->
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/add_maximum_payment_input_edit_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:layout_marginTop="20dp">
-
-                <EditText
-                    android:id="@+id/add_maximum_payment_input_edittext"
-                    android:hint="@string/add_dental_maximum_payment_input_hint"
-                    android:inputType="textMultiLine"
-                    android:layout_width="match_parent"
+                <!--Builds a button to navigate to editing Medical Information-->
+                <Button
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                          
-                          />
+                    android:id="@+id/edit_client_medical_button"
+                    android:text="@string/edit_client_medical_button_text"
+                    android:padding="8dp"
+                    android:background="@drawable/mainpage_button"
+                    android:layout_marginTop="36dp"/>
 
-            </android.support.design.widget.TextInputLayout>
+            </TableRow>
 
+            <TableRow
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content">
 
-        </LinearLayout>
+                <!--Builds a button to navigate to editing Dental Information-->
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edit_client_dental_button"
+                    android:text="@string/edit_client_dental_button_text"
+                    android:padding="8dp"
+                    android:background="@drawable/mainpage_button"
+                    android:layout_marginTop="36dp"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content">
+
+                <!--Builds a button to navigate to editing Vision Information-->
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edit_client_vision_button"
+                    android:text="@string/edit_client_vision_button_text"
+                    android:padding="8dp"
+                    android:background="@drawable/mainpage_button"
+                    android:layout_marginTop="36dp"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content">
+
+                <!--Builds a button to navigate to editing Client Information-->
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edit_client_information_button"
+                    android:text="@string/edit_client_information_button_text"
+                    android:padding="8dp"
+                    android:background="@drawable/mainpage_button"
+                    android:layout_marginTop="36dp"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <!--Builds a button to navigate to adding Medical Information-->
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/add_client_medical_button"
+                    android:text="@string/edit_client_add_medical_button_text"
+                    android:padding="8dp"
+                    android:background="@drawable/mainpage_button"
+                    android:layout_marginTop="36dp"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content">
+
+                <!--Builds a button to navigate to adding Dental Information-->
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/add_client_dental_button"
+                    android:text="@string/edit_client_add_dental_button_text"
+                    android:padding="8dp"
+                    android:background="@drawable/mainpage_button"
+                    android:layout_marginTop="36dp"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content">
+
+                <!--Builds a button to navigate to adding Vision Information-->
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/add_client_vision_button"
+                    android:text="@string/edit_client_add_vision_button_text"
+                    android:padding="8dp"
+                    android:background="@drawable/mainpage_button"
+                    android:layout_marginTop="36dp"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content">
+
+                <!--Builds a button to delete the currently selected user-->
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/delete_client_button"
+                    android:text="@string/edit_client_delete_user_button_text"
+                    android:padding="8dp"
+                    android:layout_marginTop="36dp"
+                    android:background="@drawable/mainpage_button"
+                    />
+
+            </TableRow>
+
+        </TableLayout>
 
     </ScrollView>
 

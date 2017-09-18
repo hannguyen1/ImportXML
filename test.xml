@@ -1,37 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/edit_client_layout"
+    android:id="@+id/add_employer_layout"
     android:background="@drawable/background_color">
 
-    <!--Creates a toolbar at the top of the page-->
-    <include layout="@layout/toolbar"/>
-
-    <ScrollView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <!--Creates a toolbar at the top of the page-->
+        <include layout="@layout/toolbar"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"/>
+
+        <!--Builds an input box for Employer Name-->
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/employer_name_add_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_marginTop="20dp">
+
+            <EditText
+                android:id="@+id/employer_name_add_edittext"
+                android:hint="@string/add_employer_name_hint"
+                android:inputType="text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <!--Textbox to display the title text for the main color button-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="25dp"
+            android:text="@string/add_employer_main_color_hint"
+            android:textSize="22sp"
+            android:textColor="@android:color/black"/>
+
+        <!--Builds a button to choose the main Employer color-->
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/add_main_color_button"
+            android:layout_marginTop="15dp"/>
+
+        <!--Textbox to display the title text for the accent color button-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="25dp"
+            android:text="@string/add_employer_accent_color_hint"
+            android:textSize="22sp"
+            android:textColor="@android:color/black"/>
+
+        <!--Builds a button to choose the accent Employer color-->
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/add_accent_color_button"
+            android:layout_marginTop="15dp"/>
+
+        <!--Textbox to display the logo's title text-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:text="@string/add_employer_logo_title_text"
+            android:textSize="22sp"
+            android:textColor="@android:color/black"/>
+
+        <ImageView
+            android:contentDescription="@string/add_employer_logo_content_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/add_employer_imageview"/>
 
         <TableLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            >
+            android:layout_gravity="center_horizontal">
 
             <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content">
 
-                <!--Builds a button to navigate to editing Medical Information-->
+                <!--Builds a button to upload a new Employer logo-->
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/edit_client_medical_button"
-                    android:text="@string/edit_client_medical_button_text"
-                    android:padding="8dp"
+                    android:layout_marginTop="46dp"
+                    android:text="@string/add_employer_upload_logo_button_text"
                     android:background="@drawable/mainpage_button"
-                    android:layout_marginTop="36dp"/>
+                    android:padding="10dp"
+                    android:id="@+id/add_new_employer_upload_logo_button"/>
 
             </TableRow>
 
@@ -39,117 +112,21 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content">
 
-                <!--Builds a button to navigate to editing Dental Information-->
+                <!--Builds a button to upload the new Employer data-->
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/edit_client_dental_button"
-                    android:text="@string/edit_client_dental_button_text"
-                    android:padding="8dp"
+                    android:text="@string/add_employer_add_new_employer_button_text"
                     android:background="@drawable/mainpage_button"
-                    android:layout_marginTop="36dp"/>
-
-            </TableRow>
-
-            <TableRow
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content">
-
-                <!--Builds a button to navigate to editing Vision Information-->
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/edit_client_vision_button"
-                    android:text="@string/edit_client_vision_button_text"
                     android:padding="8dp"
-                    android:background="@drawable/mainpage_button"
-                    android:layout_marginTop="36dp"/>
-
-            </TableRow>
-
-            <TableRow
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content">
-
-                <!--Builds a button to navigate to editing Client Information-->
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/edit_client_information_button"
-                    android:text="@string/edit_client_information_button_text"
-                    android:padding="8dp"
-                    android:background="@drawable/mainpage_button"
-                    android:layout_marginTop="36dp"/>
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <!--Builds a button to navigate to adding Medical Information-->
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/add_client_medical_button"
-                    android:text="@string/edit_client_add_medical_button_text"
-                    android:padding="8dp"
-                    android:background="@drawable/mainpage_button"
-                    android:layout_marginTop="36dp"/>
-
-            </TableRow>
-
-            <TableRow
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content">
-
-                <!--Builds a button to navigate to adding Dental Information-->
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/add_client_dental_button"
-                    android:text="@string/edit_client_add_dental_button_text"
-                    android:padding="8dp"
-                    android:background="@drawable/mainpage_button"
-                    android:layout_marginTop="36dp"/>
-
-            </TableRow>
-
-            <TableRow
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content">
-
-                <!--Builds a button to navigate to adding Vision Information-->
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/add_client_vision_button"
-                    android:text="@string/edit_client_add_vision_button_text"
-                    android:padding="8dp"
-                    android:background="@drawable/mainpage_button"
-                    android:layout_marginTop="36dp"/>
-
-            </TableRow>
-
-            <TableRow
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content">
-
-                <!--Builds a button to delete the currently selected user-->
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/delete_client_button"
-                    android:text="@string/edit_client_delete_user_button_text"
-                    android:padding="8dp"
-                    android:layout_marginTop="36dp"
-                    android:background="@drawable/mainpage_button"
-                    />
+                    android:layout_marginTop="40dp"
+                    android:id="@+id/submit_changes_add_employer"
+                    android:layout_marginBottom="20dp"/>
 
             </TableRow>
 
         </TableLayout>
 
-    </ScrollView>
+    </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

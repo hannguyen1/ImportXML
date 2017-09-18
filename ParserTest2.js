@@ -15,7 +15,7 @@ var filemain = file.split(/(?=<)/);
     var uniID = [];
     var textcount = 0;
     var ImageCount = 0;
-    var buttonCount = 0;
+    var ButtonCount = 0;
     var ScrollCount = 0;
     var ListCount = 0;
     var GridCount = 0;
@@ -29,16 +29,18 @@ var filemain = file.split(/(?=<)/);
     var positionLinear = 0 ;
     var LinearSignal = 0;
     var positionTotal = 30;
+    var TableCount = 0;
+    var TableSignal = 0;
+    var tableRelTypeX = 0;
 for(j=0; j < filemain.length; j++){
     console.log(j);
     var file2 = filemain[j].split('\n');
-    var ButtonCount = 0;
-    ButtonCount++;
+
     //Global Base Variables
     var width = 0;
     var height = 0;
     var hAlign = "\"left\"";
-    var value = " ";
+    var value = "\" \" ";
     var fontSize = 14;
     var textColor = "\"-Text Primary-\"";
     var Color = "\"color\": " + textColor;
@@ -66,10 +68,13 @@ for(j=0; j < filemain.length; j++){
     var shadowDy = 0;
     var shadowRadius = 0;
     var layoutBelow = 0;
-
-
-
-
+    var MarginTop = 0;
+    
+    
+    if(TableSignal > 0){
+        posreltypeX = tableRelTypeX;
+    }
+    console.log(posreltypeX);
     //TextView
     if(file2[0] == "<TextView"){
 
@@ -323,6 +328,7 @@ for(j=0; j < filemain.length; j++){
         font = "\"font\": { \"name\": \"System\", \"size\": { \"val\": " + fontSize + ", \"type\": 0 }}";
         var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":" + sizereltypeX + "}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":" + sizereltypeY + "}" + "}";
         if (layoutBelow == 1) {
+            positionY = 0;
             var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + posreltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +posreltypeY + ", \"id\": \"" + ID + "\"}";
             
             
@@ -514,7 +520,7 @@ for(j=0; j < filemain.length; j++){
     if(file2[0] == "<Button"){
         ctrl = 22;
         var type = 0;
-        buttonCount++;
+        ButtonCount++;
         textColor = "\"-Text Reversed-\"";
         //Parse through each line
        for( i = 1; i < file2.length; i++){
@@ -740,6 +746,13 @@ for(j=0; j < filemain.length; j++){
         if(textvar[0] == "android:layout_centerHorizontal"){
                posreltypeX = 1;
            }
+        
+        if(textvar[0] =="android:layout_marginTop"){
+            MarginTop = textvar[1].split("\"");
+            MarginTop = parseFloat(MarginTop[1]);
+            positionLinear = positionLinear + MarginTop;
+            
+        }
         if(textvar[0] == "android:layout_below"){
             var layoutVar = textvar[1].split("/");
             layoutVar = layoutVar[1].split("\"");
@@ -764,6 +777,7 @@ for(j=0; j < filemain.length; j++){
         }
         var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":" + sizereltypeX + "}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":" + sizereltypeY + "}" + "}";
         if (layoutBelow == 1) {
+            positionY = 0;
             var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + posreltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +posreltypeY + ", \"id\": \"" + ID + "\"}";
             
             
@@ -790,7 +804,7 @@ for(j=0; j < filemain.length; j++){
     
     //ScrollView
     
-    if(file2[0] == "<ScrollView"){
+    if(file2[0] == "<ScrollView" || file2[0] == "<ScrollView xmlns:android=\"http://schemas.android.com/apk/res/android\""){
         ctrl = 18;
         ScrollCount++;
         //Parse through each line
@@ -1652,8 +1666,9 @@ for(j=0; j < filemain.length; j++){
         if(textvar[0] == "android:layout_height"){
             /* IMPLEMENT IF WRAP CONTENT*/
             textvar = textvar[1].split("/");
-
+            console.log(textvar);
             if (textvar[0] == "\"wrap_content\""){
+                console.log("HERE");
                 height = 30;
             }
             else if (textvar[0] == "\"match_parent\""){
@@ -1666,7 +1681,8 @@ for(j=0; j < filemain.length; j++){
             
            // height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
             //height = 36;
-
+            console.log("breakpoint");
+            console.log(height);
         }
         if(textvar[0] == "android:text" || textvar[0] == "android:hint"){
             stringVar1 = textvar[1].split("/");
@@ -1869,6 +1885,7 @@ for(j=0; j < filemain.length; j++){
         }
         var size = "\"size\":{ \"w\": { \"val\":" + width +",\"type\":0,\"reltype\":" + sizereltypeX + "}," + "\"h\": { \"val\":" + height +",\"type\":0,\"reltype\":" + sizereltypeY + "}" + "}";
         if (layoutBelow == 1) {
+            positionY = 0;
             var position = "\"position\": { \"x\":{ \"val\":" + positionX + ", \"type\":" + postypeX + ", \"reltype\":" + posreltypeX + " }," + "\"y\":{ \"val\":" + positionY + ", \"type\":" + postypeY + ",\"reltype\":" +posreltypeY + ", \"id\": \"" + ID + "\"}";
             
             
@@ -2514,6 +2531,73 @@ for(j=0; j < filemain.length; j++){
         base = base + "]}, \"opacity\": 1, \"id\": \"" + randomID + "\", \"name\": \"scrollcontainer-" + ScrollCount + "\"}";
 
     }
+    
+    if(file2[0]== "<TableLayout"){
+        TableCount++;
+        //Parse through each line
+        //j++;
+        var file3 = filemain[j].split('\n');
+       // j++;
+
+       for( i = 1; i < file2.length; i++){
+            //Get rid of padding
+        file2[i] = file2[i].trim();
+        //Seperate declaration from value
+        var textvar = file2[i].split('=');
+        if(textvar[0] == "android:layout_width"){
+            /* IMPLEMENT IF WRAP CONTENT*/
+            if (textvar[1] == "\"wrap_content\""){  
+                width = 200;
+            }
+            else if (textvar[1] == "\"match_parent\""){
+                width = 0;
+                reltypeX = 14;
+            }
+            else{
+                width = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            }
+            //width = "\"w\": { \"val\":142,\"type\":0,\"reltype\":0},";
+            //width = 142;
+        }
+        if(textvar[0] == "android:layout_height"){
+            /* IMPLEMENT IF WRAP CONTENT*/
+            if (textvar[1] == "\"wrap_content\""){
+                height = 425;
+            }
+            else if (textvar[1] == "\"match_parent\""){
+                height = 0;
+                postypeY = 14;
+            }
+            else{
+                
+                height = textvar[1].match(/[a-zA-Z] +|[0-9]+/g);
+            }
+           // height = "\"h\": { \"val\":36,\"type\":0,\"reltype\":3}";
+            //height = 36;
+
+        }
+        
+        if(textvar[0] == "android:layout_gravity"){
+                textvar = textvar[1].split("/");
+                textvar = textvar[0].split(">");
+                console.log(textvar[0]);
+                if(textvar[0] == "\"center_horizontal\""){
+                    tableRelTypeX = 1;
+                }
+            
+        }
+
+       }
+           TableSignal++;
+        if(file2[0] == "<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\""){
+            positionLinear = 40;
+        }
+        
+    }
+    if(file2[0]=="</LinearLayout>"){
+        LinearSignal--;
+        
+    }
     if(file2[0] == "<LinearLayout" || file2[0] == "<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\""){
         LinearCount++;
         //Parse through each line
@@ -2561,7 +2645,7 @@ for(j=0; j < filemain.length; j++){
            
 
        }
-           LinearSignal = LinearSignal + 1;
+           LinearSignal++;
            positionLinear = 0;
         if(file2[0] == "<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\""){
             positionLinear = 40;
@@ -2569,7 +2653,7 @@ for(j=0; j < filemain.length; j++){
         
     }
     if(file2[0]=="</LinearLayout>"){
-        LinearSignal = LinearSignal - 1;
+        LinearSignal--;
         
     }
 }

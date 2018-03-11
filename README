@@ -1,0 +1,1 @@
+A script that will take in android layout files and output a json based on Phase 2's builder so that we can convert android apps into our builder for a quick start from existing apps.
